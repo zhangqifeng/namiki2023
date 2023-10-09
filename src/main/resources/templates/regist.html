@@ -1,9 +1,9 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
+<html  lang="ch" xmlns:th="http://www.thymeleaf.org">
 	<head>
 		<title>regist</title>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-		<link rel="stylesheet" type="text/css" href="css/style.css" />
+		<link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
 	</head>
 	<body>
 		<div id="wrap">
@@ -71,8 +71,13 @@
 							<tr>
 								<td valign="middle" align="right">
 									验证码:
-									<img id="num" src="image" />
-									<a href="javascript:;" onclick="document.getElementById('num').src = 'image?'+(new Date()).getTime()">换一张</a>
+									<img id="num" th:src="@{/user/generateImageCode}" />
+									<a href="javascript:;" onclick="changeImageCode()">换一张</a>
+									<script>
+										function changeImageCode(){
+											document.getElementById('num').src = '[[@{/user/generateImageCode}]]?'+(new Date()).getTime()
+										}
+									</script>
 								</td>
 								<td valign="middle" align="left">
 									<input type="text" class="inputgri" name="number" />
