@@ -1,5 +1,11 @@
 package com.thymeleaf.entity;
 
+import org.springframework.boot.autoconfigure.domain.EntityScan;
+import org.springframework.stereotype.Component;
+
+import javax.annotation.Resources;
+
+
 public class User {
     private Integer user_id;
 
