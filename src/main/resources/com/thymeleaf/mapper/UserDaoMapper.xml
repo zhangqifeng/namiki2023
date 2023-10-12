@@ -5,11 +5,11 @@
 <mapper namespace="com.thymeleaf.dao.UserDao">
 
 <select id="findByUserName" parameterType="String" resultType="User">
-    select user_id,user_name,password from `user`
+    select user_id, user_name,password from `user`
     where user_name=#{user_name}
 </select>
     <insert id="save" parameterType="User" useGeneratedKeys="true" keyProperty="user_id">
-        insert into `user` values (#{user_name},#{password})
+        insert into`user`(user_name,password)values (#{user_name},#{password})
     </insert>
 
 
