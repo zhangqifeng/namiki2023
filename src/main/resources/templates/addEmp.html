@@ -1,5 +1,5 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
+<html lang="ch" xmlns:th="http://www.thymeleaf.org">
 	<head>
 		<title>添加员工信息</title>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -31,39 +31,108 @@
 					<h1>
 						添加员工信息:
 					</h1>
-					<form action="emplist.html" method="post">
+					<form th:action="@{/employee/save}" method="post" enctype="multipart/form-data">
 						<table cellpadding="0" cellspacing="0" border="0"
 							class="form_table">
 							<tr>
 								<td valign="middle" align="right">
-									姓名:
+									社員番号:
 								</td>
 								<td valign="middle" align="left">
-									<input type="text" class="inputgri" name="name" />
+									<input type="text" class="inputgri" name="emplyee_id" />
 								</td>
 							</tr>
 							<tr>
 								<td valign="middle" align="right">
-									头像:
+									社員名:
 								</td>
 								<td valign="middle" align="left">
-									<input type="file" width="" name="img" />
+									<input type="text" class="inputgri" name="employee_name" />
 								</td>
 							</tr>
 							<tr>
 								<td valign="middle" align="right">
-									工资:
+									役職名:
 								</td>
 								<td valign="middle" align="left">
-									<input type="text" class="inputgri" name="salary" />
+									<input type="text" class="inputgri" name="job_title" />
 								</td>
 							</tr>
 							<tr>
 								<td valign="middle" align="right">
-									生日:
+									性別:
+								</td>
+								<td>
+									<input type="radio" name="sex" value="男" />
+									男
+									<input type="radio" name="sex" value="女"/>
+									女
+								</td>
+								<script>
+									function readRadio(){
+										var obj=document.getElementById("sex")
+										for (var i=0;i<obj.length;i++){
+											if(obj[i].checked){
+												alert(obj[i].value);
+												break;
+											}
+										}
+
+									}
+								</script>
+
+								</tr>
+							<tr>
+								<td valign="middle" align="right">
+									部署名:
+								</td>
+								<td>
+									<select name="department" id="option1">
+										<option value="システム1部">システム1部</option>
+										<option value="システム2部">システム2部</option>
+									</select>
+									<script>
+										function readOption(){
+											var selected=document.getElementById("option1");
+											alert(selected.options[selected.selectedIndex].value)
+
+										}
+									</script>
+								</td>
+
+							</tr>
+							<tr>
+								<td valign="middle" align="right">
+									住所:
 								</td>
 								<td valign="middle" align="left">
-									<input type="text" class="inputgri" name="birthday" />
+									<input type="text" class="inputgri" name="address" />
+								</td>
+							</tr>
+							<tr>
+								<td valign="middle" align="right">
+									雇用形態:
+								</td>
+								<td>
+									<select name="employement_status" id="option">
+										<option value="正社員">正社員</option>
+										<option value="契約社員">契約社員</option>
+									</select>
+									<script>
+										function readOption(){
+											var selected=document.getElementById("option");
+											alert(selected.options[selected.selectedIndex].value)
+
+										}
+									</script>
+								</td>
+							</tr>
+							<tr>
+								<td valign="middle" align="right">
+									入社年月日:
+								</td>
+								<td valign="middle" align="left">
+									<input type="text" class="inputgri" name="hire_date" />
 								</td>
 							</tr>
 						</table>

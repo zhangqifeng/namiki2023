@@ -16,16 +16,12 @@ import java.io.IOException;
 @Controller
 @RequestMapping("user")
 public class UserController {
-
     private static final Logger log = LoggerFactory.getLogger(UserController.class);
-
     private UserService userService;
-
     @Autowired
     public UserController(UserService userService) {
         this.userService = userService;
     }
-
     @RequestMapping("login")
     public String login(String user_name,String password,HttpSession session){
         try {
@@ -39,11 +35,8 @@ public class UserController {
         }
         return "redirect:/employee/lists";
     }
-
-
     @RequestMapping ("register")
     public String register(User user, String code,HttpSession session){
-
         log.debug("用户名: {},密码: {},",user.getUser_name(),user.getPassword());
         log.debug("用户输入验证码: {}",code);
         try {
@@ -59,7 +52,6 @@ public class UserController {
         }
         return  "redirect:/login";  //注册成功跳转到登录
     }
-
     @RequestMapping("generateImageCode")
     public void generateImageCode(HttpSession session, HttpServletResponse response) throws IOException {
         String code= VerifyCodeUtils.generateVerifyCode(4);
@@ -67,8 +59,5 @@ public class UserController {
         response.setContentType("image/png");
         ServletOutputStream os=response.getOutputStream();
         VerifyCodeUtils.outputImage(220,60,os,code);
-
     }
-
-
 }

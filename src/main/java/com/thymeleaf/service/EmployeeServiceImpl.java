@@ -23,4 +23,9 @@ public class EmployeeServiceImpl implements EmployeeService {
     public List<Employee> lists() {
         return employeeDao.lists();
     }
+
+    @Override
+    public void save(Employee employee) {
+        employeeDao.save(employee);
+    }
 }

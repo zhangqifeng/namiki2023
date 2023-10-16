@@ -29,8 +29,6 @@
 					</p>
 					<h1>
 						欢迎
-						<span th:if="${session.user!=null}" th:text="${session.user.user_name}"></span>
-						<span th:if="${session.user==null}" th:text="${session.user.user_name}">游客</span>!
 					</h1>
 					<table class="table">
 						<tr class="table_header">
@@ -107,13 +105,18 @@
 								<span th:text="${#dates.format(employee.update_date,'yyyy/MM/dd')}"></span>
 							</td>
 							<td>
-								<a href="emplist.html">删除</a>&nbsp;<a href="updateEmp.html">更新</a>
+								<a href="emplist.html">删除</a> <a href="updateEmp.html">更新</a>
 							</td>
 						</tr>
 
 					</table>
 					<p>
-						<input type="button" class="button" value="添加" onclick="location='addEmp.html'"/>
+						<input type="button" class="button" value="添加" onclick="addEmp()"/>
+						<script>
+							function addEmp(){
+								location.href='[[@{/addEmp}]]';
+							}
+						</script>
 					</p>
 				</div>
 			</div>

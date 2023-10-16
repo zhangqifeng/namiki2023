@@ -17,9 +17,18 @@ public class EmployeeController {
     private static final Logger log= LoggerFactory.getLogger(EmployeeController.class);
 
     private EmployeeService employeeService;
-@Autowired
+    @Autowired
     public EmployeeController(EmployeeService employeeService) {
         this.employeeService = employeeService;
+    }
+
+    @RequestMapping("save")
+    public String save(Employee employee){
+        log.debug("社員番号:{},社員名:{},役職名:{},性別:{},部署名:{},住所:{},雇用形態:{},入社年月日:{}",employee.getEmplyee_id(),employee.getEmployee_name(),employee.getJob_title()
+        ,employee.getSex(),employee.getDepartment(),employee.getAddress(),employee.getEmployment_status(),employee.getHire_date());
+    employeeService.save(employee);
+        return "redirect:/employee/lists";
+
     }
 
      @RequestMapping("lists")

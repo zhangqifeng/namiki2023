@@ -6,4 +6,8 @@
     <select id="lists" resultType="Employee">
         select * from `employee`
     </select>
+    <insert id="save" parameterType="Employee">
+        insert into `employee`(emplyee_id,employee_name,sex,address,department,job_title,employment_status,hire_date)
+        values(#{emplyee_id},#{employee_name},#{sex},#{address},#{department},#{job_title},#{employment_status},#{hire_date})
+    </insert>
 </mapper>
