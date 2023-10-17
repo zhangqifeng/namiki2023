@@ -1,10 +1,10 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 	<head>
 		<title>更新员工信息</title>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 		<link rel="stylesheet" type="text/css"
-			href="css/style.css" />
+			th:href="@{/css/style.css}" />
 	</head>
 
 	<body>
@@ -31,61 +31,116 @@
 					<h1>
 						更新员工信息:
 					</h1>
-					<form action="emplist.html" method="post">
+					<form th:action="@{/employee/update}" method="post">
 						<table cellpadding="0" cellspacing="0" border="0"
 							class="form_table">
 							<tr>
 								<td valign="middle" align="right">
-									编号:
+									社員番号:
 								</td>
 								<td valign="middle" align="left">
-									1
+									<input type="text" class="inputgri" name="emplyee_id" th:value="${employee.emplyee_id}"/>
 								</td>
 							</tr>
 							<tr>
 								<td valign="middle" align="right">
-									姓名:
+									社員名:
 								</td>
 								<td valign="middle" align="left">
-									<input type="text" class="inputgri" name="name" value="zhangshan"/>
+									<input type="text" class="inputgri" name="employee_name" th:value="${employee.employee_name}"/>
 								</td>
 							</tr>
 							<tr>
 								<td valign="middle" align="right">
-									当前头像:
+									役職名:
 								</td>
 								<td valign="middle" align="left">
-									<img src="./img/nane.gif" width="60">
+									<input type="text" class="inputgri" name="job_title" th:value="${employee.job_title}"/>
 								</td>
 							</tr>
 							<tr>
 								<td valign="middle" align="right">
-									选择新头像:
+									性別:
+								</td>
+								<td>
+									<input type="radio" name="sex" value="男" th:checked="${employee.sex=='男'}"/>
+									男
+									<input type="radio" name="sex" value="女" th:checked="${employee.sex=='女'}"/>
+									女
+								</td>
+								<script>
+									function readRadio(){
+										var obj=document.getElementById("sex")
+										for (var i=0;i<obj.length;i++){
+											if(obj[i].checked){
+												alert(obj[i].value);
+												break;
+											}
+										}
+
+									}
+								</script>
+
+							</tr>
+							<tr>
+								<td valign="middle" align="right">
+									部署名:
+								</td>
+								<td>
+									<select th:field="*{employee.department}" name="department" id="option1" >
+										<option value="システム1部">システム1部</option>
+										<option value="システム2部">システム2部</option>
+									</select>
+									<script>
+										function readOption(){
+											var selected=document.getElementById("option1");
+											alert(selected.options[selected.selectedIndex].value)
+										}
+									</script>
+								</td>
+
+							</tr>
+							<tr>
+								<td valign="middle" align="right">
+									住所:
 								</td>
 								<td valign="middle" align="left">
-									<input type="file" name="img" />
+									<input type="text" class="inputgri" name="address" th:value="${employee.address}"/>
 								</td>
 							</tr>
 							<tr>
 								<td valign="middle" align="right">
-									工资:
+									雇用形態:
 								</td>
-								<td valign="middle" align="left">
-									<input type="text" class="inputgri" name="salary" value="20000"/>
+								<td>
+									<select th:field="*{employee.employment_status}" name="employment_status" id="option">
+										<option value="正社員">正社員</option>
+										<option value="契約社員">契約社員</option>
+									</select>
+									<script>
+										function readOption(){
+											var selected=document.getElementById("option");
+											alert(selected.options[selected.selectedIndex].value)
+
+										}
+									</script>
 								</td>
 							</tr>
 							<tr>
 								<td valign="middle" align="right">
-									生日:
+									入社年月日:
 								</td>
 								<td valign="middle" align="left">
-									<input type="text" class="inputgri" name="birthday" value="20"/>
+									<input type="text" class="inputgri" name="hire_date" th:value="${#dates.format(employee.hire_date,'yyyy/MM/dd')}"/>
 								</td>
 							</tr>
 						</table>
 						<p>
 							<input type="submit" class="button" value="更新" />
-							<input type="button" class="button" value="返回列表" />
+							<button href="emplist.html">
+								删除
+							</button>
+
 						</p>
 					</form>
 				</div>

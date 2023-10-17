@@ -41,30 +41,30 @@
 							<td>
 								性别
 							</td>
-							<td>
-								生日
-							</td>
+<!--							<td>-->
+<!--								生日-->
+<!--							</td>-->
 							<td>
 								地址
 							</td>
 							<td>
 								部门
 							</td>
-							<td>
-								职位
-							</td>
-							<td>
-								就职状态
-							</td>
-							<td>
-								雇佣日期
-							</td>
-							<td>
-								创建日期
-							</td>
-							<td>
-								更新日期
-							</td>
+<!--							<td>-->
+<!--								职位-->
+<!--							</td>-->
+<!--							<td>-->
+<!--								就职状态-->
+<!--							</td>-->
+<!--							<td>-->
+<!--								雇佣日期-->
+<!--							</td>-->
+<!--							<td>-->
+<!--								创建日期-->
+<!--							</td>-->
+<!--							<td>-->
+<!--								更新日期-->
+<!--							</td>-->
 
 							<td>
 								操作
@@ -80,32 +80,33 @@
 							<td>
 								<span th:text="${employee.sex}"></span>
 							</td>
-							<td>
-								<span th:text="${#dates.format(employee.birth_date,'yyyy/MM/dd')}"></span>
-							</td>
+<!--							<td>-->
+<!--								<span th:text="${#dates.format(employee.birth_date,'yyyy/MM/dd')}"></span>-->
+<!--							</td>-->
 							<td>
 								<span th:text="${employee.address}"></span>
 							</td>
 							<td>
 								<span th:text="${employee.department}"></span>
 							</td>
+<!--							<td>-->
+<!--								<span th:text="${employee.job_title}"></span>-->
+<!--							</td>-->
+<!--							<td>-->
+<!--								<span th:text="${employee.employment_status}"></span>-->
+<!--							</td>-->
+<!--							<td>-->
+<!--								<span th:text="${#dates.format(employee.hire_date,'yyyy/MM/dd')}"></span>-->
+<!--							</td>-->
+<!--							<td>-->
+<!--								<span th:text="${#dates.format(employee.create_date,'yyyy/MM/dd')}"></span>-->
+<!--							</td>-->
+<!--							<td>-->
+<!--								<span th:text="${#dates.format(employee.update_date,'yyyy/MM/dd')}"></span>-->
+<!--							</td>-->
 							<td>
-								<span th:text="${employee.job_title}"></span>
-							</td>
-							<td>
-								<span th:text="${employee.employment_status}"></span>
-							</td>
-							<td>
-								<span th:text="${#dates.format(employee.hire_date,'yyyy/MM/dd')}"></span>
-							</td>
-							<td>
-								<span th:text="${#dates.format(employee.create_date,'yyyy/MM/dd')}"></span>
-							</td>
-							<td>
-								<span th:text="${#dates.format(employee.update_date,'yyyy/MM/dd')}"></span>
-							</td>
-							<td>
-								<a href="emplist.html">删除</a> <a href="updateEmp.html">更新</a>
+<!--								<a href="emplist.html">删除</a>-->
+								<a th:href="@{/employee/detail(emplyee_id=${employee.emplyee_id})}">详细</a>
 							</td>
 						</tr>
 

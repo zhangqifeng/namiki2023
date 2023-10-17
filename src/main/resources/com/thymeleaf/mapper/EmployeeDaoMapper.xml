@@ -10,4 +10,12 @@
         insert into `employee`(emplyee_id,employee_name,sex,address,department,job_title,employment_status,hire_date)
         values(#{emplyee_id},#{employee_name},#{sex},#{address},#{department},#{job_title},#{employment_status},#{hire_date})
     </insert>
+    <select id="findById" parameterType="Integer" resultType="Employee">
+        select * from `employee` where emplyee_id=#{emplyee_id}
+    </select>
+    <update id="update" parameterType="employee">
+        update `employee` set emplyee_id=#{emplyee_id},employee_name=#{employee_name},sex=#{sex},address=#{address},department=#{department},
+                              job_title=#{job_title},employment_status=#{employment_status},hire_date=#{hire_date}
+        where emplyee_id=#{emplyee_id}
+    </update>
 </mapper>

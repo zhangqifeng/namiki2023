@@ -11,6 +11,4 @@
     <insert id="save" parameterType="User" useGeneratedKeys="true" keyProperty="user_id">
         insert into`user`(user_name,password)values (#{user_name},#{password})
     </insert>
-
-
 </mapper>

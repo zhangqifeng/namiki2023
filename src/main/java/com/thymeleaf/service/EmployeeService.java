@@ -9,4 +9,8 @@ public interface EmployeeService {
 
 
     void save(Employee employee);
+
+    Employee findById(Integer emplyeeId);
+
+    void update(Employee employee);
 }

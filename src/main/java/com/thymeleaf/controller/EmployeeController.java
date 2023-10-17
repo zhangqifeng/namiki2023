@@ -22,6 +22,21 @@ public class EmployeeController {
         this.employeeService = employeeService;
     }
 
+    @RequestMapping("update")
+    public String update(Employee employee){
+        log.debug("更新之后员工信息:社員番号:{},社員名:{},役職名:{},性別:{},部署名:{},住所:{},雇用形態:{},入社年月日:{}",employee.getEmplyee_id(),employee.getEmployee_name(),employee.getJob_title()
+                ,employee.getSex(),employee.getDepartment(),employee.getAddress(),employee.getEmployment_status(),employee.getHire_date());
+        employeeService.update(employee);
+        return "redirect:/employee/lists";
+    }
+    @RequestMapping("detail")
+    public String detail(Integer emplyee_id,Model model){
+        log.debug("当前查询员工id:{}",emplyee_id);
+        Employee employee=employeeService.findById(emplyee_id);
+        model.addAttribute("employee",employee);
+        return "updateEmp";
+    }
+
     @RequestMapping("save")
     public String save(Employee employee){
         log.debug("社員番号:{},社員名:{},役職名:{},性別:{},部署名:{},住所:{},雇用形態:{},入社年月日:{}",employee.getEmplyee_id(),employee.getEmployee_name(),employee.getJob_title()

@@ -42,7 +42,7 @@ public class UserController {
         try {
             //1.判断用户输入验证码和session中验证码是否一致
 /* null pointer bug:code 没有加引号*/
-            String sessionCode = session.getAttribute("code").toString();
+            String sessionCode = session.getAttribute( "code").toString();
             if(!sessionCode.equalsIgnoreCase(code))throw new RuntimeException("验证码输入错误!");
             //2.注册用户
             userService.register(user);
