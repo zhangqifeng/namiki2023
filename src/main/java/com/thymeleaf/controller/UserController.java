@@ -22,6 +22,13 @@ public class UserController {
     public UserController(UserService userService) {
         this.userService = userService;
     }
+
+    @RequestMapping("logout")
+    public String logout(HttpSession session){
+        session.invalidate();
+        return "redirect:/login";
+    }
+
     @RequestMapping("login")
     public String login(String user_name,String password,HttpSession session){
         try {

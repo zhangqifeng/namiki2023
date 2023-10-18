@@ -2,6 +2,8 @@ package com.thymeleaf.controller;
 
 import com.thymeleaf.entity.Employee;
 import com.thymeleaf.service.EmployeeService;
+import jakarta.servlet.http.HttpSession;
+import org.apache.ibatis.annotations.Param;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +24,22 @@ public class EmployeeController {
         this.employeeService = employeeService;
     }
 
+    @RequestMapping("search")
+
+    public List<Employee> search(@Param("emplyee_id") Integer emplyee_id,
+                         @Param("employee_name") String employee_name,
+                         @Param("department") String department,
+                         @Param("address") String address){
+        return employeeService.search(emplyee_id,employee_name,department,address);
+    }
+
+
+    @RequestMapping("delete")
+    public String delete(Integer emplyee_id){
+        log.debug("删除的员工id:{}",emplyee_id);
+        employeeService.delete(emplyee_id);
+        return "redirect:/employee/lists";
+    }
     @RequestMapping("update")
     public String update(Employee employee){
         log.debug("更新之后员工信息:社員番号:{},社員名:{},役職名:{},性別:{},部署名:{},住所:{},雇用形態:{},入社年月日:{}",employee.getEmplyee_id(),employee.getEmployee_name(),employee.getJob_title()

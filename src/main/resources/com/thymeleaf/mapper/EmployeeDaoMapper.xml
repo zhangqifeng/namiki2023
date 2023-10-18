@@ -18,4 +18,26 @@
                               job_title=#{job_title},employment_status=#{employment_status},hire_date=#{hire_date}
         where emplyee_id=#{emplyee_id}
     </update>
+    <delete id="delete" parameterType="Integer">
+        delete from `employee` where emplyee_id=#{emplyee_id}
+    </delete>
+    <select id="search" parameterType="map" resultType="Employee">
+        SELECT emplyee_id,employee_name,department,address,sex FROM `employee`
+        <where>
+            <if test="emplyee_id!=null and emplyee_id!='' ">
+                AND emplyee_id=#{emplyee_id}
+            </if>
+            <if test="employee_name!=null and employee_name !='' ">
+                AND employee_name LIKE '%'#{employee_name}'%'
+            </if>
+            <if test="department!=null and department!='' ">
+                AND department=#{department}
+            </if>
+        <if test="address!=null and address!='' ">
+            AND address=#{address}
+        </if>
+        </where>
+
+
+    </select>
 </mapper>

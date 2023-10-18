@@ -38,4 +38,14 @@ public class EmployeeServiceImpl implements EmployeeService {
     public void update(Employee employee) {
         employeeDao.update(employee);
     }
+
+    @Override
+    public void delete(Integer emplyee_Id) {
+        employeeDao.delete(emplyee_Id);
+    }
+
+    @Override
+    public List<Employee> search(Integer emplyee_id, String employeeName, String department, String address) {
+    return employeeDao.search(emplyee_id,employeeName,department,address);
+    }
 }

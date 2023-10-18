@@ -137,10 +137,17 @@
 						</table>
 						<p>
 							<input type="submit" class="button" value="更新" />
-							<button href="emplist.html">
+							<button href="javascript:;" th:onclick="'deleteEmployee('+${employee.emplyee_id}+')'">
 								删除
 							</button>
-
+							<button>返回列表</button>
+							<script>
+								function deleteEmployee(emplyee_id){
+									if (window.confirm('确定要删除这条记录吗？')){
+										location.href='[[@{/employee/delete?emplyee_id=}]]'+emplyee_id;
+									}
+								}
+							</script>
 						</p>
 					</form>
 				</div>

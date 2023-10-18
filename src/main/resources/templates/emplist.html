@@ -13,7 +13,7 @@
 						<p>
 							2009/11/20 
 							<br />
-							<a href="">安全退出</a>
+							<a  th:href="@{/user/logout}">安全退出</a>
 						</p>
 					</div>
 					<div id="topheader">
@@ -25,47 +25,45 @@
 					</div>
 				</div>
 				<div id="content">
-					<p id="whereami">
-					</p>
 					<h1>
 						欢迎
 					</h1>
+					<form th:action="@{/employee/search}" method="get">
+						<div>
+							社員番号:<input type="text" name="emplyee_id">
+						部署名:<input type="text" name="department">
+						</div>
+						<div>
+							社員名:<input type="text" name="employee_name">
+						住所:<input type="text" name="address">
+						</div>
+
+					<button type="submit">検索</button>
+						<input type="button" class="button" value="新規登録" onclick="addEmp()"/>
+					</form>
+							<script>
+								function addEmp(){
+									location.href='[[@{/addEmp}]]';
+								}
+							</script>
+
 					<table class="table">
 						<tr class="table_header">
 							<td>
-								编号
+								社員番号
 							</td>
 							<td>
-								姓名
+								社員名
 							</td>
 							<td>
-								性别
-							</td>
-<!--							<td>-->
-<!--								生日-->
-<!--							</td>-->
-							<td>
-								地址
+								部署名
 							</td>
 							<td>
-								部门
+								住所
 							</td>
-<!--							<td>-->
-<!--								职位-->
-<!--							</td>-->
-<!--							<td>-->
-<!--								就职状态-->
-<!--							</td>-->
-<!--							<td>-->
-<!--								雇佣日期-->
-<!--							</td>-->
-<!--							<td>-->
-<!--								创建日期-->
-<!--							</td>-->
-<!--							<td>-->
-<!--								更新日期-->
-<!--							</td>-->
-
+							<td>
+								性別
+							</td>
 							<td>
 								操作
 							</td>
@@ -78,47 +76,21 @@
 								<span th:text="${employee.employee_name}"></span>
 							</td>
 							<td>
-								<span th:text="${employee.sex}"></span>
+								<span th:text="${employee.department}"></span>
 							</td>
-<!--							<td>-->
-<!--								<span th:text="${#dates.format(employee.birth_date,'yyyy/MM/dd')}"></span>-->
-<!--							</td>-->
 							<td>
 								<span th:text="${employee.address}"></span>
 							</td>
 							<td>
-								<span th:text="${employee.department}"></span>
+								<span th:text="${employee.sex}"></span>
 							</td>
-<!--							<td>-->
-<!--								<span th:text="${employee.job_title}"></span>-->
-<!--							</td>-->
-<!--							<td>-->
-<!--								<span th:text="${employee.employment_status}"></span>-->
-<!--							</td>-->
-<!--							<td>-->
-<!--								<span th:text="${#dates.format(employee.hire_date,'yyyy/MM/dd')}"></span>-->
-<!--							</td>-->
-<!--							<td>-->
-<!--								<span th:text="${#dates.format(employee.create_date,'yyyy/MM/dd')}"></span>-->
-<!--							</td>-->
-<!--							<td>-->
-<!--								<span th:text="${#dates.format(employee.update_date,'yyyy/MM/dd')}"></span>-->
-<!--							</td>-->
 							<td>
-<!--								<a href="emplist.html">删除</a>-->
 								<a th:href="@{/employee/detail(emplyee_id=${employee.emplyee_id})}">详细</a>
 							</td>
 						</tr>
 
 					</table>
-					<p>
-						<input type="button" class="button" value="添加" onclick="addEmp()"/>
-						<script>
-							function addEmp(){
-								location.href='[[@{/addEmp}]]';
-							}
-						</script>
-					</p>
+
 				</div>
 			</div>
 			<div id="footer">
