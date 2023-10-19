@@ -10,13 +10,13 @@ public interface EmployeeDao {
 
     void save(Employee employee);
 
-    Employee findById(Integer emplyee_id);
+    Employee findById(Integer employee_id);
 
     void update(Employee employee);
 
-    void delete(Integer emplyee_Id);
+    void delete(Integer employee_id);
 
-    List<Employee> search(@Param("emplyee_id") Integer emplyee_id,
+    List<Employee> search(@Param("employee_id") Integer employee_id,
                           @Param("employee_name") String employee_Name,
                           @Param("department") String department,
                           @Param("address") String address);

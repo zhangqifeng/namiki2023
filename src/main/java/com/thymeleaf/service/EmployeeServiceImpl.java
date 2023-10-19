@@ -1,7 +1,6 @@
 package com.thymeleaf.service;
 
 import com.thymeleaf.dao.EmployeeDao;
-import com.thymeleaf.dao.UserDao;
 import com.thymeleaf.entity.Employee;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -30,8 +29,8 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public Employee findById(Integer emplyee_Id) {
-       return employeeDao.findById(emplyee_Id);
+    public Employee findById(Integer employee_Id) {
+       return employeeDao.findById(employee_Id);
     }
 
     @Override
@@ -40,12 +39,12 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public void delete(Integer emplyee_Id) {
-        employeeDao.delete(emplyee_Id);
+    public void delete(Integer employee_Id) {
+        employeeDao.delete(employee_Id);
     }
 
     @Override
-    public List<Employee> search(Integer emplyee_id, String employeeName, String department, String address) {
-    return employeeDao.search(emplyee_id,employeeName,department,address);
+    public List<Employee> search(Integer employee_id, String employeeName, String department, String address) {
+    return employeeDao.search(employee_id,employeeName,department,address);
     }
 }

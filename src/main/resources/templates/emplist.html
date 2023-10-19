@@ -28,9 +28,12 @@
 					<h1>
 						欢迎
 					</h1>
-					<form th:action="@{/employee/search}" method="get">
+
+
+					<form th:action="@{/employee/search}" method="post">
+						<button type="submit">リセット</button>
 						<div>
-							社員番号:<input type="text" name="emplyee_id">
+							社員番号:<input type="text" name="employee_id">
 						部署名:<input type="text" name="department">
 						</div>
 						<div>
@@ -39,13 +42,15 @@
 						</div>
 
 					<button type="submit">検索</button>
+
 						<input type="button" class="button" value="新規登録" onclick="addEmp()"/>
+						<script>
+							function addEmp(){
+								location.href='[[@{/addEmp}]]';
+							}
+						</script>
+
 					</form>
-							<script>
-								function addEmp(){
-									location.href='[[@{/addEmp}]]';
-								}
-							</script>
 
 					<table class="table">
 						<tr class="table_header">
@@ -70,7 +75,7 @@
 						</tr>
 						<tr th:each="employee,state:${employeeList}" class="row1">
 							<td>
-								<span th:text="${employee.emplyee_id}"></span>
+								<span th:text="${employee.employee_id}"></span>
 							</td>
 							<td>
 								<span th:text="${employee.employee_name}"></span>
@@ -85,7 +90,7 @@
 								<span th:text="${employee.sex}"></span>
 							</td>
 							<td>
-								<a th:href="@{/employee/detail(emplyee_id=${employee.emplyee_id})}">详细</a>
+								<a th:href="@{/employee/detail(employee_id=${employee.employee_id})}">详细</a>
 							</td>
 						</tr>
 

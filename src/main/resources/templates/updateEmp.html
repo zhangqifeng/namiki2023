@@ -39,7 +39,8 @@
 									社員番号:
 								</td>
 								<td valign="middle" align="left">
-									<input type="text" class="inputgri" name="emplyee_id" th:value="${employee.emplyee_id}"/>
+									<input type="hidden" name="id" th:value="${employee.id}">
+									<input type="text" class="inputgri" name="employee_id" th:value="${employee.employee_id}"/>
 								</td>
 							</tr>
 							<tr>
@@ -137,14 +138,14 @@
 						</table>
 						<p>
 							<input type="submit" class="button" value="更新" />
-							<button href="javascript:;" th:onclick="'deleteEmployee('+${employee.emplyee_id}+')'">
+							<button href="javascript:;" th:onclick="'deleteEmployee('+${employee.employee_id}+')'">
 								删除
 							</button>
 							<button>返回列表</button>
 							<script>
-								function deleteEmployee(emplyee_id){
+								function deleteEmployee(employee_id){
 									if (window.confirm('确定要删除这条记录吗？')){
-										location.href='[[@{/employee/delete?emplyee_id=}]]'+emplyee_id;
+										location.href='[[@{/employee/delete?employee_id=}]]'+employee_id;
 									}
 								}
 							</script>

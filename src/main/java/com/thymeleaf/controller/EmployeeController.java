@@ -25,39 +25,40 @@ public class EmployeeController {
     }
 
     @RequestMapping("search")
-
-    public List<Employee> search(@Param("emplyee_id") Integer emplyee_id,
+    public String search(@Param("employee_id") Integer employee_id,
                          @Param("employee_name") String employee_name,
                          @Param("department") String department,
-                         @Param("address") String address){
-        return employeeService.search(emplyee_id,employee_name,department,address);
+                         @Param("address") String address,Model model){
+        List<Employee>employeeList=employeeService.search(employee_id,employee_name,department,address);
+        model.addAttribute("employeeList",employeeList);
+        return "emplist";
     }
 
 
     @RequestMapping("delete")
-    public String delete(Integer emplyee_id){
-        log.debug("删除的员工id:{}",emplyee_id);
-        employeeService.delete(emplyee_id);
+    public String delete(Integer employee_id){
+        log.debug("删除的员工id:{}",employee_id);
+        employeeService.delete(employee_id);
         return "redirect:/employee/lists";
     }
     @RequestMapping("update")
     public String update(Employee employee){
-        log.debug("更新之后员工信息:社員番号:{},社員名:{},役職名:{},性別:{},部署名:{},住所:{},雇用形態:{},入社年月日:{}",employee.getEmplyee_id(),employee.getEmployee_name(),employee.getJob_title()
+        log.debug("更新之后员工信息:社員番号:{},社員名:{},役職名:{},性別:{},部署名:{},住所:{},雇用形態:{},入社年月日:{}",employee.getEmployee_id(),employee.getEmployee_name(),employee.getJob_title()
                 ,employee.getSex(),employee.getDepartment(),employee.getAddress(),employee.getEmployment_status(),employee.getHire_date());
         employeeService.update(employee);
         return "redirect:/employee/lists";
     }
     @RequestMapping("detail")
-    public String detail(Integer emplyee_id,Model model){
-        log.debug("当前查询员工id:{}",emplyee_id);
-        Employee employee=employeeService.findById(emplyee_id);
+    public String detail(Integer employee_id,Model model){
+        log.debug("当前查询员工id:{}",employee_id);
+        Employee employee=employeeService.findById(employee_id);
         model.addAttribute("employee",employee);
         return "updateEmp";
     }
 
     @RequestMapping("save")
     public String save(Employee employee){
-        log.debug("社員番号:{},社員名:{},役職名:{},性別:{},部署名:{},住所:{},雇用形態:{},入社年月日:{}",employee.getEmplyee_id(),employee.getEmployee_name(),employee.getJob_title()
+        log.debug("社員番号:{},社員名:{},役職名:{},性別:{},部署名:{},住所:{},雇用形態:{},入社年月日:{}",employee.getEmployee_id(),employee.getEmployee_name(),employee.getJob_title()
         ,employee.getSex(),employee.getDepartment(),employee.getAddress(),employee.getEmployment_status(),employee.getHire_date());
     employeeService.save(employee);
         return "redirect:/employee/lists";

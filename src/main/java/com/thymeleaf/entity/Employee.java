@@ -3,7 +3,32 @@ package com.thymeleaf.entity;
 import java.util.Date;
 
 public class Employee {
-    private Integer emplyee_id;
+    public Employee(Integer id, Integer employee_id, String employee_name, String sex, Date birth_date, String address, String department, String job_title, String employment_status, Date hire_date, Date create_date, Date update_date) {
+        this.id = id;
+        this.employee_id = employee_id;
+        this.employee_name = employee_name;
+        this.sex = sex;
+        this.birth_date = birth_date;
+        this.address = address;
+        this.department = department;
+        this.job_title = job_title;
+        this.employment_status = employment_status;
+        this.hire_date = hire_date;
+        this.create_date = create_date;
+        this.update_date = update_date;
+    }
+
+    private Integer id;
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    private Integer employee_id;
     private String employee_name;
     private String sex;
 
@@ -17,19 +42,6 @@ public class Employee {
     private Date create_date;
 
     private Date update_date;
-    public Employee(String employee_name, Date birth_date, String address, String department, String job_title,
-                    String employment_status, Date hitre_date, Date create_date, Date update_date, Integer emplyee_id) {
-        this.employee_name = employee_name;
-        this.birth_date = birth_date;
-        this.address = address;
-        this.department = department;
-        this.job_title = job_title;
-        this.employment_status = employment_status;
-        this.hire_date = hitre_date;
-        this.create_date = create_date;
-        this.update_date = update_date;
-        this.emplyee_id = emplyee_id;
-    }
 
     public Employee() {
     }
@@ -41,12 +53,12 @@ public class Employee {
         this.sex = sex;
     }
 
-    public Integer getEmplyee_id() {
-        return emplyee_id;
+    public Integer getEmployee_id() {
+        return employee_id;
     }
 
-    public void setEmplyee_id(Integer emplyee_id) {
-        this.emplyee_id = emplyee_id;
+    public void setEmployee_id(Integer emplyee_id) {
+        this.employee_id = emplyee_id;
     }
 
     public String getEmployee_name() {
