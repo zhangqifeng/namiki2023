@@ -4,12 +4,15 @@ import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resources;
+import javax.validation.constraints.NotEmpty;
 
 
 public class User {
     private Integer user_id;
 
+    @NotEmpty(message = "ユーザ名を入力してください")
     private String user_name;
+    @NotEmpty(message = "パスワードを入力してください")
     private String password;
 
     public Integer getUser_id() {

@@ -1,10 +1,54 @@
 package com.thymeleaf.entity;
 
+
+import org.springframework.format.annotation.DateTimeFormat;
+
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import java.time.LocalDate;
 import java.util.Date;
 
 public class Employee {
-    public Employee(Integer id, Integer employee_id, String employee_name, String sex, Date birth_date, String address, String department, String job_title, String employment_status, Date hire_date, Date create_date, Date update_date) {
-        this.id = id;
+
+
+    public Employee() {
+    }
+@NotNull(message = "社員番号を入力してください！")
+    private Integer employee_id;
+//"社員番号を入力してください！"
+    @NotEmpty(message = "社員の名前を入力してください！")
+    private String employee_name;
+
+    private String sex;
+
+    private Date birth_date;
+
+    private String address;
+
+    private String department;
+
+    private String job_title;
+
+    private String employment_status;
+    @DateTimeFormat(pattern = "yyyy/MM/dd")
+    private LocalDate hire_date;
+
+
+
+    private Date create_date;
+
+    private Date update_date;
+
+
+    public LocalDate getHire_date() {
+        return hire_date;
+    }
+
+    public void setHire_date(LocalDate hire_date) {
+        this.hire_date = hire_date;
+    }
+
+    public Employee(Integer employee_id, String employee_name, String sex, Date birth_date, String address, String department, String job_title, String employment_status, LocalDate hire_date, Date create_date, Date update_date) {
         this.employee_id = employee_id;
         this.employee_name = employee_name;
         this.sex = sex;
@@ -18,33 +62,7 @@ public class Employee {
         this.update_date = update_date;
     }
 
-    private Integer id;
 
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    private Integer employee_id;
-    private String employee_name;
-    private String sex;
-
-    private Date birth_date;
-
-    private String address;
-    private String department;
-    private String job_title;
-    private String employment_status;
-    private Date hire_date;
-    private Date create_date;
-
-    private Date update_date;
-
-    public Employee() {
-    }
     public String getSex() {
         return sex;
     }
@@ -57,8 +75,8 @@ public class Employee {
         return employee_id;
     }
 
-    public void setEmployee_id(Integer emplyee_id) {
-        this.employee_id = emplyee_id;
+    public void setEmployee_id(Integer employee_id) {
+        this.employee_id = employee_id;
     }
 
     public String getEmployee_name() {
@@ -109,13 +127,9 @@ public class Employee {
         this.employment_status = employment_status;
     }
 
-    public Date getHire_date() {
-        return hire_date;
-    }
 
-    public void setHire_date(Date hire_date) {
-        this.hire_date = hire_date;
-    }
+
+
 
     public Date getCreate_date() {
         return create_date;

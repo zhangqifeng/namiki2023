@@ -47,4 +47,10 @@ public class EmployeeServiceImpl implements EmployeeService {
     public List<Employee> search(Integer employee_id, String employeeName, String department, String address) {
     return employeeDao.search(employee_id,employeeName,department,address);
     }
+
+    @Override
+    public boolean isEmploeeValid(Integer employee_Id) {
+
+    return employeeDao.findById(employee_Id)!=null;
+    }
 }

@@ -31,7 +31,7 @@
 
 
 					<form th:action="@{/employee/search}" method="post">
-						<button type="submit">リセット</button>
+						<button onclick="refresh()">リセット</button>
 						<div>
 							社員番号:<input type="text" name="employee_id">
 						部署名:<input type="text" name="department">
@@ -44,11 +44,6 @@
 					<button type="submit">検索</button>
 
 						<input type="button" class="button" value="新規登録" onclick="addEmp()"/>
-						<script>
-							function addEmp(){
-								location.href='[[@{/addEmp}]]';
-							}
-						</script>
 
 					</form>
 
@@ -100,9 +95,18 @@
 			</div>
 			<div id="footer">
 				<div id="footer_bg">
-				ABC@126.com
+					ABC@126.com
 				</div>
 			</div>
 		</div>
 	</body>
+	<script>
+		function addEmp(){
+			location.href='[[@{/employee/add}]]';
+		}
+		function refresh(){
+			location.href='[[@{/emplist}]]';
+		}
+	</script>
+
 </html>

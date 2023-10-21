@@ -16,8 +16,8 @@ public interface EmployeeDao {
 
     void delete(Integer employee_id);
 
-    List<Employee> search(@Param("employee_id") Integer employee_id,
-                          @Param("employee_name") String employee_Name,
-                          @Param("department") String department,
-                          @Param("address") String address);
+    List<Employee> search( @Param("employee_id") Integer employee_id,
+                           @Param("employee_name") String employee_Name,
+                           @Param("department") String department,
+                           @Param("address") String address);
 }

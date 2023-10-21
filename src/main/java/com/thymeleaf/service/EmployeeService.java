@@ -17,4 +17,6 @@ public interface EmployeeService {
     void delete(Integer employee_Id);
 
     List<Employee> search(Integer employee_id, String employeeName, String department, String address);
+
+    boolean isEmploeeValid(Integer employee_Id);
 }
