@@ -9,27 +9,14 @@
 		<div id="wrap">
 			<div id="top_content"> 
 				<div id="header">
-					<div id="rightheader">
-						<p>
-							2009/11/20 
-							<br />
-							<a  th:href="@{/user/logout}">安全退出</a>
-						</p>
-					</div>
-					<div id="topheader">
 						<h1 id="title">
-							<a href="#">main</a>
+						社員管理システム
 						</h1>
-					</div>
-					<div id="navigation">
-					</div>
 				</div>
 				<div id="content">
 					<h1>
-						欢迎
+						社員情報一覧
 					</h1>
-
-
 					<form th:action="@{/employee/search}" method="post">
 						<button onclick="refresh()">リセット</button>
 						<div>
@@ -41,12 +28,9 @@
 						住所:<input type="text" name="address">
 						</div>
 
-					<button type="submit">検索</button>
-
-						<input type="button" class="button" value="新規登録" onclick="addEmp()"/>
-
+					<button class="button1" type="submit">検索</button>
 					</form>
-
+					<button class="button2" onclick="addEmp()">新規登録</button>
 					<table class="table">
 						<tr class="table_header">
 							<td>
@@ -68,7 +52,7 @@
 								操作
 							</td>
 						</tr>
-						<tr th:each="employee,state:${employeeList}" class="row1">
+						<tr th:each="employee:${pageInfo.list}" class="row1">
 							<td>
 								<span th:text="${employee.employee_id}"></span>
 							</td>
@@ -91,11 +75,30 @@
 
 					</table>
 
+                    <p>	1～5件/<span th:text="${pageInfo.total}"></span> 件</p>
+					<ul class="pagination">
+	           <li class="top-page">
+				   <a th:href="@{/employee/lists}">最初のページ</a>
+			   </li>
+	           <li class="prev">
+				   <a th:href="@{/employee/lists(pageNum=${pageInfo.hasPreviousPage}?${pageInfo.prePage}:1)}">前へ</a>
+			   </li>
+				   <li th:each="nav:${pageInfo.navigatepageNums}">
+						<a th:href="@{/employee/lists(pageNum=${nav})}" th:text="${nav}" th:if="${nav != pageInfo.pageNum}"></a>
+						<span style="font-weight: bold;background: #6faed9;" th:if="${nav == pageInfo.pageNum}" th:text="${nav}" ></span>
+					</li>
+               <li class="next">
+				   <a th:href="@{/employee/lists(pageNum=${pageInfo.hasNextPage}?${pageInfo.nextPage}:${pageInfo.pages})}">次へ</a>
+			   </li>
+				<li class="last-page"><a th:href="@{/employee/lists(pageNum=${pageInfo.pages})}">最後のページ</a>
+				</li>
+					</ul>
+					<a  th:href="@{/user/logout}">ログアウト</a>
 				</div>
 			</div>
 			<div id="footer">
 				<div id="footer_bg">
-					ABC@126.com
+					Namiki@126.com
 				</div>
 			</div>
 		</div>
@@ -107,6 +110,7 @@
 		function refresh(){
 			location.href='[[@{/emplist}]]';
 		}
+
 	</script>
 
 </html>

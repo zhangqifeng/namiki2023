@@ -13,7 +13,7 @@ public class Employee {
 
     public Employee() {
     }
-@NotNull(message = "社員番号を入力してください！")
+  @NotNull(message = "社員番号を入力してください！")
     private Integer employee_id;
 //"社員番号を入力してください！"
     @NotEmpty(message = "社員の名前を入力してください！")
@@ -30,10 +30,8 @@ public class Employee {
     private String job_title;
 
     private String employment_status;
-    @DateTimeFormat(pattern = "yyyy/MM/dd")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate hire_date;
-
-
 
     private Date create_date;
 

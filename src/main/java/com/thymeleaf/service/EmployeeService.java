@@ -18,5 +18,7 @@ public interface EmployeeService {
 
     List<Employee> search(Integer employee_id, String employeeName, String department, String address);
 
-    boolean isEmploeeValid(Integer employee_Id);
+    boolean isEmployeeValid(Integer employee_Id);
+
+
 }
