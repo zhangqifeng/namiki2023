@@ -37,13 +37,12 @@
 <!--						</div>-->
 						<table cellpadding="0" cellspacing="0" border="0"
 							class="form_table">
-
 							<tr>
 								<td valign="middle" align="right">
 									社員番号:
 								</td>
 								<td valign="middle" align="left">
-									<input type="text" class="inputgri" th:field="*{employee_id}"  />
+									<input type="text" class="inputgri" th:field="*{employee_id}" />
 									<span th:if="${#fields.hasErrors('employee_id')}" th:errors="*{employee_id}"></span>
 									<span th:if="${errorMsg}" class="error" th:text="${errorMsg}" ></span>
 								</td>
@@ -143,8 +142,12 @@
 							</tr>
 						</table>
 						<p>
-							<input type="submit" class="button" value="确认添加" />
+<!--							<input type="submit" class="button" value="确认添加" />-->
+							<button type="submit" onclick="showSuccessMsg()">确认添加</button>
 							<input type="button" class="button" value="返回列表" onclick="refresh()"/>
+						<div id="successMsg" style="display: block;">
+							<p id="messageText"></p>
+						</div>
 
 						</p>
 					</form>
@@ -161,5 +164,9 @@
 		function refresh(){
 			location.href='[[@{/employee/lists}]]';
 		}
+		function showSuccessMsg(){
+
+		}
+
 	</script>
 </html>

@@ -2,25 +2,19 @@ package com.thymeleaf.controller;
 import com.thymeleaf.service.UserService;
 import com.thymeleaf.entity.User;
 import com.thymeleaf.utils.VerifyCodeUtils;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.support.SimpleTriggerContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
-
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
-import javax.validation.constraints.NotEmpty;
 import java.io.IOException;
-
 @Controller
 @RequestMapping("user")
 public class UserController {
@@ -54,17 +48,15 @@ public class UserController {
         String user_name = user.getUser_name();
         String password = user.getPassword();
         //表单校验和用户名与密码的校验。
-        if (rs.hasErrors() || !userService.isUserValid(user_name, password)) {
+        if (rs.hasErrors()){
+            return "login";
+        }else if (!userService.isUserValid(user_name, password)) {
             model.addAttribute("errorMsg", "ユーザまたはパスワードが違います");
             return "login";
         } else {
-
             return "redirect:/employee/lists";
         }
     }
-
-
-
 
     @RequestMapping ("register")
     public String register(User user, String code,HttpSession session){
@@ -72,7 +64,6 @@ public class UserController {
         log.debug("用户输入验证码: {}",code);
         try {
             //1.判断用户输入验证码和session中验证码是否一致
-/* null pointer bug:code 没有加引号*/
             String sessionCode = session.getAttribute( "code").toString();
             if(!sessionCode.equalsIgnoreCase(code))throw new RuntimeException("验证码输入错误!");
             //2.注册用户

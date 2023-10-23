@@ -1,5 +1,6 @@
 package com.thymeleaf.controller;
-
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.thymeleaf.entity.Employee;
 import com.thymeleaf.service.EmployeeService;
 import org.slf4j.Logger;
@@ -10,6 +11,9 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
+
 import javax.validation.Valid;
 import java.util.List;
 
@@ -45,8 +49,8 @@ public class EmployeeController {
     //更新员工列表功能。
     @RequestMapping("update")
     public String update(Employee employee)  {
-        log.debug("更新之后员工信息:社員番号:{},社員名:{},役職名:{},性別:{},部署名:{},住所:{},雇用形態:{},入社年月日:{}",
-                employee.getEmployee_id(),employee.getEmployee_name(),employee.getJob_title()
+        log.debug("更新之后员工信息:社員名:{},役職名:{},性別:{},部署名:{},住所:{},雇用形態:{},入社年月日:{}",
+                employee.getEmployee_name(),employee.getJob_title()
                 ,employee.getSex(),employee.getDepartment(),employee.getAddress(),employee.getEmployment_status(),employee.getHire_date());
             employeeService.update(employee);
 
@@ -69,7 +73,6 @@ public class EmployeeController {
         return "addEmp" ;
     }
 
-
     //提交新增员工的表单，若新增成功则跳转到员工列表页面。
     @RequestMapping ("save")
     public String save(@ModelAttribute("employee")@Valid Employee employee, BindingResult bindingResult,Model model){
@@ -79,7 +82,7 @@ public class EmployeeController {
         //先判断用户输入是否为空，再判断新增的员工ID是否重复。
         if (bindingResult.hasErrors()) {
             return "addEmp";
-        }else if(employeeService.isEmploeeValid(employee.getEmployee_id())){
+        }else if(employeeService.isEmployeeValid(employee.getEmployee_id())){
             model.addAttribute("errorMsg","この社員番号がすでに登録されています");
             return "addEmp";
         }
@@ -89,14 +92,19 @@ public class EmployeeController {
         }
     }
 
-    //查询所有员工。
-     @RequestMapping("lists")
-    public String lists(Model model){
-         log.debug("查询所有员工信息");
-         List<Employee>employeeList= employeeService.lists();
-         model.addAttribute("employeeList",employeeList);
-         return "emplist";
-     }
+     //查询所有员工并分页。
+    @RequestMapping("lists")
+    public String getAllUser(Model model,@RequestParam(defaultValue = "1",value = "pageNum") Integer pageNum){
+        //默认第一页开始、一行显示5个
+        PageHelper.startPage(pageNum,5);
 
+        //原有的查询方法（需写在startpage后）
+        List<Employee> employees= employeeService.lists();
+        //返回查询到的信息到pageInfo里。
+
+        PageInfo<Employee> pageInfo = new PageInfo<>(employees);
+        model.addAttribute("pageInfo",pageInfo);
+        return "emplist"; //跳转到list.html
+    }
 
 }

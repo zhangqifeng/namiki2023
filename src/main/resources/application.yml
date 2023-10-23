@@ -21,6 +21,13 @@ spring:
 mybatis:
   mapper-locations: classpath:com/thymeleaf/mapper/*.xml
   type-aliases-package: com.thymeleaf.entity
+page helper:
+    helper-dialect: mysql
+    reasonable: true
+    support-methods-arguments: true
+    params:
+
+
 
 
 logging:

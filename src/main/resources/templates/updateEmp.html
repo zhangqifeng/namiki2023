@@ -36,6 +36,15 @@
 							class="form_table">
 							<tr>
 								<td valign="middle" align="right">
+									社員番号:
+								</td>
+								<td valign="middle" align="left">
+									<span th:text="${employee.employee_id}"></span>
+									<input type="hidden" name="employee_id" th:value="${employee.employee_id}">
+								</td>
+							</tr>
+							<tr>
+								<td valign="middle" align="right">
 									社員名:
 								</td>
 								<td valign="middle" align="left">
@@ -123,12 +132,12 @@
 									入社年月日:
 								</td>
 								<td valign="middle" align="left">
-									<input type="text" class="inputgri" name="hire_date" th:value="${#dates.format(employee.hire_date,'yyyy/MM/dd')}"/>
+									<input type="text" class="inputgri" name="hire_date" th:value="${#temporals.format(employee.hire_date,'yyyy-MM-dd')}"/>
 								</td>
 							</tr>
 						</table>
 						<p>
-							<input type="submit" class="button" value="更新" />
+							<input type="submit"  class="button" value="更新" />
 							<button href="javascript:;" th:onclick="'deleteEmployee('+${employee.employee_id}+')'">
 								删除
 							</button>

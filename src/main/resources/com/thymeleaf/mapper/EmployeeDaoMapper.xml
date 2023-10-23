@@ -6,8 +6,9 @@
 
 <mapper namespace="com.thymeleaf.dao.EmployeeDao" >
     <select id="lists" resultType="Employee">
-        select * from `employee`
+        SELECT * FROM `employee`
     </select>
+
     <insert id="save" parameterType="Employee">
         insert into `employee`(employee_id,employee_name,sex,address,department,job_title,employment_status,hire_date)
         values(#{employee_id},#{employee_name},#{sex},#{address},#{department},#{job_title},#{employment_status},#{hire_date})

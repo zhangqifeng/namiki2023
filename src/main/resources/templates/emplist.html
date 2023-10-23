@@ -25,6 +25,7 @@
 					</div>
 				</div>
 				<div id="content">
+
 					<h1>
 						欢迎
 					</h1>
@@ -68,7 +69,7 @@
 								操作
 							</td>
 						</tr>
-						<tr th:each="employee,state:${employeeList}" class="row1">
+						<tr th:each="employee:${pageInfo.list}" class="row1">
 							<td>
 								<span th:text="${employee.employee_id}"></span>
 							</td>
@@ -91,6 +92,14 @@
 
 					</table>
 
+					<p>当前 <span th:text="${pageInfo.pageNum}"></span> 页,
+						总 <span th:text="${pageInfo.pages}"></span> 页,
+						共 <span th:text="${pageInfo.total}"></span> 条记录</p>
+					<a th:href="@{/employee/lists}">首页</a>
+					<a th:href="@{/employee/lists(pageNum=${pageInfo.hasPreviousPage}?${pageInfo.prePage}:1)}">上一页</a>
+					<a th:href="@{/employee/lists(pageNum=${pageInfo.hasNextPage}?${pageInfo.nextPage}:${pageInfo.pages})}">下一页</a>
+					<a th:href="@{/employee/lists(pageNum=${pageInfo.pages})}">尾页</a>
+
 				</div>
 			</div>
 			<div id="footer">
@@ -107,6 +116,7 @@
 		function refresh(){
 			location.href='[[@{/emplist}]]';
 		}
+
 	</script>
 
 </html>
