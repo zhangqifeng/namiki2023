@@ -4,43 +4,54 @@
 		<title>添加员工信息</title>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 		<link rel="stylesheet" type="text/css"
-			th:href="@{/css/style.css}" />
+			th:href="@{/css/addEmp.css}" />
 	</head>
+
 	<body>
 		<div id="wrap">
 			<div id="top_content">
 				<div id="header">
-							<h1 id="title">
-								社員管理システム
-							</h1>
-				</div>
+					<h1 id="title">
+						社員管理システム
+					</h1>
+				</div>		
 				<div id="content">
-					<h1>
-						新規登録:
+					<h1 class="header2">
+						新規登録
 					</h1>
 					<form th:action="@{/employee/save}" method="post" th:object="${employee}"  >
 						<table cellpadding="0" cellspacing="0" border="0"
 							class="form_table">
-							<tr>
+							<span th:if="${errorMsg}" class="error" th:text="${errorMsg}" >
+							この社員番号が既に登録されています
+							</span>
+							<span class="error1" th:if="${#fields.hasErrors('employee_id')}" th:errors="*{employee_id}">
+							
+							</span>
+							<tr class="r1">
+								
 								<td valign="middle" align="right">
-									社員番号:
+								社員番号:
 								</td>
 								<td valign="middle" align="left">
 									<input type="text" class="inputgri" th:field="*{employee_id}" />
-									<span th:if="${#fields.hasErrors('employee_id')}" th:errors="*{employee_id}"></span>
-									<span th:if="${errorMsg}" class="error" th:text="${errorMsg}" ></span>
+									
 								</td>
 							</tr>
-							<tr>
+							<span  class="error2" th:if="${#fields.hasErrors('employee_name')}" th:errors="*{employee_name}">
+								
+						</span>
+							<tr class="r2">
+								
 								<td valign="middle" align="right">
 									社員名:
 								</td>
 								<td valign="middle" align="left">
 									<input type="text" class="inputgri" th:field="*{employee_name}" />
-									<span th:if="${#fields.hasErrors('employee_name')}" th:errors="*{employee_name}"></span>
+									
 								</td>
 							</tr>
-							<tr>
+							<tr class="r3">
 								<td valign="middle" align="right">
 									役職名:
 								</td>
@@ -48,7 +59,7 @@
 									<input type="text" class="inputgri" th:field="*{job_title}" />
 								</td>
 							</tr>
-							<tr>
+							<tr class="r4">
 								<td valign="middle" align="right">
 									性別:
 								</td>
@@ -71,7 +82,7 @@
 									}
 								</script>
 								</tr>
-							<tr>
+							<tr class="r5">
 								<td valign="middle" align="right">
 									部署名:
 								</td>
@@ -87,8 +98,9 @@
 										}
 									</script>
 								</td>
+
 							</tr>
-							<tr>
+							<tr class="r6">
 								<td valign="middle" align="right">
 									住所:
 								</td>
@@ -96,7 +108,7 @@
 									<input type="text" class="inputgri" th:field="*{address}"/>
 								</td>
 							</tr>
-							<tr>
+							<tr class="r7">
 								<td valign="middle" align="right">
 									雇用形態:
 								</td>
@@ -109,11 +121,12 @@
 										function readOption(){
 											var selected=document.getElementById("option");
 											alert(selected.options[selected.selectedIndex].value)
+
 										}
 									</script>
 								</td>
 							</tr>
-							<tr>
+							<tr class="r8">
 								<td valign="middle" align="right">
 									入社年月日:
 								</td>
@@ -122,15 +135,13 @@
 								</td>
 							</tr>
 						</table>
-							<button type="submit" >登録</button>
+							<button class="button2" type="submit" >登録</button>
 					</form>
 					<button class="button" onclick="refresh()">戻る</button>
 				</div>
 			</div>
 			<div id="footer">
-				<div id="footer_bg">
 					Namiki@163.com
-				</div>
 			</div>
 		</div>
 	</body>

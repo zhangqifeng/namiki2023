@@ -1,150 +1,149 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html xmlns:th="http://www.thymeleaf.org">
-	<head>
-		<title>更新员工信息</title>
-		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-		<link rel="stylesheet" type="text/css"
-			th:href="@{/css/style.css}" />
-	</head>
-
-	<body>
-		<div id="wrap">
-			<div id="top_content">
-				<div id="header">
-							<h1 id="title">
-								社員管理システム
-							</h1>
-				</div>
-				<div id="content">
-					<h1>
-						社員情報を更新する:
-					</h1>
-					<form th:action="@{/employee/update}" method="post">
-						<table cellpadding="0" cellspacing="0" border="0"
-							class="form_table">
-							<tr>
-								<td valign="middle" align="right">
-									社員番号:
-								</td>
-								<td valign="middle" align="left">
-									<span th:text="${employee.employee_id}"></span>
-									<input type="hidden" name="employee_id" th:value="${employee.employee_id}">
-								</td>
-							</tr>
-							<tr>
-								<td valign="middle" align="right">
-									社員名:
-								</td>
-								<td valign="middle" align="left">
-									<input type="text" class="inputgri" name="employee_name" th:value="${employee.employee_name}"/>
-								</td>
-							</tr>
-							<tr>
-								<td valign="middle" align="right">
-									役職名:
-								</td>
-								<td valign="middle" align="left">
-									<input type="text" class="inputgri" name="job_title" th:value="${employee.job_title}"/>
-								</td>
-							</tr>
-							<tr>
-								<td valign="middle" align="right">
-									性別:
-								</td>
-								<td>
-									<input type="radio" name="sex" value="男" th:checked="${employee.sex=='男'}"/>
-									男
-									<input type="radio" name="sex" value="女" th:checked="${employee.sex=='女'}"/>
-									女
-								</td>
-
-							</tr>
-							<tr>
-								<td valign="middle" align="right">
-									部署名:
-								</td>
-								<td>
-									<select th:field="*{employee.department}" name="department" id="option1" >
-										<option value="システム1部">システム1部</option>
-										<option value="システム2部">システム2部</option>
-									</select>
-									<script>
-										function readOption(){
-											var selected=document.getElementById("option1");
-											alert(selected.options[selected.selectedIndex].value)
-										}
-									</script>
-								</td>
-
-							</tr>
-							<tr>
-								<td valign="middle" align="right">
-									住所:
-								</td>
-								<td valign="middle" align="left">
-									<input type="text" class="inputgri" name="address" th:value="${employee.address}"/>
-								</td>
-							</tr>
-							<tr>
-								<td valign="middle" align="right">
-									雇用形態:
-								</td>
-								<td>
-									<select th:field="*{employee.employment_status}" name="employment_status" id="option">
-										<option value="正社員">正社員</option>
-										<option value="契約社員">契約社員</option>
-									</select>
-									<script>
-										function readOption(){
-											var selected=document.getElementById("option");
-											alert(selected.options[selected.selectedIndex].value)
-
-										}
-									</script>
-								</td>
-							</tr>
-							<tr>
-								<td valign="middle" align="right">
-									入社年月日:
-								</td>
-								<td valign="middle" align="left">
-									<input type="text" class="inputgri" name="hire_date" th:value="${#temporals.format(employee.hire_date,'yyyy-MM-dd')}"/>
-								</td>
-							</tr>
-						</table>
-						<p>
-							<button type="submit">更新</button>
-							<button href="javascript:;" th:onclick="'deleteEmployee('+${employee.employee_id}+')'">
-								删除
-							</button>
-							<button>返回列表</button>
-						</p>
-					</form>
-				</div>
-			</div>
-			<div id="footer">
-				<div id="footer_bg">
-					Namiki@126.com
-				</div>
-			</div>
+<head>
+	<title>更新员工信息</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<link rel="stylesheet" type="text/css"
+		  th:href="@{/css/updateEmp.css}" />
+</head>
+<body>
+<div id="wrap">
+	<div id="top_content">
+		<div id="header">
+			<h1 id="title">
+				社員管理システム
+			</h1>
 		</div>
-	</body>
+		<div id="content">
+			<h1 class="header2">
+				社員情報の更新
+			</h1>
+			<form th:action="@{/employee/update}" method="post">
+				<table cellpadding="0" cellspacing="0" border="0"
+					   class="form_table">
+					<tr class="r1">
+						<td valign="middle" align="right">
+							社員番号:
+						</td>
+						<td valign="middle" align="left">
+							<span th:text="${employee.employee_id}"></span>
+							<input type="hidden" name="employee_id" th:value="${employee.employee_id}">
+						</td>
+					</tr>
+					<tr class="r2">
+						<td valign="middle" align="right">
+							社員名:
+						</td>
+						<td valign="middle" align="left">
+							<input type="text" class="inputgri" name="employee_name" th:value="${employee.employee_name}"/>
+						</td>
+					</tr>
+					<tr class="r3">
+						<td valign="middle" align="right">
+							役職名:
+						</td>
+						<td valign="middle" align="left">
+							<input type="text" class="inputgri" name="job_title" th:value="${employee.job_title}"/>
+						</td>
+					</tr>
+					<tr class="r4">
+						<td valign="middle" align="right">
+							性別:
+						</td>
+						<td>
+							<input type="radio" name="sex" value="男" th:checked="${employee.sex=='男'}"/>
+							男
+							<input type="radio" name="sex" value="女" th:checked="${employee.sex=='女'}"/>
+							女
+						</td>
+
+					</tr>
+					<tr class="r5">
+						<td valign="middle" align="right">
+							部署名:
+						</td>
+						<td>
+							<select th:field="*{employee.department}" name="department" id="option1" >
+								<option value="システム1部">システム1部</option>
+								<option value="システム2部">システム2部</option>
+							</select>
+							<script>
+								function readOption(){
+									var selected=document.getElementById("option1");
+									alert(selected.options[selected.selectedIndex].value)
+								}
+							</script>
+						</td>
+
+					</tr>
+					<tr class="r6">
+						<td valign="middle" align="right">
+							住所:
+						</td>
+						<td valign="middle" align="left">
+							<input type="text" class="inputgri" name="address" th:value="${employee.address}"/>
+						</td>
+					</tr>
+					<tr class="r7">
+						<td valign="middle" align="right">
+							雇用形態:
+						</td>
+						<td>
+							<select th:field="*{employee.employment_status}" name="employment_status" id="option">
+								<option value="正社員">正社員</option>
+								<option value="契約社員">契約社員</option>
+							</select>
+							<script>
+								function readOption(){
+									var selected=document.getElementById("option");
+									alert(selected.options[selected.selectedIndex].value)
+
+								}
+							</script>
+						</td>
+					</tr>
+					<tr class="r8">
+						<td valign="middle" align="right">
+							入社年月日:
+						</td>
+						<td valign="middle" align="left">
+							<input type="text" class="inputgri" name="hire_date" th:value="${#temporals.format(employee.hire_date,'yyyy-MM-dd')}"/>
+						</td>
+					</tr>
+				</table>
+				<p class="button">
+					<button class="button1" type="submit">更新</button>
+					<button class="button2" href="javascript:;" th:onclick="'deleteEmployee('+${employee.employee_id}+')'">
+						删除
+					</button>
+					<button class="button3">返回列表</button>
+				</p>
+			</form>
+		</div>
+	</div>
+	<div id="footer">
+		<div id="footer_bg">
+			Namiki@126.com
+		</div>
+	</div>
+</div>
+</body>
 <script>
-		function readRadio(){
+	function readRadio(){
 		var obj=document.getElementById("sex")
 		for (var i=0;i<obj.length;i++){
-		if(obj[i].checked){
-		alert(obj[i].value);
-		break;
-	}
-	}
-
-	}
-
-		function deleteEmployee(employee_id){
-			if (window.confirm('确定要删除这条记录吗？')){
-				location.href='[[@{/employee/delete?employee_id=}]]'+employee_id;
+			if(obj[i].checked){
+				alert(obj[i].value);
+				break;
 			}
 		}
+
+	}
+
+	function deleteEmployee(employee_id){
+		if (window.confirm('确定要删除这条记录吗？')){
+			location.href='[[@{/employee/delete?employee_id=}]]'+employee_id;
+		}
+	}
 </script>
 </html>

@@ -1,60 +1,70 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
-	<title>login</title>
-	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-	<link rel="stylesheet" type="text/css"
-		  th:href="@{/css/login.css}" />
-</head>
-<body>
-<div id="wrap">
-	<div id="header">
-		<h1 id="title">
-			社員管理システム
-		</h1>
-	</div>
-	<div id="content">
-		<h1 id="header2">
-			ログインしてください
-		</h1>
-		<form th:action="@{/user/login}" method="post" th:object="${user}">
-			<table cellpadding="0" cellspacing="0" border="0"
-				   class="form_table">
-				<div th:if="${errorMsg}" class="error">
-					<p th:text="${errorMsg}"></p>
+	<head>
+		<title>login</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<link rel="stylesheet" type="text/css"
+			th:href="@{/css/login.css}" />
+	</head>
+	<body>
+		<div id="wrap">
+				<div id="header">
+							<h1 id="title">
+							社員管理システム
+							</h1>
 				</div>
-				<tr class="row1">
-					<td class="user_name" valign="middle" align="right">
-						ユーザID
-					</td>
-					<td valign="middle" align="left">
-						<input type="text" class="inputgri"  th:field="*{user_name}" />
-						<!-- 添加参数校验错误消息 -->
-						<span th:if="${#fields.hasErrors('user_name')}"  class="error" th:errors="*{user_name}"></span>
+				<div id="content">
+					<h1 id="header2">
+						ログインしてください
+					</h1>
+					<form th:action="@{/user/login}" method="post" th:object="${user}">
+						<table cellpadding="0" cellspacing="0" border="0"
+							class="form_table">	
+							<span th:if="${errorMsg}"  class="errorMsg" th:text="${errorMsg}">
+								
+							</span>
+							<span th:if="${#fields.hasErrors('user_name')}"  class="error1" th:errors="*{user_name}">
+							
+							</span>
+							<tr class="row1">
+								
+								<td class="user_name" valign="middle" align="right">
+									ユーザID   
+								</td>
+								<td valign="middle" align="left">
+								
+									<input type="text" class="inputgri"  th:field="*{user_name}" />
+									<!-- 添加参数校验错误消息 -->
+								
 
-					</td>
-				</tr>
-				<tr class="row2">
-					<td valign="middle" align="right">
-						パスワード
-					</td>
-					<td valign="middle" align="left">
-						<input type="password" class="inputgri"  th:field="*{password}" />
-						<!-- 添加参数校验错误消息 -->
-						<span th:if="${#fields.hasErrors('password')}" class="error" th:errors="*{password}"></span>
-					</td>
-				</tr>
-			</table>
-
-			<input  type="submit" class="button" value="ログイン" />
-
-		</form>
-	</div>
-	<div id="footer">
-		<div id="footer_bg">
-			Namiki@126.com
+								</td>
+							</tr>
+							<span th:if="${#fields.hasErrors('password')}" class="error2" th:errors="*{password}">
+								
+							</span>
+							<tr class="row2">
+								
+								<td valign="middle" align="right">
+									パスワード
+								</td>
+								<td valign="middle" align="left">
+									
+									<input type="password" class="inputgri"  th:field="*{password}" />
+									<!-- 添加参数校验错误消息 -->
+		
+								</td>
+							</tr>
+						</table>
+						
+							<input  type="submit" class="button" value="ログイン" />
+						
+					</form>
+				</div>
+			<div id="footer">
+				<div id="footer_bg">
+					Namiki@126.com
+				</div>
+			</div>
 		</div>
-	</div>
-</div>
-</body>
+	</body>
 </html>
