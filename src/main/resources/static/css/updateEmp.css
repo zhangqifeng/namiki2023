@@ -46,7 +46,7 @@ form{
     display: flex;
     flex-direction: column;
 
-    margin-top: -25px;
+
 
 }
 input{
@@ -80,15 +80,7 @@ td{
 .r1,.r2,.r3,.r4,.r5,.r6,.r7,.r8{
     height: 40px;
 }
-.button{
-    display: flex;
-    justify-content:space-between;
-    width: 250px;
-    margin-top: -20px;
-    height: 30px;
-    margin-bottom: 45px;
-    margin-left: 10px;
-}
+
 button{
     width: 74px;
     height: 30px;
@@ -98,6 +90,19 @@ button{
     border-radius: 5px;
     cursor: pointer;
     transition: background-color 0.3s
+}
+.button1{
+  margin-top: -10px;
+}
+.button2{
+    margin-top: -30px;
+    margin-bottom: 20px;
+}
+.button3{
+    margin-left: 210px;
+    margin-top: -20px;
+    position: relative;
+    bottom: 30px;
 }
 button:hover{
     background-color: #9fcfff;
@@ -109,4 +114,12 @@ select{
 }
 #footer{
     margin-top: -20px;
+}
+.error2{
+    color: red;
+    font-size: 15px;
+    position: relative;
+    left: 35px;
+    margin-bottom: -10px;
+
 }

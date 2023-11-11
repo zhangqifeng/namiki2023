@@ -1,4 +1,4 @@
-body 
+body
 {
     margin: 0;
     padding: 0px 0px;
@@ -7,7 +7,7 @@ body
     justify-content: center;
     align-items: center;
     background-color: rgb(226, 226, 226);
-    
+
 }
 #wrap{
     display: flex;
@@ -30,7 +30,7 @@ body
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    width: 450px;
+    width: 500px;
     height: 300px;
     margin-bottom: 50px;
     background-color: rgb(255, 255, 255);
@@ -40,23 +40,23 @@ body
 form{
     display: flex;
     flex-direction: column;
-    align-items: center;
+   
 }
 .form_table{
     display: flex;
-    justify-content: center;
-    padding-left: 60px;
-    width: 600px;
+    
+    width: 500px;
     padding-top: 35px;
-    margin-bottom: 10px;
+    margin-bottom: 40px;
     height: 150px;
 }
 td{
-    padding-bottom: 30px;
-    padding-right: 20px;
+    padding-bottom: 25px;   
+    padding-left: 30px;
     letter-spacing: 3px;
     font-size: 15px;
 }
+
 #header{
     letter-spacing: 20px;
     font-size: 25px;
@@ -66,46 +66,60 @@ td{
     width: 600px;
     text-shadow: -4px 0 3px;
     color: #232323;
-    
+
 }
 #header2{
     font-size: 20px;
     height: 20px;
     font-family: Georgia, "游明朝", "Yu Mincho", "游明朝体", YuMincho, "ヒラギノ明朝 Pro", "Hiragino Mincho ProN", "MS P明朝", "MS PMincho", HGS明朝E, "MS Mincho", serif;
-    margin-top: -10px;
-    position: relative;
-    top: 10px;
+    margin-top: -15px;
     color: rgb(68, 68, 68);
 
-    
+
 
 
 }
-.user_name{
-    padding-right: 25px;
-}
+
 .inputgri{
-    border: none;      
-  border-bottom: 1px solid #000;
-  outline: none;        
-  background-color: rgb(255, 255, 255);
-  font-size: 15px;
-  color: #000;
-  width: 130px;
-  margin-right:40px;
+    border: none;
+    border-bottom: 1px solid #000;
+    outline: none;
+    background-color: rgb(255, 255, 255);
+    font-size: 15px;
+    color: #000;
+    width: 130px;
+    position: relative;
+    right:30px;
 }
 .button{
-    width: 190px;
-    height: 35px;
-
+    width: 120px;
+    height: 30px;
     margin-bottom: -25px;
+    position: relative;
+    left: 140px;
+    top: 3px;
     font-size: 15px;
     border: none;
     border-radius: 8px;
     background-color: #409EFF;
     color: rgb(255, 255, 255);
     cursor: pointer;
-    transition: background 0.3s ease; 
+    transition: background 0.3s ease;
+}
+button{
+    width: 70px;
+    height: 30px;
+    position: relative;
+    left: 70px;
+    bottom: 5px;
+    font-size: 13px;
+    border: none;
+    color: #000;
+    border-bottom: 1px solid #000;
+    background-color: white;
+    padding-top: 10px;
+
+   
 }
 .button:hover {
     background: linear-gradient(to right,#95caff, #95caff);
@@ -117,33 +131,77 @@ td{
 .error1{
     font-size: 13px;
     color: red;
-   height: 5px;
-  position: relative;
-    top: 15px;
-    padding-left: 40px;
+    height: 5px;
+    position: relative;
+    top: 18px;
+    left: 150px;
 }
 .error2{
     font-size: 13px;
     color: red;
     height: 5px;
-
     position: relative;
-    top: 70px;
-    padding-left: 30px;
-  
+    top: 68px;
+  left: 152px;
+
 }
 .errorMsg{
     color: red;
     font-size: 14px;
     margin-left: 10px;
-
     position: relative;
-top: 15px;
-    height: 20px;
+    top: 10px;
+    height: 5px;
 }
-.msg{
-    color: red;
+#num{
+   
+    width: 100px;
+    height: 40px;
+}
+.row3{
     position: relative;
-  top: -20px;
-  height: 15px;
+    left: 25px;
+}
+.code{
+    border-bottom: 1px solid #000;
+    border-radius: 5px;
+    outline: none;
+    background-color: rgb(255, 255, 255);
+    font-size: 15px;
+    color: #000;
+    width: 80px;
+    height: 8px;
+    margin-right:40px;
+    padding-top: 10px;
+    position: relative;
+    right: 20px;
+    top: 10px;
+
+}
+#header2{
+    position: relative;
+    top: 15px;
+}
+.errorMsg1{
+    color: red;
+    font-size: 13px;
+    position: relative;
+    left: 150px;
+    top: 125px;
+}
+.password{
+    position: relative;
+    left: 90px;
+
+}
+.user_name{
+    position: relative;
+    left: 100px;
+}
+.errorMsg2{
+    position: relative;
+    left: 150px;
+    top: 30px;
+    font-size: 13px;
+    color: red;
 }

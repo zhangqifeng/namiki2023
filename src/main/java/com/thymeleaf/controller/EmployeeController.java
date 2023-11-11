@@ -12,8 +12,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-
-
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import javax.validation.Valid;
 import java.util.List;
 
@@ -41,20 +40,10 @@ public class EmployeeController {
 
     //删除功能。
     @RequestMapping("delete")
-    public String delete(Integer employee_id){
+    public String delete(Integer employee_id,RedirectAttributes ra){
         log.debug("删除的员工id:{}",employee_id);
         employeeService.delete(employee_id);
-        return "redirect:/employee/lists";
-    }
-
-    //更新员工列表功能。
-    @RequestMapping("update")
-    public String update(Employee employee)  {
-        log.debug("更新之后员工信息:社員名:{},役職名:{},性別:{},部署名:{},住所:{},雇用形態:{},入社年月日:{}",
-                employee.getEmployee_name(),employee.getJob_title()
-                ,employee.getSex(),employee.getDepartment(),employee.getAddress(),employee.getEmployment_status(),employee.getHire_date());
-            employeeService.update(employee);
-
+        ra.addFlashAttribute("msg1","削除成功しました!");
         return "redirect:/employee/lists";
     }
 
@@ -66,6 +55,20 @@ public class EmployeeController {
         model.addAttribute("employee", employee);
         return "updateEmp";
     }
+    @RequestMapping("update")
+    public String update(@ModelAttribute("employee")@Valid Employee employee, BindingResult rs,RedirectAttributes ra)  {
+        log.debug("更新之后员工信息:社員名:{},役職名:{},性別:{},部署名:{},住所:{},雇用形態:{},入社年月日:{}",
+                employee.getEmployee_name(),employee.getJob_title()
+                ,employee.getSex(),employee.getDepartment(),employee.getAddress(),employee.getEmployment_status(),employee.getHire_date());
+        if(rs.hasErrors()){
+            return "updateEmp";
+        }
+        else
+            employeeService.update(employee);
+       ra.addFlashAttribute("msg2","更新成功しました！");
+        return "redirect:/employee/lists";
+    }
+
 
     //新增员工页面，初始化新增表单。
     @RequestMapping("add")
@@ -76,7 +79,7 @@ public class EmployeeController {
 
     //提交新增员工的表单，若新增成功则跳转到员工列表页面。
     @RequestMapping ("save")
-    public String save(@ModelAttribute("employee")@Valid Employee employee, BindingResult bindingResult,Model model){
+    public String save(@ModelAttribute("employee")@Valid Employee employee, BindingResult bindingResult, Model model,RedirectAttributes ra){
         log.debug("社員番号:{},社員名:{},役職名:{},性別:{},部署名:{},住所:{},雇用形態:{},入社年月日:{}",
                 employee.getEmployee_id(),employee.getEmployee_name(),employee.getJob_title()
         ,employee.getSex(),employee.getDepartment(),employee.getAddress(),employee.getEmployment_status(),employee.getHire_date());
@@ -89,6 +92,7 @@ public class EmployeeController {
         }
         else{
             employeeService.save(employee);
+        ra.addFlashAttribute("msg3","登録完了しました!");
             return "redirect:/employee/lists";
         }
     }
@@ -98,13 +102,12 @@ public class EmployeeController {
     public String getAllUser(Model model,@RequestParam(defaultValue = "1",value = "pageNum") Integer pageNum
                             ){
         PageHelper.clearPage();
+
         //默认第一页开始、一行显示5个
         PageHelper.startPage(pageNum,5);
-
         //原有的查询方法（需写在startpage后）
         List<Employee> employees= employeeService.lists();
         //返回查询到的信息到pageInfo里。
-
         PageInfo<Employee> pageInfo = new PageInfo<>(employees);
         model.addAttribute("pageInfo",pageInfo);
         return "emplist"; //跳转到list.html

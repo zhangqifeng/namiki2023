@@ -7,4 +7,6 @@ public interface UserService {
 
 
     boolean isUserValid(String userName, String password);
+
+    boolean isUserExisted(String userName);
 }

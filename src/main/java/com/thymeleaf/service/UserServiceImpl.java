@@ -26,11 +26,13 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public boolean isUserExisted(String user_Name) {
+        User userDB = userDao.findByUserName(user_Name);
+        return userDB!=null;
+    }
+
+    @Override
     public void register(User user) {
-        //1.根据用户名查询数据库中是否存在改用户
-        User userDB = userDao.findByUserName(user.getUser_name());
-        //2.判断用户是否存在
-        if(!ObjectUtils.isEmpty(userDB)) throw new RuntimeException("当前用户名已被注册!");
         userDao.save(user);
 
 
