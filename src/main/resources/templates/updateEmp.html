@@ -57,7 +57,6 @@
 							<input type="radio" name="sex" value="女" th:checked="${employee.sex=='女'}"/>
 							女
 						</td>
-
 					</tr>
 					<tr class="r5">
 						<td>
@@ -110,7 +109,16 @@
 						<td>
 							<input type="date" class="inputgri" name="hire_date" th:field="*{hire_date}"/>
 						</td>
-
+					</tr>
+					<span th:if="${errorMsg}" class="errorMsg" th:text="${errorMsg}" >
+							</span>
+					<tr class="r9">
+						<td>
+							誕生日:
+						</td>
+						<td>
+							<input type="date" class="inputgri" th:field="*{birth_date}" />
+						</td>
 					</tr>
 				</table>
 					<button class="button1" type="submit">更新</button>

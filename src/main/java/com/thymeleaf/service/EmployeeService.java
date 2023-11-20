@@ -2,6 +2,8 @@ package com.thymeleaf.service;
 
 import com.thymeleaf.entity.Employee;
 
+import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 
 public interface EmployeeService {
@@ -19,6 +21,7 @@ public interface EmployeeService {
     List<Employee> search(Integer employee_id, String employeeName, String department, String address);
 
     boolean isEmployeeValid(Integer employee_Id);
+    boolean isBirthDateValid(LocalDate birth_date);
 
 
 }

@@ -12,15 +12,18 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
 import javax.validation.Valid;
+import java.io.IOException;
 import java.util.List;
 
 @Controller
 @RequestMapping("employee")
 public class EmployeeController {
     private static final Logger log= LoggerFactory.getLogger(EmployeeController.class);
-    private EmployeeService employeeService;
+    private final EmployeeService employeeService;
     @Autowired
     public EmployeeController(EmployeeService employeeService) {
         this.employeeService = employeeService;
@@ -56,11 +59,14 @@ public class EmployeeController {
         return "updateEmp";
     }
     @RequestMapping("update")
-    public String update(@ModelAttribute("employee")@Valid Employee employee, BindingResult rs,RedirectAttributes ra)  {
-        log.debug("更新之后员工信息:社員名:{},役職名:{},性別:{},部署名:{},住所:{},雇用形態:{},入社年月日:{}",
+    public String update(@ModelAttribute("employee")@Valid Employee employee, BindingResult rs,RedirectAttributes ra,Model model)  {
+        log.debug("更新之后员工信息:社員名:{},役職名:{},性別:{},部署名:{},住所:{},雇用形態:{},入社年月日:{},誕生日:{}",
                 employee.getEmployee_name(),employee.getJob_title()
-                ,employee.getSex(),employee.getDepartment(),employee.getAddress(),employee.getEmployment_status(),employee.getHire_date());
+                ,employee.getSex(),employee.getDepartment(),employee.getAddress(),employee.getEmployment_status(),employee.getHire_date(),employee.getBirth_date());
         if(rs.hasErrors()){
+            return "updateEmp";
+        }else if (employee.getBirth_date()!=null && !employeeService.isBirthDateValid(employee.getBirth_date())){
+            model.addAttribute("errorMsg","社員年齢を18歳～60歳にしてください");
             return "updateEmp";
         }
         else
@@ -79,15 +85,18 @@ public class EmployeeController {
 
     //提交新增员工的表单，若新增成功则跳转到员工列表页面。
     @RequestMapping ("save")
-    public String save(@ModelAttribute("employee")@Valid Employee employee, BindingResult bindingResult, Model model,RedirectAttributes ra){
-        log.debug("社員番号:{},社員名:{},役職名:{},性別:{},部署名:{},住所:{},雇用形態:{},入社年月日:{}",
+    public String save(@ModelAttribute("employee")@Valid Employee employee, BindingResult bindingResult, Model model, RedirectAttributes ra, MultipartFile resumeFile){
+        log.debug("社員番号:{},社員名:{},役職名:{},性別:{},部署名:{},住所:{},雇用形態:{},入社年月日:{},誕生日:{}",
                 employee.getEmployee_id(),employee.getEmployee_name(),employee.getJob_title()
-        ,employee.getSex(),employee.getDepartment(),employee.getAddress(),employee.getEmployment_status(),employee.getHire_date());
+        ,employee.getSex(),employee.getDepartment(),employee.getAddress(),employee.getEmployment_status(),employee.getHire_date(),employee.getBirth_date());
         //先判断用户输入是否为空，再判断新增的员工ID是否重复。
         if (bindingResult.hasErrors()) {
             return "addEmp";
         }else if(employeeService.isEmployeeValid(employee.getEmployee_id())){
             model.addAttribute("errorMsg","この社員番号がすでに登録されています");
+            return "addEmp";
+        }else if (employee.getBirth_date()!=null && !employeeService.isBirthDateValid(employee.getBirth_date())){
+            model.addAttribute("errorMsg2","社員年齢を18歳～60歳にしてください");
             return "addEmp";
         }
         else{

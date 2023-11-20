@@ -66,12 +66,15 @@ public String registerForm(Model model){
                            RedirectAttributes ra){
         log.debug("用户名: {},密码: {},",user.getUser_name(),user.getPassword());
         log.debug("用户输入验证码: {}",code);
-        String user_name=user.getUser_name();
-            //1.判断用户输入验证码和session中验证码是否一致
+            String user_name=user.getUser_name();
             String sessionCode = session.getAttribute( "code").toString();
+            String password=user.getPassword();
             if (rs.hasErrors()){
                 return "regist";
-            }else if (!sessionCode.equalsIgnoreCase(code)){
+            } else if (!userService.isPasswordValid(password)) {
+                model.addAttribute("errorMsg3","半角英数字6文字～15文字にしてください");
+                return "regist";
+            } else if (!sessionCode.equalsIgnoreCase(code)){
                 model.addAttribute("errorMsg1","確認コードが違います");
                 return "regist";
             }else if (userService.isUserExisted(user_name)){

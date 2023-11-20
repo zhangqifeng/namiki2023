@@ -2,23 +2,22 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-
-
-<mapper namespace="com.thymeleaf.dao.EmployeeDao" >
+<mapper namespace="com.thymeleaf.dao.EmployeeDao">
     <select id="lists"  parameterType="map" resultType="Employee">
         SELECT * FROM `employee`
     </select>
 
     <insert id="save" parameterType="Employee">
-        insert into `employee`(employee_id,employee_name,sex,address,department,job_title,employment_status,hire_date)
-        values(#{employee_id},#{employee_name},#{sex},#{address},#{department},#{job_title},#{employment_status},#{hire_date})
+        insert into `employee`(employee_id,employee_name,sex,address,department,job_title,employment_status,hire_date,birth_date)
+        values(#{employee_id},#{employee_name},#{sex},#{address},#{department},#{job_title},#{employment_status},#{hire_date},#{birth_date})
     </insert>
     <select id="findById" parameterType="Integer" resultType="Employee">
         select * from `employee` where employee_id=#{employee_id}
     </select>
     <update id="update" parameterType="map">
         update `employee` set employee_name=#{employee_name},sex=#{sex},address=#{address},department=#{department},
-                              job_title=#{job_title},employment_status=#{employment_status},hire_date=#{hire_date}
+                              job_title=#{job_title},employment_status=#{employment_status},hire_date=#{hire_date},
+                              birth_date=#{birth_date}
         where employee_id=#{employee_id}
     </update>
     <delete id="delete" parameterType="Integer">
