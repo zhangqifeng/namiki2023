@@ -28,9 +28,10 @@ body
     align-items: center;
     justify-content: space-between;
     position: relative;
-    top: -25px;
+   bottom: 40px;
     width: 600px;
-    height: 550px;
+    height: 600px;
+    padding-bottom: 20px;
     background-color: rgb(255, 255, 255);
     border-radius: 5%;
     box-shadow: -5px 5px 10px 0 ;
@@ -39,17 +40,27 @@ form{
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    height: 450px;
+    height: 580px;
+    position: relative;
+    bottom: 30px;
 }
-.form_table{
+.form_table {
+    display: flex;
+    flex-direction: column;
+    height: 580px;
+    padding-top: 10px;
 
-    height: 450px;
 }
+
 input{
-    margin: 5px;
     border: none;
     border-bottom: 1px solid #000;
     outline: none;
+
+}
+select{
+    width: 100px;
+    height: 25px;
 
 }
 #header{
@@ -70,12 +81,20 @@ input{
     margin-left: 130px;
     padding-right: 20px;
     height: 30px;
+    position: relative;
+    bottom: 10px;
 }
 td{
-    padding-right: 10px;
+    text-align: left;
+    padding-left: 5px;
 }
-.r1,.r2,.r3,.r4,.r5,.r6,.r7,.r8,.r9{
+tr{
+    position: relative;
+    left: 50px;
+}
+.r1,.r2,.r3,.r4,.r5,.r6,.r7,.r8,.r9,.r10,.r11,.r12{
     height: 40px;
+
 }
 
 button{
@@ -90,38 +109,38 @@ button{
 }
 .button1{
   position: relative;
-    top: 10px;
+    left: 55px;
+   bottom: 3px;
 }
 .button2{
    position: relative;
-    bottom: 17px;
-    padding-top: 4px;
+    left: 5px;
+bottom: 60px;
+    padding-top: 5px;
     padding-bottom: 5px;
-
 }
 .button3{
     margin-left: 210px;
     position: relative;
-    bottom: 44px;
+    bottom: 88px;
+    left: 7px;
    padding-top: 5px;
-    padding-bottom: 4px;
+    padding-bottom: 5px;
 }
 button:hover{
     background-color: #9fcfff;
 }
-select{
-    width: 100px;
-    height: 25px;
 
-}
 #footer{
     margin-top: -10px;
 }
 .error2{
     color: red;
     font-size: 15px;
+    height: 5px;
     position: relative;
-    left: 35px;
+    left: 70px;
+    top: 40px;
     margin-bottom: -10px;
 
 }
@@ -129,9 +148,12 @@ select{
     color: red;
     font-size: 13px;
     position: relative;
-    left: 40px;
-    top: 330px;
-    height: 20px;
-
+    left: 60px;
+    top: 342px;
+    height: 5px;
+}
+.resumeFile{
+    border: none;
 
 }
+

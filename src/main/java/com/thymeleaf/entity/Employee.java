@@ -10,13 +10,14 @@ import java.util.Date;
 import javax.persistence.*;
 
 public class Employee {
-    public Employee(Integer employee_id, String employee_name, String sex, LocalDate birth_date, String address, String department, String job_title, String employment_status, LocalDate hire_date, Date create_date, Date update_date, Integer empInsuranceNumber, Integer pensionNumber, String positionRank) {
+    public Employee(Integer employee_id, String employee_name, String sex, LocalDate birth_date, String address, Integer department, Integer positionRank, String job_title, String employment_status, LocalDate hire_date, Date create_date, Date update_date, Integer empInsuranceNumber, Integer pensionNumber, String resume) {
         this.employee_id = employee_id;
         this.employee_name = employee_name;
         this.sex = sex;
         this.birth_date = birth_date;
         this.address = address;
         this.department = department;
+        this.positionRank = positionRank;
         this.job_title = job_title;
         this.employment_status = employment_status;
         this.hire_date = hire_date;
@@ -24,7 +25,7 @@ public class Employee {
         this.update_date = update_date;
         this.empInsuranceNumber = empInsuranceNumber;
         this.pensionNumber = pensionNumber;
-        this.positionRank = positionRank;
+        this.resume = resume;
     }
 
     @NotNull(message = "社員番号を入力してください！")
@@ -42,7 +43,27 @@ public class Employee {
         this.birth_date = birth_date;
     }
     private String address;
-    private String department;
+
+private Integer department;
+
+    public Integer getDepartment() {
+        return department;
+    }
+
+    public void setDepartment(Integer department) {
+        this.department = department;
+    }
+
+private Integer positionRank;
+
+    public Integer getPositionRank() {
+        return positionRank;
+    }
+
+    public void setPositionRank(Integer positionRank) {
+        this.positionRank = positionRank;
+    }
+
     private String job_title;
     private String employment_status;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
@@ -51,14 +72,22 @@ public class Employee {
     private Date update_date;
     private Integer empInsuranceNumber;
     private Integer pensionNumber;
-    private String positionRank;
+
+
+    private String resume;
+
+    public String getResume() {
+        return resume;
+    }
+
+    public void setResume(String resume) {
+        this.resume = resume;
+    }
 
     public Integer getEmpInsuranceNumber() {
         return empInsuranceNumber;
     }
-    public void setPositionRank(String positionRank) {
-        this.positionRank = positionRank;
-    }
+
 
     public void setEmpInsuranceNumber(Integer empInsuranceNumber) {
         this.empInsuranceNumber = empInsuranceNumber;
@@ -72,9 +101,7 @@ public class Employee {
         this.pensionNumber = pensionNumber;
     }
 
-    public String getPositionRank() {
-        return positionRank;
-    }
+
 
 
     public Employee() {
@@ -110,12 +137,8 @@ public class Employee {
     public void setAddress(String address) {
         this.address = address;
     }
-    public String getDepartment() {
-        return department;
-    }
-    public void setDepartment(String department) {
-        this.department = department;
-    }
+
+
     public String getJob_title() {
         return job_title;
     }

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+<html lang="ch" xmlns:th="http://www.thymeleaf.org">
 	<head>
 		<title>添加员工信息</title>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -27,7 +27,6 @@
 							<div class="error1" th:if="${#fields.hasErrors('employee_id')}" th:errors="*{employee_id}">							
 							</div>
 							<tr class="r1">
-								
 								<td valign="middle" align="right">
 								社員番号:
 								</td>
@@ -37,7 +36,6 @@
 								</td>
 							</tr>
 							<div  class="error2" th:if="${#fields.hasErrors('employee_name')}" th:errors="*{employee_name}">
-							
 							</div>
 							<tr class="r2">
 								
@@ -74,9 +72,11 @@
 									部署名:
 								</td>
 								<td>
-									<select th:field="*{department}"  id="option1">
-										<option value="システム1部">システム1部</option>
-										<option value="システム2部">システム2部</option>
+									<select name="department">
+										<option value="">请选择</option>
+										<option th:each="d:${departments}" th:value="${d.id}" th:text="${d.department}"
+												th:selected="${d.id==employee.department}"
+										></option>
 									</select>
 								</td>
 
@@ -139,30 +139,25 @@
 									職位ランク:
 								</td>
 								<td>
-									<select th:field="*{positionRank}"  id="option2">
-										<option value="P1">P1</option>
-										<option value="P2">P2</option>
-										<option value="P3">P3</option>
-										<option value="S1">S1</option>
-										<option value="S2">S2</option>
-										<option value="S3">S3</option>
-										<option value="PL1">PL1</option>
-										<option value="PL2">PL2</option>
-										<option value="PM">PM</option>
+									<select name="positionRank">
+										<option value="">请选择</option>
+										<option th:each="p:${positionRanks}" th:value="${p.id}" th:text="${p.positionRank}"
+										th:selected="${p.id==employee.positionRank}"></option>
 									</select>
-									<button>上传</button>
-									<input type="file" style="display:none;"/>
-									<script>
-										document.querySelector("button").addEventListener('click',()=>{
-											document.querySelector("input[type='file']").click()
-										})
-									</script>
-
+								</td>
+							</tr>
+							<tr class="r13">
+								<td class="resume">
+									履歴書：
+								</td>
+								<td>
+									<input type="file"  name="resumeFile" class="resumeFile" accept=".xls,.doc,.pdf"/>
 								</td>
 							</tr>
 						</table>
 							<button class="button2" type="submit" >登録</button>
 					</form>
+
 					<button class="button" onclick="refresh()">戻る</button>
 				</div>
 			</div>

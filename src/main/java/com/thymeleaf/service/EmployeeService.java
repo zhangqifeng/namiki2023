@@ -1,13 +1,18 @@
 package com.thymeleaf.service;
 
+import com.thymeleaf.dto.EmployeeDepartmentDto;
+import com.thymeleaf.entity.Department;
 import com.thymeleaf.entity.Employee;
+import com.thymeleaf.entity.PositionRank;
 
 import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
 public interface EmployeeService {
-    List<Employee>lists();
+    List<Department>findDepartments();
+    List<PositionRank>findPositionRank();
+    List<EmployeeDepartmentDto>getEmployeesWithDepartments();
 
 
     void save(Employee employee);
@@ -18,7 +23,7 @@ public interface EmployeeService {
 
     void delete(Integer employee_Id);
 
-    List<Employee> search(Integer employee_id, String employeeName, String department, String address);
+   List<EmployeeDepartmentDto> search(Integer employee_id, String employeeName, String department, String address);
 
     boolean isEmployeeValid(Integer employee_Id);
     boolean isBirthDateValid(LocalDate birth_date);

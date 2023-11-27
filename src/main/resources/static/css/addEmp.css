@@ -31,8 +31,9 @@ body
     justify-content: space-between;
     width: 600px;
     height: 600px;
+    padding-top: 20px;
     position: relative;
-    bottom: 10px;
+    bottom: 15px;
     margin-bottom: 50px;
     background-color: rgb(255, 255, 255);
     border-radius: 5%;
@@ -44,7 +45,7 @@ form{
     justify-content: space-between;
     height: 550px;
     position: relative;
-    bottom: 10px;
+    bottom: 40px;
 }
 .form_table{
     display: flex;
@@ -54,7 +55,6 @@ form{
 }
 .r1,.r2,.r3,.r4,.r5,.r6,.r7,.r8,.r9,.r10,.r11,.r12{
 height: 40px;
-
 }
 .error,.error2,.error1{
     flex: 1;
@@ -80,9 +80,10 @@ input{
     font-family: Georgia, "游明朝", "Yu Mincho", "游明朝体", YuMincho, "ヒラギノ明朝 Pro", "Hiragino Mincho ProN", "MS P明朝", "MS PMincho", HGS明朝E, "MS Mincho", serif;
     margin-right: 180px;
     margin-left: 200px;
-
     padding-right: 20px;
     height: 30px;
+    position: relative;
+    bottom: 30px;
 }
 td{
     padding-right: 10px;
@@ -91,8 +92,8 @@ td{
     width: 80px;
     height: 30px;
    position: relative;
-   left: 50px;
-  bottom: 20px;
+   left: 75px;
+    top: 5px;
     border: none;
     background-color: #409EFF;
     color: white;
@@ -103,11 +104,11 @@ td{
 .button{
     width: 80px;
     height: 30px;
-    padding-top: 4px;
+    padding-top: 5px;
     padding-bottom: 5px;
     position: relative;
     left: 50px;
-    bottom: 58px;
+    bottom: 64px;
     border: none;
     background-color: #409EFF;
     color: white;
@@ -127,7 +128,7 @@ select{
 
 .error1{
     margin-left: 100px;
-    margin-bottom: 15px;
+    margin-bottom: 5px;
 height: 5px;
     font-size: 12px;
     color: red;
@@ -152,12 +153,22 @@ height: 5px;
     color: red;
     font-size: 13px;
     position: relative;
-    left: 40px;
-    top: 330px;
-    height: 20px;
+    left: 50px;
+    top: 320px;
+    height: 5px;
+
 
 
 }
+.resume{
+    position: relative;
+    left: 47px;
+}
+.resumeFile{
+    border: none;
+}
+
+
 
 #footer{
     margin-top: -30px;

@@ -3,28 +3,24 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.thymeleaf.dao.EmployeeDao">
-    <select id="lists"  parameterType="map" resultType="Employee">
-        SELECT * FROM `employee`
+    <resultMap id="employeeDepartmentResultMap" type="com.thymeleaf.dto.EmployeeDepartmentDto">
+        <result property="employee_id" column="employee_id" />
+        <result property="employee_name" column="employee_name" />
+        <result property="address" column="address" />
+        <result property="sex" column="sex" />
+        <result property="department_name" column="department_name" />
+    </resultMap>
+    <select id="getEmployeesWithDepartments" resultMap="employeeDepartmentResultMap">
+        SELECT e.employee_id, e.employee_name, e.address,
+               e.sex, d.department as department_name
+        FROM employee e
+                 left JOIN department d ON e.department = d.id
     </select>
-
-    <insert id="save" parameterType="Employee">
-        insert into `employee`(employee_id,employee_name,sex,address,department,job_title,employment_status,hire_date,birth_date)
-        values(#{employee_id},#{employee_name},#{sex},#{address},#{department},#{job_title},#{employment_status},#{hire_date},#{birth_date})
-    </insert>
-    <select id="findById" parameterType="Integer" resultType="Employee">
-        select * from `employee` where employee_id=#{employee_id}
-    </select>
-    <update id="update" parameterType="map">
-        update `employee` set employee_name=#{employee_name},sex=#{sex},address=#{address},department=#{department},
-                              job_title=#{job_title},employment_status=#{employment_status},hire_date=#{hire_date},
-                              birth_date=#{birth_date}
-        where employee_id=#{employee_id}
-    </update>
-    <delete id="delete" parameterType="Integer">
-        delete from `employee` where employee_id=#{employee_id}
-    </delete>
-    <select id="search" parameterType="map" resultType="Employee">
-        SELECT * FROM `employee`
+    <select id="search" parameterType="map" resultMap="employeeDepartmentResultMap">
+        SELECT e.employee_id, e.employee_name, e.address,
+        e.sex, d.department as department_name
+        FROM employee e
+        left JOIN department d ON e.department = d.id
         <where>
             <if test="employee_id!=null and employee_id!='' ">
                 AND employee_id=#{employee_id}
@@ -33,11 +29,28 @@
                 AND employee_name LIKE concat('%',#{employee_name},'%')
             </if>
             <if test="department!=null and department!='' ">
-                AND department LIKE concat('%',#{department},'%')
+                AND d.department LIKE concat('%',#{department},'%')
             </if>
-        <if test="address!=null and address!='' ">
-            AND address LIKE concat('%',#{address},'%')
-        </if>
+            <if test="address!=null and address!='' ">
+                AND address LIKE concat('%',#{address},'%')
+            </if>
         </where>
     </select>
+    <insert id="save" parameterType="Employee">
+        insert into `employee`(employee_id,employee_name,sex,address,department,job_title,employment_status,hire_date,birth_date,empInsuranceNumber,pensionNumber,positionRank,resume)
+        values(#{employee_id},#{employee_name},#{sex},#{address},#{department},#{job_title},#{employment_status},#{hire_date},#{birth_date},#{empInsuranceNumber},#{pensionNumber},#{positionRank},#{resume})
+    </insert>
+    <select id="findById" parameterType="Integer" resultType="Employee">
+        select * from employee where employee_id=#{employee_id}
+    </select>
+    <update id="update" parameterType="map">
+        update `employee` set employee_name=#{employee_name},sex=#{sex},address=#{address},department=#{department},
+                              job_title=#{job_title},employment_status=#{employment_status},hire_date=#{hire_date},
+                              birth_date=#{birth_date},empInsuranceNumber=#{empInsuranceNumber},pensionNumber=#{pensionNumber},positionRank=#{positionRank},resume=#{resume}
+        where employee_id=#{employee_id}
+    </update>
+    <delete id="delete" parameterType="Integer">
+        delete from `employee` where employee_id=#{employee_id}
+    </delete>
+
 </mapper>

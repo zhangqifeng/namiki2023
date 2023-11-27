@@ -1,8 +1,7 @@
 package com.thymeleaf.config;
 
 import org.springframework.context.annotation.Configuration;
-import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import org.springframework.web.servlet.config.annotation.*;
 
 @Configuration
 public class MvcConfig implements WebMvcConfigurer {
@@ -13,7 +12,6 @@ public class MvcConfig implements WebMvcConfigurer {
        registry.addViewController("addEmp").setViewName("addEmp");
        registry.addViewController("emplist").setViewName("emplist");
        registry.addViewController("updateEmp").setViewName("updateEmp");
-
-
     }
+
 }

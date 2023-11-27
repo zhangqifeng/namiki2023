@@ -40,7 +40,6 @@ public class UserController {
                         BindingResult rs, Model model, RedirectAttributes ra) {
         log.debug("本地登录姓名:{}", user.getUser_name());
         log.debug("本地登录密码:{}", user.getPassword());
-
         String user_name = user.getUser_name();
         String password = user.getPassword();
         //表单校验和用户名与密码的校验。
@@ -85,9 +84,7 @@ public String registerForm(Model model){
                 ra.addFlashAttribute("msg","成功に登録しました!");
                 return  "redirect:/user/loging";
             }
-
     }
-
 
     @RequestMapping("generateImageCode")
     public void generateImageCode(HttpSession session, HttpServletResponse response) throws IOException {

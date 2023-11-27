@@ -18,13 +18,14 @@
 			<h1 class="header2">
 				社員情報の更新
 			</h1>
-			<form th:action="@{/employee/update}" method="post"  th:object="${employee}">
-				<table class="form_table">
+			<form th:action="@{/employee/update}" method="post"  th:object="${employee}" enctype="multipart/form-data">
+
+				<table  class="form_table">
 					<tr class="r1">
-						<td>
+						<td  valign="middle" align="right">
 							社員番号:
 						</td>
-						<td>
+						<td  valign="middle" align="right">
 							<span th:text="${employee.employee_id}"></span>
 							<input type="hidden" name="employee_id" th:field="*{employee_id}">
 						</td>
@@ -32,26 +33,26 @@
 					<span  class="error2" th:if="${#fields.hasErrors('employee_name')}" th:errors="*{employee_name}">
 						</span>
 					<tr class="r2">
-						<td>
+						<td  valign="middle" align="right">
 							社員名:
 						</td>
-						<td>
+						<td  valign="middle" align="right">
 							<input type="text" class="inputgri" name="employee_name" th:field="*{employee_name}"/>
 						</td>
 					</tr>
 					<tr class="r3">
-						<td>
+						<td  valign="middle" align="right">
 							役職名:
 						</td>
-						<td>
+						<td  valign="middle" align="right">
 							<input type="text" class="inputgri" name="job_title" th:field="*{job_title}"/>
 						</td>
 					</tr>
 					<tr class="r4">
-						<td>
+						<td  valign="middle" align="right">
 							性別:
 						</td>
-						<td>
+						<td  valign="middle" align="right">
 							<input type="radio" name="sex" value="男" th:checked="${employee.sex=='男'}"/>
 							男
 							<input type="radio" name="sex" value="女" th:checked="${employee.sex=='女'}"/>
@@ -59,69 +60,104 @@
 						</td>
 					</tr>
 					<tr class="r5">
-						<td>
+						<td  valign="middle" align="right">
 							部署名:
 						</td>
-						<td>
-							<select th:field="*{department}" name="department" id="option1" >
-								<option value="システム1部">システム1部</option>
-								<option value="システム2部">システム2部</option>
+						<td  valign="middle" align="right">
+							<select name="department" >
+								<option value="">请选择</option>
+								<option th:each="d:${departments}" th:value="${d.id}" th:text="${d.department}"
+										th:selected="${d.id==employee.department}"
+								></option>
 							</select>
-							<script>
-								function readOption(){
-									var selected=document.getElementById("option1");
-									alert(selected.options[selected.selectedIndex].value)
-								}
-							</script>
 						</td>
 
 					</tr>
 					<tr class="r6">
-						<td>
+						<td  valign="middle" align="right">
 							住所:
 						</td>
-						<td>
+						<td  valign="middle" align="right">
 							<input type="text" class="inputgri" name="address" th:field="*{address}"/>
 						</td>
 					</tr>
 					<tr class="r7">
-						<td>
+						<td  valign="middle" align="right">
 							雇用形態:
 						</td>
-						<td>
+						<td  valign="middle" align="right">
 							<select th:field="*{employment_status}" name="employment_status" id="option">
 								<option value="正社員">正社員</option>
 								<option value="契約社員">契約社員</option>
 							</select>
-							<script>
-								function readOption(){
-									var selected=document.getElementById("option");
-									alert(selected.options[selected.selectedIndex].value)
-
-								}
-							</script>
 						</td>
 					</tr>
 					<tr class="r8">
-						<td >
+						<td  valign="middle" align="right">
 							入社年月日:
 						</td>
-						<td>
+						<td  valign="middle" align="right">
 							<input type="date" class="inputgri" name="hire_date" th:field="*{hire_date}"/>
 						</td>
 					</tr>
 					<span th:if="${errorMsg}" class="errorMsg" th:text="${errorMsg}" >
 							</span>
 					<tr class="r9">
-						<td>
+						<td  valign="middle" align="right">
 							誕生日:
 						</td>
-						<td>
+						<td  valign="middle" align="right">
 							<input type="date" class="inputgri" th:field="*{birth_date}" />
 						</td>
 					</tr>
+					<tr class="r10">
+						<td valign="middle" align="right">
+							雇用保険番号:
+						</td>
+						<td valign="middle" align="left">
+							<input type="text" class="inputgri" th:field="*{empInsuranceNumber}" />
+						</td>
+					</tr>
+					<tr class="r11">
+						<td valign="middle" align="right">
+							年金番号:
+						</td>
+						<td valign="middle" align="left">
+							<input type="text" class="inputgri" th:field="*{pensionNumber}" />
+						</td>
+					</tr>
+					<tr class="r12">
+						<td valign="middle" align="right">
+							職位ランク:
+						</td>
+						<td>
+							<select name="positionRank">
+								<option value="">请选择</option>
+								<option th:each="p:${positionRanks}" th:value="${p.id}" th:text="${p.positionRank}"
+								th:selected="${p.id==employee.positionRank}"></option>
+							</select>
+					</td>
+						</tr>
+						<tr class="r13">
+							<td class="resume"  valign="middle" align="right">
+								履歴書：
+								<span th:if="*{resume!=null}">
+									<input th:field="*{resume}" style="display: none">
+								<a th:href="@{/employee/download(resume=${employee.resume})}" th:download= "${employee.resume}"
+								   th:text="*{employee_name+'履歴書'}">
+							</a>
+							</span>
+								<span th:if="*{resume==null}" th:text="なし"></span>
+							</td >
+							<td  valign="middle" align="right">
+								<input class="resumeFile" type="file"  name="resumeFile" accept=".xls,.doc,.pdf"/>
+							</td>
+						</tr>
+
 				</table>
+
 					<button class="button1" type="submit">更新</button>
+
 			</form>
 			<button class="button2" href="javascript:;" th:onclick="'deleteEmployee('+${employee.employee_id}+')'">
 				削除
@@ -137,19 +173,9 @@
 </div>
 </body>
 <script>
-	function readRadio(){
-		var obj=document.getElementById("sex")
-		for (var i=0;i<obj.length;i++){
-			if(obj[i].checked){
-				alert(obj[i].value);
-				break;
-			}
-		}
-
-	}
-
 	function deleteEmployee(employee_id){
-		if (window.confirm('确定要删除这条记录吗？')){
+		console.log(employee_id);
+		if (window.confirm("この社員を削除しても良いですか？")){
 			location.href='[[@{/employee/delete?employee_id=}]]'+employee_id;
 		}
 	}
