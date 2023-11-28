@@ -55,6 +55,11 @@ public class EmployeeController {
     @RequestMapping("delete")
     public String delete(Integer employee_id,RedirectAttributes ra){
         log.debug("删除的员工id:{}",employee_id);
+        String oldResume = employeeService.findById(employee_id).getResume();
+        if (oldResume != null) {
+            File file = new File(realPath, oldResume);
+            file.delete();
+        }
         employeeService.delete(employee_id);
         ra.addFlashAttribute("msg1","削除成功しました!");
         return "redirect:/employee/lists";
@@ -121,8 +126,7 @@ public void download( String resume, HttpServletResponse response) throws IOExce
 
     //提交新增员工的表单，若新增成功则跳转到员工列表页面。
     @RequestMapping ("save")
-    public String save(@ModelAttribute("employee")@Valid Employee employee,
-                       Department departments,BindingResult bindingResult, Model model, RedirectAttributes ra, MultipartFile resumeFile) throws IOException {
+    public String save(@ModelAttribute("employee")@Valid Employee employee,BindingResult bindingResult, Model model, RedirectAttributes ra, MultipartFile resumeFile) throws IOException {
         log.debug("社員番号:{},社員名:{},役職名:{},性別:{},部署名:{},住所:{},雇用形態:{},入社年月日:{},誕生日:{}",
                 employee.getEmployee_id(),employee.getEmployee_name(),employee.getJob_title()
         ,employee.getSex(),employee.getDepartment(),employee.getAddress(),employee.getEmployment_status(),employee.getHire_date(),employee.getBirth_date());
@@ -130,7 +134,6 @@ public void download( String resume, HttpServletResponse response) throws IOExce
         log.debug("履历名称：{}",originalFilename);
         log.debug("履历大小：{}",resumeFile.getSize());
         log.debug("上传的路径:{}",realPath);
-        Integer department_id=departments.getId();
         //先判断用户输入是否为空，再判断新增的员工ID是否重复。
         if (bindingResult.hasErrors()) {
             return "addEmp";
@@ -153,7 +156,6 @@ public void download( String resume, HttpServletResponse response) throws IOExce
             return "redirect:/employee/lists";
         }
     }
-
     private String getNewFileName(MultipartFile resumeFile, String originalFilename) throws IOException {
         String fileNamePrefix = new SimpleDateFormat("yyyyMMddHHmmssSSS").format(new Date());
         String fileNameSuffix = originalFilename.substring(originalFilename.lastIndexOf("."));
