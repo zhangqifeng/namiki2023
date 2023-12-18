@@ -21,8 +21,14 @@ public class Employee {
 
     private String sex;
 
+    /**
+     * 生年月日
+     */
     private Date birth_date;
 
+    /**
+     * 住所
+     */
     private String address;
 
     private String department;

@@ -1,4 +1,4 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 	<title>更新员工信息</title>
@@ -18,36 +18,37 @@
 			<h1 class="header2">
 				社員情報の更新
 			</h1>
-			<form th:action="@{/employee/update}" method="post">
-				<table cellpadding="0" cellspacing="0" border="0"
-					   class="form_table">
+			<form th:action="@{/employee/update}" method="post"  th:object="${employee}">
+				<table class="form_table">
 					<tr class="r1">
-						<td valign="middle" align="right">
+						<td>
 							社員番号:
 						</td>
-						<td valign="middle" align="left">
+						<td>
 							<span th:text="${employee.employee_id}"></span>
-							<input type="hidden" name="employee_id" th:value="${employee.employee_id}">
+							<input type="hidden" name="employee_id" th:field="*{employee_id}">
 						</td>
 					</tr>
+					<span  class="error2" th:if="${#fields.hasErrors('employee_name')}" th:errors="*{employee_name}">
+						</span>
 					<tr class="r2">
-						<td valign="middle" align="right">
+						<td>
 							社員名:
 						</td>
-						<td valign="middle" align="left">
-							<input type="text" class="inputgri" name="employee_name" th:value="${employee.employee_name}"/>
+						<td>
+							<input type="text" class="inputgri" name="employee_name" th:field="*{employee_name}"/>
 						</td>
 					</tr>
 					<tr class="r3">
-						<td valign="middle" align="right">
+						<td>
 							役職名:
 						</td>
-						<td valign="middle" align="left">
-							<input type="text" class="inputgri" name="job_title" th:value="${employee.job_title}"/>
+						<td>
+							<input type="text" class="inputgri" name="job_title" th:field="*{job_title}"/>
 						</td>
 					</tr>
 					<tr class="r4">
-						<td valign="middle" align="right">
+						<td>
 							性別:
 						</td>
 						<td>
@@ -59,11 +60,11 @@
 
 					</tr>
 					<tr class="r5">
-						<td valign="middle" align="right">
+						<td>
 							部署名:
 						</td>
 						<td>
-							<select th:field="*{employee.department}" name="department" id="option1" >
+							<select th:field="*{department}" name="department" id="option1" >
 								<option value="システム1部">システム1部</option>
 								<option value="システム2部">システム2部</option>
 							</select>
@@ -77,19 +78,19 @@
 
 					</tr>
 					<tr class="r6">
-						<td valign="middle" align="right">
+						<td>
 							住所:
 						</td>
-						<td valign="middle" align="left">
-							<input type="text" class="inputgri" name="address" th:value="${employee.address}"/>
+						<td>
+							<input type="text" class="inputgri" name="address" th:field="*{address}"/>
 						</td>
 					</tr>
 					<tr class="r7">
-						<td valign="middle" align="right">
+						<td>
 							雇用形態:
 						</td>
 						<td>
-							<select th:field="*{employee.employment_status}" name="employment_status" id="option">
+							<select th:field="*{employment_status}" name="employment_status" id="option">
 								<option value="正社員">正社員</option>
 								<option value="契約社員">契約社員</option>
 							</select>
@@ -103,22 +104,21 @@
 						</td>
 					</tr>
 					<tr class="r8">
-						<td valign="middle" align="right">
+						<td >
 							入社年月日:
 						</td>
-						<td valign="middle" align="left">
-							<input type="text" class="inputgri" name="hire_date" th:value="${#temporals.format(employee.hire_date,'yyyy-MM-dd')}"/>
+						<td>
+							<input type="date" class="inputgri" name="hire_date" th:field="*{hire_date}"/>
 						</td>
+
 					</tr>
 				</table>
-				<p class="button">
 					<button class="button1" type="submit">更新</button>
-					<button class="button2" href="javascript:;" th:onclick="'deleteEmployee('+${employee.employee_id}+')'">
-						删除
-					</button>
-					<button class="button3">返回列表</button>
-				</p>
 			</form>
+			<button class="button2" href="javascript:;" th:onclick="'deleteEmployee('+${employee.employee_id}+')'">
+				削除
+			</button>
+			<button class="button3" onclick="refresh()">戻る</button>
 		</div>
 	</div>
 	<div id="footer">
@@ -144,6 +144,9 @@
 		if (window.confirm('确定要删除这条记录吗？')){
 			location.href='[[@{/employee/delete?employee_id=}]]'+employee_id;
 		}
+	}
+	function refresh(){
+		location.href='[[@{/employee/lists}]]';
 	}
 </script>
 </html>

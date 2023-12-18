@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -26,60 +27,71 @@ public class UserController {
         this.userService = userService;
     }
 
-//用户退出并清除账号，返回登录界面。
-    @RequestMapping("logout")
-    public String logout(HttpSession session) {
-        session.invalidate();
-        return "redirect:/user/loging";
-    }
-//登录界面，初始化登录表单。
+    //登录界面，初始化登录表单。
     @RequestMapping("loging")
     public String loginForm(Model model) {
         model.addAttribute("user", new User());
         return "login";
     }
-//提交登录请求，若成功则跳转到员工列表页面。
+
+    //提交登录请求，若成功则跳转到员工列表页面。
     @RequestMapping("login")
     public String login(@ModelAttribute("user") @Valid User user,
-                        BindingResult rs, Model model) {
+                        BindingResult rs, Model model, RedirectAttributes ra) {
         log.debug("本地登录姓名:{}", user.getUser_name());
         log.debug("本地登录密码:{}", user.getPassword());
 
         String user_name = user.getUser_name();
         String password = user.getPassword();
         //表单校验和用户名与密码的校验。
-        if (rs.hasErrors()){
+        if (rs.hasErrors()) {
             return "login";
-        }else if (!userService.isUserValid(user_name, password)) {
+        } else if (!userService.isUserValid(user_name, password)) {
             model.addAttribute("errorMsg", "ユーザまたはパスワードが違います");
             return "login";
         } else {
+          ra.addFlashAttribute("msg4","ログイン成功しました!");
             return "redirect:/employee/lists";
         }
     }
 
+@RequestMapping("registering")
+public String registerForm(Model model){
+        model.addAttribute("user",new User());
+        return "regist";
+}
+
     @RequestMapping ("register")
-    public String register(User user, String code,HttpSession session){
+    public String register(@ModelAttribute("user") @Valid User user,BindingResult rs, Model model,String code,HttpSession session,
+                           RedirectAttributes ra){
         log.debug("用户名: {},密码: {},",user.getUser_name(),user.getPassword());
         log.debug("用户输入验证码: {}",code);
-        try {
+        String user_name=user.getUser_name();
             //1.判断用户输入验证码和session中验证码是否一致
             String sessionCode = session.getAttribute( "code").toString();
-            if(!sessionCode.equalsIgnoreCase(code))throw new RuntimeException("验证码输入错误!");
-            //2.注册用户
-            userService.register(user);
-        } catch (RuntimeException e) {
-            e.printStackTrace();
-            return "redirect:/register"; //注册失败回到注册
-        }
-        return  "redirect:/login";  //注册成功跳转到登录
+            if (rs.hasErrors()){
+                return "regist";
+            }else if (!sessionCode.equalsIgnoreCase(code)){
+                model.addAttribute("errorMsg1","確認コードが違います");
+                return "regist";
+            }else if (userService.isUserExisted(user_name)){
+                model.addAttribute("errorMsg2","このユーザは既に登録された");
+                return "regist";
+            }else {
+                userService.register(user);
+                ra.addFlashAttribute("msg","成功に登録しました!");
+                return  "redirect:/user/loging";
+            }
+
     }
+
+
     @RequestMapping("generateImageCode")
     public void generateImageCode(HttpSession session, HttpServletResponse response) throws IOException {
         String code= VerifyCodeUtils.generateVerifyCode(4);
         session.setAttribute("code",code);
         response.setContentType("image/png");
         ServletOutputStream os=response.getOutputStream();
-        VerifyCodeUtils.outputImage(220,60,os,code);
+        VerifyCodeUtils.outputImage(100,40,os,code);
     }
 }

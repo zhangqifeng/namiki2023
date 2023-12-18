@@ -1,4 +1,4 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html lang="ch" xmlns:th="http://www.thymeleaf.org">
 	<head>
 		<title>添加员工信息</title>
@@ -22,12 +22,11 @@
 					<form th:action="@{/employee/save}" method="post" th:object="${employee}"  >
 						<table cellpadding="0" cellspacing="0" border="0"
 							class="form_table">
-							<span th:if="${errorMsg}" class="error" th:text="${errorMsg}" >
-							この社員番号が既に登録されています
-							</span>
-							<span class="error1" th:if="${#fields.hasErrors('employee_id')}" th:errors="*{employee_id}">
-							
-							</span>
+							<div th:if="${errorMsg}" class="error" th:text="${errorMsg}" >
+						
+							</div>
+							<div class="error1" th:if="${#fields.hasErrors('employee_id')}" th:errors="*{employee_id}">							
+							</div>
 							<tr class="r1">
 								
 								<td valign="middle" align="right">
@@ -38,9 +37,9 @@
 									
 								</td>
 							</tr>
-							<span  class="error2" th:if="${#fields.hasErrors('employee_name')}" th:errors="*{employee_name}">
-								
-						</span>
+							<div  class="error2" th:if="${#fields.hasErrors('employee_name')}" th:errors="*{employee_name}">
+							
+							</div>
 							<tr class="r2">
 								
 								<td valign="middle" align="right">
@@ -131,7 +130,7 @@
 									入社年月日:
 								</td>
 								<td valign="middle" align="left">
-									<input type="text" class="inputgri" th:field="*{hire_date}" />
+									<input type="date" class="inputgri" th:field="*{hire_date}" />
 								</td>
 							</tr>
 						</table>

@@ -1,7 +1,6 @@
 package com.thymeleaf.dao;
 
 import com.thymeleaf.entity.User;
-import org.springframework.stereotype.Service;
 
 
 

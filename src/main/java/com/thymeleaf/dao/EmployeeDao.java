@@ -1,9 +1,10 @@
 package com.thymeleaf.dao;
 
-import com.thymeleaf.entity.Employee;
+import java.util.List;
+
 import org.apache.ibatis.annotations.Param;
 
-import java.util.List;
+import com.thymeleaf.entity.Employee;
 
 public interface EmployeeDao {
     List<Employee>lists();
@@ -16,7 +17,7 @@ public interface EmployeeDao {
 
     void delete(Integer employee_id);
 
-    List<Employee> search( @Param("employee_id") Integer employee_id,
+    List<Employee> search( @Param("employee_id") Integer employeeId,
                            @Param("employee_name") String employee_Name,
                            @Param("department") String department,
                            @Param("address") String address);

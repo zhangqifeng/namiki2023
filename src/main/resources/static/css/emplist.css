@@ -177,20 +177,23 @@ a{
     padding-top: 10px;
 }
 .button1{
-    margin-right: 30px;
+    margin-right: 220px;
+    position: relative;
+    top: 12px;
     border: none;
     background-color: #409EFF;
     color: white;
     border-radius: 5px;
-    width: 70px;
-    height: 25px;
+    width: 80px;
+    height: 26px;
     cursor: pointer;
     transition: background-color 0.3s
 }
 .button2{
     margin-top: -25px;
-    margin-bottom: 5px;
-    margin-left: 200px;
+    margin-left: 220px;
+    position: relative;
+    top: -15px;
     border: none;
     background-color: #409EFF;
     color: white;
@@ -203,12 +206,16 @@ a{
     transition: background-color 0.3s
 }
 .button3{
+    position: relative;
+    top: -13px;
     border: none;
     background-color: #409EFF;
     color: white;
     border-radius: 5px;
     width: 80px;
-    height: 25px;
+    height: 30px;
+   padding-top: 4px;
+   padding-bottom: 3px;
     cursor: pointer;
     transition: background-color 0.3s
 }
@@ -251,6 +258,10 @@ a{
     cursor: pointer;
     transition: background-color 0.3s
 
+}
+.msg{
+color: red;
+    font-size: 15px;
 }
 #footer{
     margin-top: -35px;
