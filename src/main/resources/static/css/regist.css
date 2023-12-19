@@ -204,6 +204,7 @@ button{
     top: 30px;
     font-size: 13px;
     color: red;
+<<<<<<< HEAD
 }
 .errorMsg3{
     position: relative;
@@ -211,4 +212,6 @@ button{
     top: 80px;
     font-size: 13px;
     color: red;
+=======
+>>>>>>> a3c84c173a29ca58163a12bbd59cf10875ea08cf
 }
