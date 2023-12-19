@@ -1,0 +1,125 @@
+body
+{
+    margin: 0;
+    padding: 0px 0px;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(226, 226, 226);
+
+}
+#wrap{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items:center;
+    width: 400px;
+
+
+}
+#top_content{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+#content{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    width: 600px;
+    height: 500px;
+    margin-bottom: 50px;
+    background-color: rgb(255, 255, 255);
+    border-radius: 5%;
+    box-shadow: -5px 5px 10px 0 ;
+}
+form{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 400px;
+}
+.form_table{
+    display: flex;
+    flex-direction: column;
+
+
+
+}
+input{
+    margin: 5px;
+    border: none;
+    border-bottom: 1px solid #000;
+    outline: none;
+
+}
+#header{
+    letter-spacing: 20px;
+    font-size: 20px;
+    font-family: "-apple-system", BlinkMacSystemFont, "Yu Gothic Medium", "游ゴシック Medium", YuGothic, "游ゴシック体", "Noto Sans Japanese", "ヒラギノ角ゴ Pro W3", "メイリオ", "Hiragino Kaku Gothic ProN", "MS PGothic", Osaka, "sans-serif";
+    padding-left: 150px;
+    width: 600px;
+    text-shadow: -4px 0 3px;
+    color: #232323;
+}
+.header2{
+    font-size: 25px;
+    font-family: Georgia, "游明朝", "Yu Mincho", "游明朝体", YuMincho, "ヒラギノ明朝 Pro", "Hiragino Mincho ProN", "MS P明朝", "MS PMincho", HGS明朝E, "MS Mincho", serif;
+    margin-right: 100px;
+    margin-left: 130px;
+    padding-top: 10px;
+    padding-right: 20px;
+    height: 30px;
+}
+td{
+    padding-right: 10px;
+}
+.r1,.r2,.r3,.r4,.r5,.r6,.r7,.r8{
+    height: 40px;
+}
+
+button{
+    width: 74px;
+    height: 30px;
+    border: none;
+    background-color: #409EFF;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s
+}
+.button1{
+  margin-top: -10px;
+}
+.button2{
+    margin-top: -30px;
+    margin-bottom: 20px;
+}
+.button3{
+    margin-left: 210px;
+    margin-top: -20px;
+    position: relative;
+    bottom: 30px;
+}
+button:hover{
+    background-color: #9fcfff;
+}
+select{
+    width: 100px;
+    height: 25px;
+
+}
+#footer{
+    margin-top: -20px;
+}
+.error2{
+    color: red;
+    font-size: 15px;
+    position: relative;
+    left: 35px;
+    margin-bottom: -10px;
+
+}

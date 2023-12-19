@@ -1,0 +1,207 @@
+body
+{
+    margin: 0;
+    padding: 0px 0px;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(226, 226, 226);
+
+}
+#wrap{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items:center;
+    width: 400px;
+    height: 500px;
+
+}
+#top_content{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#content{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 500px;
+    height: 300px;
+    margin-bottom: 50px;
+    background-color: rgb(255, 255, 255);
+    border-radius: 5%;
+    box-shadow: -5px 5px 10px 0 ;
+}
+form{
+    display: flex;
+    flex-direction: column;
+   
+}
+.form_table{
+    display: flex;
+    
+    width: 500px;
+    padding-top: 35px;
+    margin-bottom: 40px;
+    height: 150px;
+}
+td{
+    padding-bottom: 25px;   
+    padding-left: 30px;
+    letter-spacing: 3px;
+    font-size: 15px;
+}
+
+#header{
+    letter-spacing: 20px;
+    font-size: 25px;
+    font-family: "-apple-system", BlinkMacSystemFont, "Yu Gothic Medium", "游ゴシック Medium", YuGothic, "游ゴシック体", "Noto Sans Japanese", "ヒラギノ角ゴ Pro W3", "メイリオ", "Hiragino Kaku Gothic ProN", "MS PGothic", Osaka, "sans-serif";
+    margin-top: -50px;
+    padding-left: 45px;
+    width: 600px;
+    text-shadow: -4px 0 3px;
+    color: #232323;
+
+}
+#header2{
+    font-size: 20px;
+    height: 20px;
+    font-family: Georgia, "游明朝", "Yu Mincho", "游明朝体", YuMincho, "ヒラギノ明朝 Pro", "Hiragino Mincho ProN", "MS P明朝", "MS PMincho", HGS明朝E, "MS Mincho", serif;
+    margin-top: -15px;
+    color: rgb(68, 68, 68);
+
+
+
+
+}
+
+.inputgri{
+    border: none;
+    border-bottom: 1px solid #000;
+    outline: none;
+    background-color: rgb(255, 255, 255);
+    font-size: 15px;
+    color: #000;
+    width: 130px;
+    position: relative;
+    right:30px;
+}
+.button{
+    width: 120px;
+    height: 30px;
+    margin-bottom: -25px;
+    position: relative;
+    left: 140px;
+    top: 3px;
+    font-size: 15px;
+    border: none;
+    border-radius: 8px;
+    background-color: #409EFF;
+    color: rgb(255, 255, 255);
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+button{
+    width: 70px;
+    height: 30px;
+    position: relative;
+    left: 70px;
+    bottom: 5px;
+    font-size: 13px;
+    border: none;
+    color: #000;
+    border-bottom: 1px solid #000;
+    background-color: white;
+    padding-top: 10px;
+
+   
+}
+.button:hover {
+    background: linear-gradient(to right,#95caff, #95caff);
+}
+#footer_bg{
+    color:#5b5b5b;
+
+}
+.error1{
+    font-size: 13px;
+    color: red;
+    height: 5px;
+    position: relative;
+    top: 18px;
+    left: 150px;
+}
+.error2{
+    font-size: 13px;
+    color: red;
+    height: 5px;
+    position: relative;
+    top: 68px;
+  left: 152px;
+
+}
+.errorMsg{
+    color: red;
+    font-size: 14px;
+    margin-left: 10px;
+    position: relative;
+    top: 10px;
+    height: 5px;
+}
+#num{
+   
+    width: 100px;
+    height: 40px;
+}
+.row3{
+    position: relative;
+    left: 25px;
+}
+.code{
+    border-bottom: 1px solid #000;
+    border-radius: 5px;
+    outline: none;
+    background-color: rgb(255, 255, 255);
+    font-size: 15px;
+    color: #000;
+    width: 80px;
+    height: 8px;
+    margin-right:40px;
+    padding-top: 10px;
+    position: relative;
+    right: 20px;
+    top: 10px;
+
+}
+#header2{
+    position: relative;
+    top: 15px;
+}
+.errorMsg1{
+    color: red;
+    font-size: 13px;
+    position: relative;
+    left: 150px;
+    top: 125px;
+}
+.password{
+    position: relative;
+    left: 90px;
+
+}
+.user_name{
+    position: relative;
+    left: 100px;
+}
+.errorMsg2{
+    position: relative;
+    left: 150px;
+    top: 30px;
+    font-size: 13px;
+    color: red;
+}

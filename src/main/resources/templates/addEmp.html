@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="ch" xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<title>添加员工信息</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<link rel="stylesheet" type="text/css"
+			th:href="@{/css/addEmp.css}" />
+	</head>
+
+	<body>
+		<div id="wrap">
+			<div id="top_content">
+				<div id="header">
+					<h1 id="title">
+						社員管理システム
+					</h1>
+				</div>		
+				<div id="content">
+					<h1 class="header2">
+						新規登録
+					</h1>
+					<form th:action="@{/employee/save}" method="post" th:object="${employee}"  >
+						<table cellpadding="0" cellspacing="0" border="0"
+							class="form_table">
+							<div th:if="${errorMsg}" class="error" th:text="${errorMsg}" >
+						
+							</div>
+							<div class="error1" th:if="${#fields.hasErrors('employee_id')}" th:errors="*{employee_id}">							
+							</div>
+							<tr class="r1">
+								
+								<td valign="middle" align="right">
+								社員番号:
+								</td>
+								<td valign="middle" align="left">
+									<input type="text" class="inputgri" th:field="*{employee_id}" />
+									
+								</td>
+							</tr>
+							<div  class="error2" th:if="${#fields.hasErrors('employee_name')}" th:errors="*{employee_name}">
+							
+							</div>
+							<tr class="r2">
+								
+								<td valign="middle" align="right">
+									社員名:
+								</td>
+								<td valign="middle" align="left">
+									<input type="text" class="inputgri" th:field="*{employee_name}" />
+									
+								</td>
+							</tr>
+							<tr class="r3">
+								<td valign="middle" align="right">
+									役職名:
+								</td>
+								<td valign="middle" align="left">
+									<input type="text" class="inputgri" th:field="*{job_title}" />
+								</td>
+							</tr>
+							<tr class="r4">
+								<td valign="middle" align="right">
+									性別:
+								</td>
+								<td>
+									<input type="radio" name="sex" value="男" th:checked="${employee.sex=='男'}"/>
+									男
+									<input type="radio" name="sex" value="女" th:checked="${employee.sex=='女'}"/>
+									女
+								</td>
+								<script>
+									function readRadio(){
+										var obj=document.getElementById("sex")
+										for (var i=0;i<obj.length;i++){
+											if(obj[i].checked){
+												alert(obj[i].value);
+												break;
+											}
+										}
+
+									}
+								</script>
+								</tr>
+							<tr class="r5">
+								<td valign="middle" align="right">
+									部署名:
+								</td>
+								<td>
+									<select th:field="*{department}"  id="option1">
+										<option value="システム1部">システム1部</option>
+										<option value="システム2部">システム2部</option>
+									</select>
+									<script>
+										function readOption(){
+											var selected=document.getElementById("option1");
+											alert(selected.options[selected.selectedIndex].value)
+										}
+									</script>
+								</td>
+
+							</tr>
+							<tr class="r6">
+								<td valign="middle" align="right">
+									住所:
+								</td>
+								<td valign="middle" align="left">
+									<input type="text" class="inputgri" th:field="*{address}"/>
+								</td>
+							</tr>
+							<tr class="r7">
+								<td valign="middle" align="right">
+									雇用形態:
+								</td>
+								<td>
+									<select th:field="*{employment_status}"  id="option">
+										<option value="正社員">正社員</option>
+										<option value="契約社員">契約社員</option>
+									</select>
+									<script>
+										function readOption(){
+											var selected=document.getElementById("option");
+											alert(selected.options[selected.selectedIndex].value)
+
+										}
+									</script>
+								</td>
+							</tr>
+							<tr class="r8">
+								<td valign="middle" align="right">
+									入社年月日:
+								</td>
+								<td valign="middle" align="left">
+									<input type="date" class="inputgri" th:field="*{hire_date}" />
+								</td>
+							</tr>
+						</table>
+							<button class="button2" type="submit" >登録</button>
+					</form>
+					<button class="button" onclick="refresh()">戻る</button>
+				</div>
+			</div>
+			<div id="footer">
+					Namiki@163.com
+			</div>
+		</div>
+	</body>
+	<script>
+		function refresh(){
+			location.href='[[@{/employee/lists}]]';
+		}
+
+	</script>
+</html>
