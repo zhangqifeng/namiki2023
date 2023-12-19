@@ -1,12 +1,16 @@
 package com.thymeleaf.entity;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Past;
+import java.sql.Time;
+import java.time.LocalTime;
 import java.util.Date;
 
 public class Attendance {
-    public Attendance() {
-    }
-
-    public Attendance(Integer record_id, Integer employee_id, Date attendance_date, String status, Date start_date, Date end_date) {
+    public Attendance(Integer record_id, Integer employee_id, Date attendance_date, String status, LocalTime start_date, LocalTime end_date) {
         this.record_id = record_id;
         this.employee_id = employee_id;
         this.attendance_date = attendance_date;
@@ -15,12 +19,49 @@ public class Attendance {
         this.end_date = end_date;
     }
 
+    public Attendance() {
+    }
+
+
     private Integer record_id;
     private Integer employee_id;
+    @NotNull(message = "日付を選択してください")
+    @Past(message = "！！！")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date attendance_date;
+    @NotEmpty(message = "区分を選択してください")
     private String status;
-    private Date start_date;
-    private Date end_date;
+
+    public String getStatus() {
+        return status;
+    }
+
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    @DateTimeFormat(pattern = "HH:mm")
+    private LocalTime start_date;
+
+    @DateTimeFormat(pattern = "HH:mm")
+    private LocalTime end_date;
+
+    public LocalTime getStart_date() {
+        return start_date;
+    }
+
+    public void setStart_date(LocalTime start_date) {
+        this.start_date = start_date;
+    }
+
+    public LocalTime getEnd_date() {
+        return end_date;
+    }
+
+    public void setEnd_date(LocalTime end_date) {
+        this.end_date = end_date;
+    }
 
 
     public Integer getRecord_id() {
@@ -47,29 +88,9 @@ public class Attendance {
         this.attendance_date = attendance_date;
     }
 
-    public String getStatus() {
-        return status;
-    }
 
-    public void setStatus(String status) {
-        this.status = status;
-    }
 
-    public Date getStart_date() {
-        return start_date;
-    }
 
-    public void setStart_date(Date start_date) {
-        this.start_date = start_date;
-    }
-
-    public Date getEnd_date() {
-        return end_date;
-    }
-
-    public void setEnd_date(Date end_date) {
-        this.end_date = end_date;
-    }
 
 
 }

@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.persistence.criteria.CriteriaBuilder;
 import java.time.LocalDate;
 import java.time.Period;
 import java.util.List;
@@ -93,13 +92,18 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public List<Attendance> getAllAttendances() {
-        return employeeDao.getAllAttendances();
+    public List<Attendance> getAllAttendances(Integer employee_id) {
+        return employeeDao.getAllAttendances(employee_id);
     }
 
     @Override
     public List<Attendance> searchDate(Integer year, Integer month, Integer day) {
         return employeeDao.searchDate(year,month,day);
+    }
+
+    @Override
+    public void clock(Attendance attendance) {
+       employeeDao.clock(attendance);
     }
 
 

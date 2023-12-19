@@ -18,52 +18,72 @@
             <h1 class="header2">
                 打刻
             </h1>
-            <form th:action="@{/employee/save}" method="post" th:object="${employee}" enctype="multipart/form-data" >
+            <form th:action="@{/worker/clock}" method="post" th:object="${attendance}" enctype="multipart/form-data" >
                 <table cellpadding="0" cellspacing="0" border="0"
                        class="form_table">
-                    <div th:if="${errorMsg}" class="error" th:text="${errorMsg}" >
-                    </div>
-                    <div class="error1" th:if="${#fields.hasErrors('employee_id')}" th:errors="*{employee_id}">
+                    社員番号:
+                    <span th:text="${(#httpSession.getAttribute('employee_id'))}">
+                    </span>
+                    社員名:
+                    <span th:text="${(#httpSession.getAttribute('employee_name'))}">
+                    </span>
+                    <div class="error1" th:if="${#fields.hasErrors('attendance_date')}" th:errors="*{attendance_date}">
                     </div>
                     <tr class="r1">
                         <td valign="middle" align="right">
                             日付:
                         </td>
                         <td valign="middle" align="left">
-                            <input type="text" class="inputgri" th:field="*{employee_id}" />
-
+                            <input type="date" class="inputgri" th:field="*{attendance_date}" />
                         </td>
                     </tr>
-                    <div  class="error2" th:if="${#fields.hasErrors('employee_name')}" th:errors="*{employee_name}">
+                    <div class="error2" th:if="${#fields.hasErrors('status')}" th:errors="*{status}">
                     </div>
                     <tr class="r2">
-
                         <td valign="middle" align="right">
                             区分:
                         </td>
                         <td valign="middle" align="left">
-                            <input type="text" class="inputgri" th:field="*{employee_name}" />
+                            <select th:field="*{status}">
+                                <option value="">请选择</option>
+                                <option value="出勤">
+                                    出勤
+                                </option>
+                                <option value="欠勤">
+                                    欠勤
+                                </option>
+                                <option value="有給">
+                                    有給
+                                </option>
+                                <option value="代休">
+                                    代休
+                                </option>
+                            </select>
 
                         </td>
                     </tr>
-                    <tr class="r2">
+                    <div class="error3" th:if="${#fields.hasErrors('start_date')}" th:errors="*{start_date}">
+                    </div>
+                    <tr class="r3">
                         <td valign="middle" align="right">
                             出社:
                         </td>
                         <td valign="middle" align="left">
-                            <input type="password" class="inputgri" th:field="*{employee_password}" />
+                            <input type="time" class="inputgri" th:field="*{start_date}" />
 
                         </td>
                     </tr>
-                    <tr class="r3">
+                    <div class="error4" th:if="${#fields.hasErrors('end_date')}" th:errors="*{end_date}">
+                    </div>
+                    <tr class="r4">
                         <td valign="middle" align="right">
                             退社:
                         </td>
                         <td valign="middle" align="left">
-                            <input type="text" class="inputgri" th:field="*{job_title}" />
+                            <input type="time" class="inputgri" th:field="*{end_date}" />
                         </td>
                     </tr>
-                    <tr class="r4">
+                    <tr class="r5">
                         <td valign="middle" align="right">
                             合計作業時間:
                         </td>

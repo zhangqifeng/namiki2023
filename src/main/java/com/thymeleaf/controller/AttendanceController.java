@@ -2,7 +2,6 @@ package com.thymeleaf.controller;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import com.thymeleaf.dto.EmployeeDepartmentDto;
 import com.thymeleaf.entity.Attendance;
 import com.thymeleaf.entity.Employee;
 import com.thymeleaf.service.EmployeeService;
@@ -17,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.util.List;
 
@@ -35,12 +35,13 @@ public class AttendanceController {
         return "employeelogin";
     }
     @RequestMapping("login")
-    public String login(@ModelAttribute("employee") @Valid Employee employee, Model model, RedirectAttributes ra) {
+    public String login(@ModelAttribute("employee") Employee employee, Model model, RedirectAttributes ra, HttpSession session) {
         log.debug("本地登录姓名:{}", employee.getEmployee_id());
         log.debug("本地登录密码:{}", employee.getEmployee_password());
         Integer employee_id= employee.getEmployee_id();
         String employee_password = employee.getEmployee_password();
-        //表单校验和用户名与密码的校验。
+       String employee_name = employeeService.findById(employee_id).getEmployee_name();
+        //用户名与密码的校验。
         if (employee_id==null){
             model.addAttribute("error1","社員番号を入力してください");
             return "employeelogin";
@@ -54,17 +55,19 @@ public class AttendanceController {
             return "employeelogin";
         }
         ra.addFlashAttribute("msg4","ログイン成功しました!");
-        return "redirect:/employee/lists";
+        session.setAttribute("employee_id",employee_id);
+        session.setAttribute("employee_name",employee_name);
+        return "redirect:/worker/attendance?employee_id=" + employee_id;
     }
     @RequestMapping("attendance")
-    public String getAttendance(Model model, @RequestParam(defaultValue = "1",value = "pageNum")Integer pageNum)
+    public String getAttendance(Model model, @RequestParam(defaultValue = "1",value = "pageNum")Integer pageNum,@RequestParam Integer employee_id)
     {
         PageHelper.clearPage();
         PageHelper.startPage(pageNum,5);
-        List<Attendance>attendances=employeeService.getAllAttendances();
+        List<Attendance>attendances=employeeService.getAllAttendances(employee_id);
         PageInfo<Attendance> pageInfo = new PageInfo<>(attendances);
         model.addAttribute("pageInfo",pageInfo);
-        return "attendance"; //跳转到list.html
+        return "attendance";
     }
     @RequestMapping("search")
     public String searchDate(Integer year,
@@ -79,5 +82,22 @@ public class AttendanceController {
         model.addAttribute("pageInfo",pageInfo);
         return "attendance";
     }
+    @RequestMapping("clocking")
+    public String clockForm(Model model){
+        model.addAttribute("attendance",new Attendance());
+        return "clock";
+    }
+    @RequestMapping("clock")
+    public String clock(@ModelAttribute("attendance")@Valid Attendance attendance,HttpSession session,BindingResult bindingResult,RedirectAttributes ra,Model model){
+        log.debug("入社时间:{},退社时间:{}",attendance.getStart_date(),attendance.getEnd_date());
+if (bindingResult.hasErrors()){
+    return "clock";
+}
+Integer employee_id= (Integer) session.getAttribute("employee_id");
+attendance.setEmployee_id(employee_id);
+employeeService.clock(attendance);
+        return "redirect:/worker/attendance?employee_id=" + employee_id;
+    }
+
 
 }

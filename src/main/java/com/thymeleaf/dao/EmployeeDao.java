@@ -6,6 +6,7 @@ import com.thymeleaf.entity.Department;
 import com.thymeleaf.entity.Employee;
 import org.apache.ibatis.annotations.Param;
 
+import javax.persistence.criteria.CriteriaBuilder;
 import java.util.List;
 
 public interface EmployeeDao {
@@ -24,10 +25,12 @@ public interface EmployeeDao {
                            @Param("department") String department,
                            @Param("address") String address);
     List<EmployeeDepartmentDto>getEmployeesWithDepartments();
-    List<Attendance>getAllAttendances();
+    List<Attendance>getAllAttendances(Integer employee_id);
 
     List<Attendance> searchDate(
             @Param("year") Integer year,
             @Param("month") Integer month,
             @Param("day") Integer day);
+
+    void clock(Attendance attendance);
 }

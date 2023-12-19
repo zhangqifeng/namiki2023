@@ -18,10 +18,10 @@
                 <h1 class="header2">
                     勤怠情報一覧
                 </h1>
-                <a class="button10" th:href="@{/woker/loging}">ログアウト</a>
+                <a class="button10" th:href="@{/worker/loging}">ログアウト</a>
             </div>
 
-            <form th:action="@{/worker/search}" th:object="${attendance}" method="post" class="form">
+            <form th:action="@{/worker/search}" method="post" class="form">
 				<span class="msg" id="successMsg1" th:text="${msg1}">
 				</span>
                 <span class="msg" id="successMsg2" th:text="${msg2}"></span>
@@ -50,9 +50,11 @@
                 </script>
                 <div class="">
                     社員番号:
-                    <input type="text" th:text="${employee_id}">
+                    <span th:text="${(#httpSession.getAttribute('employee_id'))}">
+                    </span>
                     社員名:
-                    <input type="text" name="employee_name">
+                    <span th:text="${(#httpSession.getAttribute('employee_name'))}">
+                    </span>
                 </div>
              年:
                 <input type="number" id="yearInput" name="year" min="1900" max="2100">
@@ -63,7 +65,7 @@
                 <button class="button1" type="submit">検索</button>
             </form>
             <button class="button3" onclick="refresh()">リセット</button>
-            <button class="button2" onclick="addEmp()">打刻</button>
+            <button class="button2" onclick="clock()">打刻</button>
             <table class="table">
                 <tr class="table_header">
                     <td class="h1">
@@ -83,6 +85,7 @@
                     </td>
                 </tr>
                 <tr th:each="attendance:${pageInfo.list}" class="row1">
+                    <span style="display: none" th:text="${attendance.record_id}"></span>
                     <td class="r1">
                         <span th:text="${#dates.format(attendance.attendance_date,'yyyy-MM-dd')}"></span>
                     </td>
@@ -90,13 +93,13 @@
                         <span th:text="${attendance.status}"></span>
                     </td>
                     <td class="r3">
-                        <span th:text="${#dates.format(attendance.start_date,'HH:mm:ss')}"></span>
+                        <span th:text="${#temporals.format(attendance.start_date,'HH:mm')}"></span>
                     </td>
                     <td class="r4">
-                        <span th:text="${attendance.end_date}"></span>
+                        <span th:text="${#temporals.format(attendance.end_date,'HH:mm')}"></span>
                     </td>
                     <td class="r5">
-                        <a class="button11" th:href="@{/employee/detail(employee_id=${attendance.employee_id})}">详细</a>
+                        <a class="button11" th:href="@{/worker/clock(record_id=${attendance.record_id})}">详细</a>
                     </td>
                 </tr>
 
@@ -106,20 +109,20 @@
 
             <ul class="pagination">
                 <li class="top-page">
-                    <a class="button4" th:href="@{/employee/lists}">最初のページ</a>
+                    <a class="button4" th:href="@{/worker/attendance}">最初のページ</a>
                 </li>
                 <li class="prev">
-                    <a class="button5" th:href="@{/employee/lists(pageNum=${pageInfo.hasPreviousPage}?${pageInfo.prePage}:1)}">前へ</a>
+                    <a class="button5" th:href="@{/worker/attendance(pageNum=${pageInfo.hasPreviousPage}?${pageInfo.prePage}:1)}">前へ</a>
                 </li>
                 <li th:each="nav:${pageInfo.navigatepageNums}">
-                    <a class="button6" th:href="@{/employee/lists(pageNum=${nav})}" th:text="${nav}" th:if="${nav != pageInfo.pageNum}"></a>
+                    <a class="button6" th:href="@{/worker/attendance(pageNum=${nav})}" th:text="${nav}" th:if="${nav != pageInfo.pageNum}"></a>
                     <span class="button7" th:if="${nav == pageInfo.pageNum}" th:text="${nav}" ></span>
                 </li>
                 <li class="next">
-                    <a class="button8" th:href="@{/employee/lists(pageNum=${pageInfo.hasNextPage}?${pageInfo.nextPage}:${pageInfo.pages})}">次へ</a>
+                    <a class="button8" th:href="@{/worker/attendance(pageNum=${pageInfo.hasNextPage}?${pageInfo.nextPage}:${pageInfo.pages})}">次へ</a>
                 </li>
                 <li class="last-page">
-                    <a class="button9" th:href="@{/employee/lists(pageNum=${pageInfo.pages})}">最後のページ</a>
+                    <a class="button9" th:href="@{/worker/attendance(pageNum=${pageInfo.pages})}">最後のページ</a>
                 </li>
             </ul>
 
@@ -133,11 +136,11 @@
 </div>
 </body>
 <script>
-    function addEmp(){
-        location.href='[[@{/employee/add}]]';
+    function clock(){
+        location.href='[[@{/worker/clocking}]]';
     }
     function refresh(){
-        location.href='[[@{/employee/lists}]]';
+        location.href='[[@{/worker/attendance}]]';
     }
 
 </script>

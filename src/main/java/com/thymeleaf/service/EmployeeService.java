@@ -1,13 +1,10 @@
 package com.thymeleaf.service;
 
 import com.thymeleaf.dto.EmployeeDepartmentDto;
-import com.thymeleaf.entity.Attendance;
-import com.thymeleaf.entity.Department;
-import com.thymeleaf.entity.Employee;
-import com.thymeleaf.entity.PositionRank;
+import com.thymeleaf.entity.*;
 
+import javax.validation.Valid;
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.List;
 
 public interface EmployeeService {
@@ -27,8 +24,11 @@ public interface EmployeeService {
     boolean isEmployeeValid(Integer employee_Id);
     boolean isBirthDateValid(LocalDate birth_date);
     boolean isPasswordValid(Integer employee_id,String employee_password);
-    List<Attendance>getAllAttendances();
+    List<Attendance>getAllAttendances(Integer employee_id);
 
 
     List<Attendance> searchDate(Integer year, Integer month, Integer day);
+
+
+    void clock( Attendance attendance);
 }
