@@ -33,7 +33,6 @@ public class UserController {
         model.addAttribute("user", new User());
         return "login";
     }
-
     //提交登录请求，若成功则跳转到员工列表页面。
     @RequestMapping("login")
     public String login(@ModelAttribute("user") @Valid User user,
@@ -53,13 +52,11 @@ public class UserController {
             return "redirect:/employee/lists";
         }
     }
-
-@RequestMapping("registering")
-public String registerForm(Model model){
+    @RequestMapping("registering")
+    public String registerForm(Model model){
         model.addAttribute("user",new User());
         return "regist";
 }
-
     @RequestMapping ("register")
     public String register(@ModelAttribute("user") @Valid User user,BindingResult rs, Model model,String code,HttpSession session,
                            RedirectAttributes ra){

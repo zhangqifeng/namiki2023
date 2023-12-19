@@ -3,7 +3,6 @@ package com.thymeleaf.dto;
 public class EmployeeDepartmentDto {
     public EmployeeDepartmentDto() {
     }
-
     public EmployeeDepartmentDto(Integer employee_id, String employee_name, String department_name, String address, String sex) {
         this.employee_id = employee_id;
         this.employee_name = employee_name;
@@ -11,21 +10,17 @@ public class EmployeeDepartmentDto {
         this.address = address;
         this.sex = sex;
     }
-
     Integer employee_id;
     String employee_name;
     String department_name;
     String address;
     String sex;
-
     public Integer getEmployee_id() {
         return employee_id;
     }
-
     public void setEmployee_id(Integer employee_id) {
         this.employee_id = employee_id;
     }
-
     public String getEmployee_name() {
         return employee_name;
     }

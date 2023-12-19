@@ -7,12 +7,12 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.util.Date;
-import javax.persistence.*;
 
 public class Employee {
-    public Employee(Integer employee_id, String employee_name, String sex, LocalDate birth_date, String address, Integer department, Integer positionRank, String job_title, String employment_status, LocalDate hire_date, Date create_date, Date update_date, Integer empInsuranceNumber, Integer pensionNumber, String resume) {
+    public Employee(Integer employee_id, String employee_name, String employee_password, String sex, LocalDate birth_date, String address, Integer department, Integer positionRank, String job_title, String employment_status, LocalDate hire_date, Date create_date, Date update_date, Integer empInsuranceNumber, Integer pensionNumber, String resume) {
         this.employee_id = employee_id;
         this.employee_name = employee_name;
+        this.employee_password = employee_password;
         this.sex = sex;
         this.birth_date = birth_date;
         this.address = address;
@@ -33,6 +33,17 @@ public class Employee {
     //"社員番号を入力してください！"
     @NotEmpty(message = "社員の名前を入力してください！")
     private String employee_name;
+
+    private String employee_password;
+
+    public String getEmployee_password() {
+        return employee_password;
+    }
+
+    public void setEmployee_password(String employee_password) {
+        this.employee_password = employee_password;
+    }
+
     private String sex;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate birth_date;

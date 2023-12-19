@@ -1,6 +1,7 @@
 package com.thymeleaf.dao;
 
 import com.thymeleaf.dto.EmployeeDepartmentDto;
+import com.thymeleaf.entity.Attendance;
 import com.thymeleaf.entity.Department;
 import com.thymeleaf.entity.Employee;
 import org.apache.ibatis.annotations.Param;
@@ -23,6 +24,10 @@ public interface EmployeeDao {
                            @Param("department") String department,
                            @Param("address") String address);
     List<EmployeeDepartmentDto>getEmployeesWithDepartments();
+    List<Attendance>getAllAttendances();
 
-
+    List<Attendance> searchDate(
+            @Param("year") Integer year,
+            @Param("month") Integer month,
+            @Param("day") Integer day);
 }

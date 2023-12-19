@@ -6,7 +6,6 @@
 		<link rel="stylesheet" type="text/css"
 			th:href="@{/css/addEmp.css}" />
 	</head>
-
 	<body>
 		<div id="wrap">
 			<div id="top_content">
@@ -44,7 +43,15 @@
 								</td>
 								<td valign="middle" align="left">
 									<input type="text" class="inputgri" th:field="*{employee_name}" />
-									
+								</td>
+							</tr>
+							<tr class="r2">
+								<td valign="middle" align="right">
+									パスワード:
+								</td>
+								<td valign="middle" align="left">
+									<input type="password" class="inputgri" th:field="*{employee_password}" />
+
 								</td>
 							</tr>
 							<tr class="r3">

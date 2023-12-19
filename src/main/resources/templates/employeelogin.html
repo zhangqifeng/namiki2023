@@ -1,0 +1,68 @@
+<!DOCTYPE html >
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<title>login</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<link rel="stylesheet" type="text/css"
+		th:href="@{/css/login.css}" />
+	</head>
+	<body>
+		<div id="wrap">
+				<div id="header">
+							<h1 id="title">
+							社員管理システム
+							</h1>
+				</div>
+				<div id="content">
+					<span class="msg" id="successMsg" th:text="${msg}">
+					</span>
+					<h1 id="header2">
+						ログインしてください
+					</h1>
+					<form th:action="@{/employee/login}" method="post" th:object="${employee}">
+						<table class="form_table">
+						
+							<script th:inline="javascript">
+								var messageElement= document.getElementById("successMsg")
+								/* 两秒后隐藏文本 */
+								setTimeout(function() {
+									messageElement.style.display = 'none';
+								}, 2000);
+							</script>
+							<span th:if="${errorMsg}"  class="errorMsg" th:text="${errorMsg}">
+							</span>
+							<span th:if="${error1}"  class="error1" th:text="${error1}">
+							</span>
+
+							<tr class="row1">
+								
+								<td class="user_name">
+									社員番号
+								</td>
+								<td>
+									<input type="text" class="inputgri"  th:field="*{employee_id}" />
+								</td>
+							</tr>
+							<span th:if="${error2}" class="error2" th:text="${error2}">
+							</span>
+							<tr class="row2">
+								<td>
+									パスワード
+								</td>
+								<td>
+									<input type="password" class="inputgri"  th:field="*{employee_password}" />
+								</td>
+							</tr>
+						</table>
+							<input  type="submit" class="button" value="ログイン" />
+						
+					</form>
+				</div>
+			<div id="footer">
+				<div id="footer_bg">
+					Namiki@126.com
+				</div>
+			</div>
+		</div>
+	</body>
+</html>

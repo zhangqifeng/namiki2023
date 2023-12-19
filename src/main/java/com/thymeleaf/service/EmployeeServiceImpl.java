@@ -4,9 +4,7 @@ import com.thymeleaf.dao.DepartmentDao;
 import com.thymeleaf.dao.EmployeeDao;
 import com.thymeleaf.dao.PositionRankDao;
 import com.thymeleaf.dto.EmployeeDepartmentDto;
-import com.thymeleaf.entity.Department;
-import com.thymeleaf.entity.Employee;
-import com.thymeleaf.entity.PositionRank;
+import com.thymeleaf.entity.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -85,6 +83,23 @@ public class EmployeeServiceImpl implements EmployeeService {
         Period period = Period.between(birth_date, currentDate);
         int age = period.getYears();
            return age >= 18 && age <= 60;
+    }
+
+    @Override
+    public boolean isPasswordValid( Integer employee_id,String employee_password) {
+        Employee employee=employeeDao.findById(employee_id);
+        return employee!=null&&employee.getEmployee_password().equals(employee_password);
+
+    }
+
+    @Override
+    public List<Attendance> getAllAttendances() {
+        return employeeDao.getAllAttendances();
+    }
+
+    @Override
+    public List<Attendance> searchDate(Integer year, Integer month, Integer day) {
+        return employeeDao.searchDate(year,month,day);
     }
 
 

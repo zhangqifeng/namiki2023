@@ -2,9 +2,7 @@ package com.thymeleaf.controller;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.thymeleaf.dto.EmployeeDepartmentDto;
-import com.thymeleaf.entity.Department;
 import com.thymeleaf.entity.Employee;
-import com.thymeleaf.entity.PositionRank;
 import com.thymeleaf.service.EmployeeService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -37,6 +35,7 @@ public class EmployeeController {
     public EmployeeController(EmployeeService employeeService) {
         this.employeeService = employeeService;
     }
+
 
     //多条件联合搜索功能。（支持模糊查询）
     @RequestMapping("search")
@@ -96,6 +95,7 @@ public class EmployeeController {
                 employee.setResume(newFileName);
             }
         }
+
         employeeService.update(employee);
         ra.addFlashAttribute("msg2", "更新成功しました！");
         return "redirect:/employee/lists";
@@ -123,13 +123,12 @@ public void download( String resume, HttpServletResponse response) throws IOExce
         model.addAttribute("positionRanks",employeeService.findPositionRank());
         return "addEmp" ;
     }
-
     //提交新增员工的表单，若新增成功则跳转到员工列表页面。
     @RequestMapping ("save")
     public String save(@ModelAttribute("employee")@Valid Employee employee,BindingResult bindingResult, Model model, RedirectAttributes ra, MultipartFile resumeFile) throws IOException {
-        log.debug("社員番号:{},社員名:{},役職名:{},性別:{},部署名:{},住所:{},雇用形態:{},入社年月日:{},誕生日:{}",
+        log.debug("社員番号:{},社員名:{},役職名:{},性別:{},部署名:{},住所:{},雇用形態:{},入社年月日:{},誕生日:{},密码:{}",
                 employee.getEmployee_id(),employee.getEmployee_name(),employee.getJob_title()
-        ,employee.getSex(),employee.getDepartment(),employee.getAddress(),employee.getEmployment_status(),employee.getHire_date(),employee.getBirth_date());
+        ,employee.getSex(),employee.getDepartment(),employee.getAddress(),employee.getEmployment_status(),employee.getHire_date(),employee.getBirth_date(),employee.getEmployee_password());
         String originalFilename = resumeFile.getOriginalFilename();
         log.debug("履历名称：{}",originalFilename);
         log.debug("履历大小：{}",resumeFile.getSize());
@@ -143,18 +142,17 @@ public void download( String resume, HttpServletResponse response) throws IOExce
         }else if (employee.getBirth_date()!=null && !employeeService.isBirthDateValid(employee.getBirth_date())){
             model.addAttribute("errorMsg2","社員年齢を18歳～60歳にしてください");
             return "addEmp";
-        }else if (!resumeFile.isEmpty()){
+        }
+        else if (!resumeFile.isEmpty()){
             String newFileName = getNewFileName(resumeFile, originalFilename);
             employee.setResume(newFileName);
-            employeeService.save(employee);
-            ra.addFlashAttribute("msg3","登録完了しました!");
-            return "redirect:/employee/lists";
         }
-        else{
+            if (employee.getEmployee_password()==null||employee.getEmployee_password().isEmpty())
+                employee.setEmployee_password("123456");
             employeeService.save(employee);
         ra.addFlashAttribute("msg3","登録完了しました!");
             return "redirect:/employee/lists";
-        }
+
     }
     private String getNewFileName(MultipartFile resumeFile, String originalFilename) throws IOException {
         String fileNamePrefix = new SimpleDateFormat("yyyyMMddHHmmssSSS").format(new Date());
