@@ -88,16 +88,20 @@ public class AttendanceController {
         return "clock";
     }
     @RequestMapping("clock")
-    public String clock(@ModelAttribute("attendance")@Valid Attendance attendance,HttpSession session,BindingResult bindingResult,RedirectAttributes ra,Model model){
-        log.debug("入社时间:{},退社时间:{}",attendance.getStart_date(),attendance.getEnd_date());
+    public String clock(@ModelAttribute("attendance")@Valid Attendance attendance,BindingResult bindingResult,HttpSession session,RedirectAttributes ra,Model model){
+        log.debug("出勤状态:{},入社时间:{},退社时间:{}",attendance.getStatus(),attendance.getStart_date(),attendance.getEnd_date());
 if (bindingResult.hasErrors()){
     return "clock";
 }
+if (attendance.getStatus().isEmpty())
+    attendance.setStatus(null);
 Integer employee_id= (Integer) session.getAttribute("employee_id");
 attendance.setEmployee_id(employee_id);
 employeeService.clock(attendance);
+ra.addFlashAttribute("msg1","打刻成功しました");
         return "redirect:/worker/attendance?employee_id=" + employee_id;
     }
+
 
 
 }

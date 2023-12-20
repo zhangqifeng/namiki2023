@@ -5,6 +5,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
+import javax.validation.constraints.PastOrPresent;
 import java.sql.Time;
 import java.time.LocalTime;
 import java.util.Date;
@@ -25,11 +26,12 @@ public class Attendance {
 
     private Integer record_id;
     private Integer employee_id;
+
     @NotNull(message = "日付を選択してください")
-    @Past(message = "！！！")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @PastOrPresent(message = "未来の日付が入力できません")
     private Date attendance_date;
-    @NotEmpty(message = "区分を選択してください")
+
     private String status;
 
     public String getStatus() {

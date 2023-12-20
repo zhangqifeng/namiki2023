@@ -45,7 +45,7 @@
                         </td>
                         <td valign="middle" align="left">
                             <select th:field="*{status}">
-                                <option value="">请选择</option>
+                                <option value="" selected>请选择</option>
                                 <option value="出勤">
                                     出勤
                                 </option>
@@ -107,7 +107,7 @@
 </body>
 <script>
     function refresh(){
-        location.href='[[@{/employee/lists}]]';
+        location.href='[[@{/worker/attendance(employee_id=${(#httpSession.getAttribute(\'employee_id\'))})}]]';
     }
 
 </script>
