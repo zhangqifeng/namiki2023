@@ -18,7 +18,7 @@
             <h1 class="header2">
                 打刻
             </h1>
-            <form th:action="@{/worker/clock}" method="post" th:object="${attendance}" enctype="multipart/form-data" >
+            <form th:action="@{/worker/update}" method="post" th:object="${attendance}" enctype="multipart/form-data" >
                 <table cellpadding="0" cellspacing="0" border="0"
                        class="form_table">
                     社員番号:
@@ -37,8 +37,7 @@
                             <input type="date" class="inputgri" th:field="*{attendance_date}" />
                         </td>
                     </tr>
-                    <div class="error2" th:if="${#fields.hasErrors('status')}" th:errors="*{status}">
-                    </div>
+                    <input style="display: none" th:field="*{record_id}"/>
                     <tr class="r2">
                         <td valign="middle" align="right">
                             区分:

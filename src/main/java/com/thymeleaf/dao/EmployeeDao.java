@@ -34,4 +34,8 @@ public interface EmployeeDao {
             @Param("day") Integer day);
 
     void clock(Attendance attendance);
+
+    Attendance findByRecord(Integer recordId);
+
+    void updateAttendance(Attendance attendance);
 }

@@ -99,7 +99,7 @@
                         <span th:text="${#temporals.format(attendance.end_date,'HH:mm')}"></span>
                     </td>
                     <td class="r5">
-                        <a class="button11" th:href="@{/worker/clock(record_id=${attendance.record_id})}">详细</a>
+                        <a class="button11" th:href="@{/worker/detail(record_id=${attendance.record_id})}">详细</a>
                     </td>
                 </tr>
 

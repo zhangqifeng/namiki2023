@@ -106,5 +106,15 @@ public class EmployeeServiceImpl implements EmployeeService {
        employeeDao.clock(attendance);
     }
 
+    @Override
+    public Attendance findByRecord(Integer recordId) {
+        return employeeDao.findByRecord(recordId);
+    }
+
+    @Override
+    public void updateAttendance(Attendance attendance) {
+        employeeDao.updateAttendance(attendance);
+    }
+
 
 }

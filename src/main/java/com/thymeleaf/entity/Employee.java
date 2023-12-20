@@ -45,7 +45,7 @@ public class Employee {
     }
 
     private String sex;
-<<<<<<< HEAD
+
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate birth_date;
     public LocalDate getBirth_date() {
@@ -54,17 +54,7 @@ public class Employee {
     public void setBirth_date(LocalDate birth_date) {
         this.birth_date = birth_date;
     }
-=======
 
-    /**
-     * 生年月日
-     */
-    private Date birth_date;
-
-    /**
-     * 住所
-     */
->>>>>>> a3c84c173a29ca58163a12bbd59cf10875ea08cf
     private String address;
 
 private Integer department;

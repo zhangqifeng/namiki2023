@@ -31,4 +31,8 @@ public interface EmployeeService {
 
 
     void clock( Attendance attendance);
+
+    Attendance findByRecord(Integer recordId);
+
+    void updateAttendance(Attendance attendance);
 }

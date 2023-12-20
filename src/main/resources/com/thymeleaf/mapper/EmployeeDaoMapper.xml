@@ -75,5 +75,18 @@
         insert into `attendance`(employee_id,attendance_date,status,start_date,end_date)
         values (#{employee_id},#{attendance_date},#{status},#{start_date},#{end_date})
     </insert>
+    <select id="findByRecord" parameterType="Integer" resultType="Attendance">
+select * from `attendance` where record_id=#{record_id}
+    </select>
+    <update id="updateAttendance" parameterType="Attendance" >
+        update `attendance` set
+                                attendance_date=#{attendance_date},
+                                status=#{status},
+                                start_date=#{start_date},
+                                end_date=#{end_date}
+        where record_id=#{record_id}
+        </update>
+
+
 
 </mapper>
