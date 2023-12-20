@@ -3,7 +3,6 @@ package com.thymeleaf.service;
 import com.thymeleaf.dto.EmployeeDepartmentDto;
 import com.thymeleaf.entity.*;
 
-import javax.validation.Valid;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -27,7 +26,7 @@ public interface EmployeeService {
     List<Attendance>getAllAttendances(Integer employee_id);
 
 
-    List<Attendance> searchDate(Integer year, Integer month, Integer day);
+    List<Attendance> searchDate(Integer year, Integer month, Integer day, Integer employee_id);
 
 
     void clock( Attendance attendance);

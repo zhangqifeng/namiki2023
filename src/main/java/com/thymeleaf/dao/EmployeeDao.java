@@ -31,7 +31,8 @@ public interface EmployeeDao {
     List<Attendance> searchDate(
             @Param("year") Integer year,
             @Param("month") Integer month,
-            @Param("day") Integer day);
+            @Param("day") Integer day,
+            @Param("employee_id")Integer employee_id);
 
     void clock(Attendance attendance);
 

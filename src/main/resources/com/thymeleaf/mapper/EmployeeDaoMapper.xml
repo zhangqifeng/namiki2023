@@ -56,6 +56,7 @@
     <select id="getAllAttendances"  parameterType="map" resultType="Attendance">
         select * from `attendance` where employee_id=#{employee_id} AND YEAR(attendance_date) = YEAR(CURDATE())
                                      AND MONTH(attendance_date) = MONTH(CURDATE())
+        ORDER BY attendance_date ASC
     </select>
     <select id="searchDate" parameterType="map" resultType="Attendance">
         SELECT * FROM `attendance`
@@ -69,7 +70,9 @@
             <if test="day != null">
                 AND DAY(attendance_date) = #{day}
             </if>
+        and employee_id=#{employee_id}
         </where>
+        ORDER BY attendance_date ASC
     </select>
     <insert id="clock" parameterType="Attendance">
         insert into `attendance`(employee_id,attendance_date,status,start_date,end_date)

@@ -97,8 +97,8 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public List<Attendance> searchDate(Integer year, Integer month, Integer day) {
-        return employeeDao.searchDate(year,month,day);
+    public List<Attendance> searchDate(Integer year, Integer month, Integer day, Integer employee_id) {
+        return employeeDao.searchDate(year,month,day,employee_id);
     }
 
     @Override

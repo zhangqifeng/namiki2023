@@ -18,6 +18,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+import java.time.LocalDate;
+import java.time.Year;
 import java.util.List;
 
 @Controller
@@ -70,16 +72,26 @@ public class AttendanceController {
         return "attendance";
     }
     @RequestMapping("search")
-    public String searchDate(Integer year,
-                         Integer month,
-                         Integer day,
-                         Model model){
-
+    public String searchDate(
+            @RequestParam(defaultValue = "1",value = "pageNum")Integer pageNum,
+            @RequestParam(required = false) Integer year,
+            @RequestParam(required = false) Integer month,
+            @RequestParam(required = false) Integer day,
+            @RequestParam Integer employee_id,
+            Model model) {
+        // 如果年份和月份未提供，则使用当前的年份和月份作为默认值
+        if (year == null&month==null) {
+            year = Year.now().getValue(); // 获取当前年份
+            month = LocalDate.now().getMonthValue(); // 获取当前月份
+        }
         PageHelper.clearPage();
-        PageHelper.startPage(1,5);
-        List<Attendance>attendances=employeeService.searchDate(year,month,day);
+        PageHelper.startPage(pageNum,5);
+        List<Attendance>attendances=employeeService.searchDate(year,month,day,employee_id);
         PageInfo<Attendance> pageInfo = new PageInfo<>(attendances);
         model.addAttribute("pageInfo",pageInfo);
+        model.addAttribute("searchYear", year);
+        model.addAttribute("searchMonth", month);
+        model.addAttribute("searchDay", day);
         return "attendance";
     }
     @RequestMapping("clocking")

@@ -48,14 +48,11 @@
                         messageElement4.style.display='none';
                     },1000);
                 </script>
-                <div class="">
                     社員番号:
-                    <span th:text="${(#httpSession.getAttribute('employee_id'))}">
-                    </span>
-                    社員名:
+                <input  name="employee_id" th:value="${(#httpSession.getAttribute('employee_id'))}">
+                社員名:
                     <span th:text="${(#httpSession.getAttribute('employee_name'))}">
                     </span>
-                </div>
              年:
                 <input type="number" id="yearInput" name="year" min="1900" max="2100">
                 月:
@@ -109,20 +106,20 @@
 
             <ul class="pagination">
                 <li class="top-page">
-                    <a class="button4" th:href="@{/worker/attendance(employee_id=${(#httpSession.getAttribute('employee_id'))})}">最初のページ</a>
+                    <a class="button4" th:href="@{/worker/search(employee_id=${(#httpSession.getAttribute('employee_id'))},year=${searchYear}, month=${searchMonth}, day=${searchDay})}">最初のページ</a>
                 </li>
                 <li class="prev">
-                    <a class="button5" th:href="@{/worker/attendance(pageNum=${pageInfo.hasPreviousPage}?${pageInfo.prePage}:1,employee_id=${(#httpSession.getAttribute('employee_id'))})}">前へ</a>
+                    <a class="button5" th:href="@{/worker/search(pageNum=${pageInfo.hasPreviousPage}?${pageInfo.prePage}:1,employee_id=${(#httpSession.getAttribute('employee_id'))},year=${searchYear}, month=${searchMonth}, day=${searchDay})}">前へ</a>
                 </li>
                 <li th:each="nav:${pageInfo.navigatepageNums}">
-                    <a class="button6" th:href="@{/worker/attendance(pageNum=${nav},employee_id=${(#httpSession.getAttribute('employee_id'))})}" th:text="${nav}" th:if="${nav != pageInfo.pageNum}"></a>
+                    <a class="button6" th:href="@{/worker/search(pageNum=${nav},employee_id=${(#httpSession.getAttribute('employee_id'))},year=${searchYear}, month=${searchMonth}, day=${searchDay})}" th:text="${nav}" th:if="${nav != pageInfo.pageNum}"></a>
                     <span class="button7" th:if="${nav == pageInfo.pageNum}" th:text="${nav}" ></span>
                 </li>
                 <li class="next">
-                    <a class="button8" th:href="@{/worker/attendance(pageNum=${pageInfo.hasNextPage}?${pageInfo.nextPage}:${pageInfo.pages},employee_id=${(#httpSession.getAttribute('employee_id'))})}">次へ</a>
+                    <a class="button8" th:href="@{/worker/search(pageNum=${pageInfo.hasNextPage}?${pageInfo.nextPage}:${pageInfo.pages},employee_id=${(#httpSession.getAttribute('employee_id'))},year=${searchYear}, month=${searchMonth}, day=${searchDay})}">次へ</a>
                 </li>
                 <li class="last-page">
-                    <a class="button9" th:href="@{/worker/attendance(pageNum=${pageInfo.pages},employee_id=${(#httpSession.getAttribute('employee_id'))})}">最後のページ</a>
+                    <a class="button9" th:href="@{/worker/search(pageNum=${pageInfo.pages},employee_id=${(#httpSession.getAttribute('employee_id'))},year=${searchYear}, month=${searchMonth}, day=${searchDay})}">最後のページ</a>
                 </li>
             </ul>
 
@@ -135,12 +132,14 @@
     </div>
 </div>
 </body>
-<script>
+<script th:inline="javascript">
     function clock(){
         location.href='[[@{/worker/clocking}]]';
     }
+
+    var employeeId = /*[[${#httpSession.getAttribute('employee_id')}]]*/ '';
     function refresh(){
-        location.href='[[@{/worker/attendance}]]';
+        location.href='/ems/worker/attendance?employee_id=' + employeeId;
     }
 
 </script>
