@@ -33,6 +33,10 @@ public class UserController {
         model.addAttribute("user", new User());
         return "login";
     }
+<<<<<<< HEAD
+=======
+
+>>>>>>> a3c84c173a29ca58163a12bbd59cf10875ea08cf
     //提交登录请求，若成功则跳转到员工列表页面。
     @RequestMapping("login")
     public String login(@ModelAttribute("user") @Valid User user,
@@ -52,16 +56,27 @@ public class UserController {
             return "redirect:/employee/lists";
         }
     }
+<<<<<<< HEAD
     @RequestMapping("registering")
     public String registerForm(Model model){
         model.addAttribute("user",new User());
         return "regist";
 }
+=======
+
+@RequestMapping("registering")
+public String registerForm(Model model){
+        model.addAttribute("user",new User());
+        return "regist";
+}
+
+>>>>>>> a3c84c173a29ca58163a12bbd59cf10875ea08cf
     @RequestMapping ("register")
     public String register(@ModelAttribute("user") @Valid User user,BindingResult rs, Model model,String code,HttpSession session,
                            RedirectAttributes ra){
         log.debug("用户名: {},密码: {},",user.getUser_name(),user.getPassword());
         log.debug("用户输入验证码: {}",code);
+<<<<<<< HEAD
             String user_name=user.getUser_name();
             String sessionCode = session.getAttribute( "code").toString();
             String password=user.getPassword();
@@ -71,6 +86,14 @@ public class UserController {
                 model.addAttribute("errorMsg3","半角英数字6文字～15文字にしてください");
                 return "regist";
             } else if (!sessionCode.equalsIgnoreCase(code)){
+=======
+        String user_name=user.getUser_name();
+            //1.判断用户输入验证码和session中验证码是否一致
+            String sessionCode = session.getAttribute( "code").toString();
+            if (rs.hasErrors()){
+                return "regist";
+            }else if (!sessionCode.equalsIgnoreCase(code)){
+>>>>>>> a3c84c173a29ca58163a12bbd59cf10875ea08cf
                 model.addAttribute("errorMsg1","確認コードが違います");
                 return "regist";
             }else if (userService.isUserExisted(user_name)){
@@ -81,8 +104,15 @@ public class UserController {
                 ra.addFlashAttribute("msg","成功に登録しました!");
                 return  "redirect:/user/loging";
             }
+<<<<<<< HEAD
     }
 
+=======
+
+    }
+
+
+>>>>>>> a3c84c173a29ca58163a12bbd59cf10875ea08cf
     @RequestMapping("generateImageCode")
     public void generateImageCode(HttpSession session, HttpServletResponse response) throws IOException {
         String code= VerifyCodeUtils.generateVerifyCode(4);
