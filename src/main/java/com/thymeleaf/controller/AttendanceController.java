@@ -102,6 +102,4 @@ ra.addFlashAttribute("msg1","打刻成功しました");
         return "redirect:/worker/attendance?employee_id=" + employee_id;
     }
 
-
-
 }
