@@ -28,41 +28,26 @@
                 <span class="msg" id="successMsg3" th:text="${msg3}">
 							</span>
                 <span class="msg" id="successMsg4" th:text="${msg4}"></span>
-                <script th:inline="javascript">
-                    /* 获取文本元素 */
-                    var messageElement =document.getElementById("successMsg1")
-                    var messageElement2 =document.getElementById("successMsg2")
-                    var messageElement3= document.getElementById("successMsg3")
-                    var messageElement4= document.getElementById("successMsg4")
-                    /* 两秒后隐藏文本 */
-                    setTimeout(function() {
-                        messageElement.style.display = 'none';
-                    }, 1000);
-                    setTimeout(function (){
-                        messageElement2.style.display='none';
-                    },1000);
-                    setTimeout(function (){
-                        messageElement3.style.display='none';
-                    },1000);
-                    setTimeout(function (){
-                        messageElement4.style.display='none';
-                    },1000);
-                </script>
-                    社員番号:
-                <input  name="employee_id" th:value="${(#httpSession.getAttribute('employee_id'))}">
-                社員名:
+
+                <span>
+					社員番号:<input class="employee_id" name="employee_id" th:value="${(#httpSession.getAttribute('employee_id'))}">
+				</span>
+                <span class="employee_name">
+					社員名:
                     <span th:text="${(#httpSession.getAttribute('employee_name'))}">
                     </span>
-             年:
+				</span>
+                <span class="searchBar">       年:
                 <input type="number" id="yearInput" name="year" min="1900" max="2100">
                 月:
                 <input type="number" id="monthInput" name="month" min="1" max="12">
                 日:
-                <input type="number" id="dayInput" name="day" min="1" max="31">
+                <input type="number" id="dayInput" name="day" min="1" max="31"></span>
+
                 <button class="button1" type="submit">検索</button>
             </form>
             <button class="button3" onclick="refresh()">リセット</button>
-            <button class="button2" onclick="clock()">打刻</button>
+            <button class="button2" onclick="window.location.href='/ems/worker/clocking'">打刻</button>
             <table class="table">
                 <tr class="table_header">
                     <td class="h1">
@@ -133,15 +118,32 @@
 </div>
 </body>
 <script th:inline="javascript">
-    function clock(){
-        location.href='[[@{/worker/clocking}]]';
-    }
 
     var employeeId = /*[[${#httpSession.getAttribute('employee_id')}]]*/ '';
     function refresh(){
         location.href='/ems/worker/attendance?employee_id=' + employeeId;
     }
+        /* 获取文本元素 */
+        var messageElement =document.getElementById("successMsg1")
+        var messageElement2 =document.getElementById("successMsg2")
+        var messageElement3= document.getElementById("successMsg3")
+        var messageElement4= document.getElementById("successMsg4")
+        /* 两秒后隐藏文本 */
+        setTimeout(function() {
+        messageElement.style.display = 'none';
+    }, 1000);
+        setTimeout(function (){
+        messageElement2.style.display='none';
+    },1000);
+        setTimeout(function (){
+        messageElement3.style.display='none';
+    },1000);
+        setTimeout(function (){
+        messageElement4.style.display='none';
+    },1000);
 
 </script>
+
+
 
 </html>

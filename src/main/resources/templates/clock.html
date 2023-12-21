@@ -21,12 +21,17 @@
             <form th:action="@{/worker/clock}" method="post" th:object="${attendance}" enctype="multipart/form-data" >
                 <table cellpadding="0" cellspacing="0" border="0"
                        class="form_table">
-                    社員番号:
-                    <span th:text="${(#httpSession.getAttribute('employee_id'))}">
-                    </span>
-                    社員名:
+					   <span class="employee_id">
+						社員番号:
+						<span th:text="${(#httpSession.getAttribute('employee_id'))}">
+						</span>
+					   </span>
+                    <span class="employee_name">
+					社員名:
                     <span th:text="${(#httpSession.getAttribute('employee_name'))}">
                     </span>
+				</span>
+
                     <div class="error1" th:if="${#fields.hasErrors('attendance_date')}" th:errors="*{attendance_date}">
                     </div>
                     <tr class="r1">
@@ -37,8 +42,6 @@
                             <input type="date" class="inputgri" th:field="*{attendance_date}" />
                         </td>
                     </tr>
-                    <div class="error2" th:if="${#fields.hasErrors('status')}" th:errors="*{status}">
-                    </div>
                     <tr class="r2">
                         <td valign="middle" align="right">
                             区分:
@@ -59,11 +62,8 @@
                                     代休
                                 </option>
                             </select>
-
                         </td>
                     </tr>
-                    <div class="error3" th:if="${#fields.hasErrors('start_date')}" th:errors="*{start_date}">
-                    </div>
                     <tr class="r3">
                         <td valign="middle" align="right">
                             出社:
@@ -73,8 +73,6 @@
 
                         </td>
                     </tr>
-                    <div class="error4" th:if="${#fields.hasErrors('end_date')}" th:errors="*{end_date}">
-                    </div>
                     <tr class="r4">
                         <td valign="middle" align="right">
                             退社:
@@ -88,11 +86,9 @@
                             合計作業時間:
                         </td>
                         <td>
-
+                            <span class="totalTime"></span>
                         </td>
-
                     </tr>
-
                 </table>
                 <button class="button2" type="submit" >登録</button>
             </form>
@@ -105,12 +101,35 @@
     </div>
 </div>
 </body>
-    <script th:inline="javascript">
-        var employeeId = /*[[${#httpSession.getAttribute('employee_id')}]]*/ '';
-        function refresh(){
+<script th:inline="javascript">
+    var employeeId = /*[[${#httpSession.getAttribute('employee_id')}]]*/ '';
+    function refresh(){
         location.href='/ems/worker/attendance?employee_id=' + employeeId;
     }
+    // 获取开始时间和结束时间的元素
+    var startDateInput = document.querySelector('input[name="start_date"]');
+    var endDateInput = document.querySelector('input[name="end_date"]');
+    var totalTimeElement = document.querySelector('.totalTime'); // 获取用于显示总时间的元素
 
+    // 监听输入框变化事件，计算时间差
+    startDateInput.addEventListener('change', calculateTotalTime);
+    endDateInput.addEventListener('change', calculateTotalTime);
+
+    // 计算时间差并展示
+    function calculateTotalTime() {
+        var startTime = startDateInput.valueAsDate.getTime(); // 获取开始时间的时间戳
+        var endTime = endDateInput.valueAsDate.getTime(); // 获取结束时间的时间戳
+        if (!isNaN(startTime) && !isNaN(endTime)) { // 确保输入的时间有效
+            var difference = endTime - startTime; // 计算时间差
+            var hours = Math.floor(difference / (1000 * 60 * 60)); // 小时
+            var minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60)); // 分钟
+
+            // 显示总时间
+            totalTimeElement.textContent = hours + '時' + minutes + '分';
+        } else {
+            totalTimeElement.textContent = ''; // 若时间无效，则清空显示区域
+        }
+    }
 
 </script>
 </html>

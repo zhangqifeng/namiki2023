@@ -37,15 +37,15 @@
         </where>
     </select>
     <insert id="save" parameterType="Employee">
-        insert into `employee`(employee_id,employee_name,employee_password,sex,address,department,job_title,employment_status,hire_date,birth_date,empInsuranceNumber,pensionNumber,positionRank,resume)
-        values(#{employee_id},#{employee_name},#{employee_password},#{sex},#{address},#{department},#{job_title},#{employment_status},#{hire_date},#{birth_date},#{empInsuranceNumber},#{pensionNumber},#{positionRank},#{resume})
+        insert into `employee`(employee_id,employee_name,employee_password,sex,address,mail_address,phone_number,department,job_title,employment_status,hire_date,birth_date,empInsuranceNumber,pensionNumber,positionRank,resume)
+        values(#{employee_id},#{employee_name},#{employee_password},#{sex},#{address},#{mail_address},#{phone_number},#{department},#{job_title},#{employment_status},#{hire_date},#{birth_date},#{empInsuranceNumber},#{pensionNumber},#{positionRank},#{resume})
     </insert>
     <select id="findById" parameterType="Integer" resultType="Employee">
         select * from employee where employee_id=#{employee_id}
     </select>
     <update id="update" parameterType="map">
         update `employee` set employee_name=#{employee_name},employee_password=#{employee_password},
-                              sex=#{sex},address=#{address},department=#{department},
+                              sex=#{sex},address=#{address},mail_address=#{mail_address},phone_number=#{phone_number},department=#{department},
                               job_title=#{job_title},employment_status=#{employment_status},hire_date=#{hire_date},
                               birth_date=#{birth_date},empInsuranceNumber=#{empInsuranceNumber},pensionNumber=#{pensionNumber},positionRank=#{positionRank},resume=#{resume}
         where employee_id=#{employee_id}

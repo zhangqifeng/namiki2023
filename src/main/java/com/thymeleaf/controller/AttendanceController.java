@@ -42,7 +42,6 @@ public class AttendanceController {
         log.debug("本地登录密码:{}", employee.getEmployee_password());
         Integer employee_id= employee.getEmployee_id();
         String employee_password = employee.getEmployee_password();
-       String employee_name = employeeService.findById(employee_id).getEmployee_name();
         //用户名与密码的校验。
         if (employee_id==null){
             model.addAttribute("error1","社員番号を入力してください");
@@ -56,6 +55,7 @@ public class AttendanceController {
             model.addAttribute("errorMsg", "ユーザまたはパスワードが違います");
             return "employeelogin";
         }
+        String employee_name = employeeService.findById(employee_id).getEmployee_name();
         ra.addFlashAttribute("msg4","ログイン成功しました!");
         session.setAttribute("employee_id",employee_id);
         session.setAttribute("employee_name",employee_name);

@@ -30,7 +30,7 @@ body
     position: relative;
    bottom: 40px;
     width: 600px;
-    height: 600px;
+    height: 700px;
     padding-bottom: 20px;
     background-color: rgb(255, 255, 255);
     border-radius: 5%;
@@ -40,21 +40,15 @@ form{
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    height: 580px;
+    height: 680px;
     position: relative;
     bottom: 30px;
 }
 .form_table {
     display: flex;
     flex-direction: column;
-<<<<<<< HEAD
-    height: 580px;
+    height: 680px;
     padding-top: 10px;
-=======
-
-
->>>>>>> a3c84c173a29ca58163a12bbd59cf10875ea08cf
-
 }
 
 input{
@@ -97,14 +91,14 @@ tr{
     position: relative;
     left: 50px;
 }
-.r1,.r2,.r3,.r4,.r5,.r6,.r7,.r8,.r9,.r10,.r11,.r12{
-    height: 40px;
+.r1,.r2,.r3,.r4,.r5,.r6,.r7,.r8,.r9,.r10,.r11,.r12,.r13,.r14,.r15,.r16{
+    height: 36px;
 
 }
 
 button{
     width: 74px;
-    height: 30px;
+height: 30px;
     border: none;
     background-color: #409EFF;
     color: white;
@@ -113,38 +107,27 @@ button{
     transition: background-color 0.3s
 }
 .button1{
-<<<<<<< HEAD
   position: relative;
     left: 55px;
-   bottom: 3px;
+bottom: 25px;
+    height: 30px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+
 }
 .button2{
    position: relative;
-    left: 5px;
-bottom: 60px;
+   bottom: 83px;
     padding-top: 5px;
     padding-bottom: 5px;
 }
 .button3{
     margin-left: 210px;
     position: relative;
-    bottom: 88px;
+    bottom: 110px;
     left: 7px;
    padding-top: 5px;
     padding-bottom: 5px;
-=======
-  margin-top: -10px;
-}
-.button2{
-    margin-top: -30px;
-    margin-bottom: 20px;
-}
-.button3{
-    margin-left: 210px;
-    margin-top: -20px;
-    position: relative;
-    bottom: 30px;
->>>>>>> a3c84c173a29ca58163a12bbd59cf10875ea08cf
 }
 button:hover{
     background-color: #9fcfff;
@@ -155,21 +138,19 @@ button:hover{
 }
 .error2{
     color: red;
-    font-size: 15px;
-    height: 5px;
+    font-size: 13px;
     position: relative;
-    left: 70px;
-    top: 40px;
+    left: 80px;
+    top: 50px;
     margin-bottom: -10px;
-
 }
-<<<<<<< HEAD
+
 .errorMsg{
     color: red;
     font-size: 13px;
     position: relative;
     left: 60px;
-    top: 342px;
+    top: 425px;
     height: 5px;
 }
 .resumeFile{
@@ -177,16 +158,4 @@ button:hover{
 
 }
 
-=======
-#footer{
-    margin-top: -20px;
-}
-.error2{
-    color: red;
-    font-size: 15px;
-    position: relative;
-    left: 35px;
-    margin-bottom: -10px;
 
-}
->>>>>>> a3c84c173a29ca58163a12bbd59cf10875ea08cf

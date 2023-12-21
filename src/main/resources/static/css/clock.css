@@ -53,9 +53,26 @@ form{
     height: 400px;
 
 }
-.r1,.r2,.r3,.r4{
-    height: 40px;
+.employee_id{
+    position: relative;
+    top: 12px;
+    left: 20px;
+    font-size: 17px;
 }
+.employee_name{
+    position: relative;
+    left: 150px;
+    bottom: 10px;
+    font-size: 17px;
+}
+.r1,.r2,.r3,.r4,.r5{
+    position: relative;
+    top: 5px;
+    right: 20px;
+    height: 50px;
+
+}
+
 .error,.error2,.error1{
     flex: 1;
 }
@@ -91,9 +108,11 @@ td{
 .button2{
     width: 80px;
     height: 30px;
+    padding-top: 5px;
+    padding-bottom: 5px;
     position: relative;
-    left: 75px;
-    top: 5px;
+    left: 40px;
+    bottom: 60px;
     border: none;
     background-color: #409EFF;
     color: white;
@@ -107,8 +126,8 @@ td{
     padding-top: 5px;
     padding-bottom: 5px;
     position: relative;
-    left: 50px;
-    bottom: 64px;
+    left: 80px;
+    bottom: 127px;
     border: none;
     background-color: #409EFF;
     color: white;
@@ -127,11 +146,13 @@ select{
 
 
 .error1{
-    margin-left: 100px;
+    margin-left: 60px;
     margin-bottom: 5px;
     height: 5px;
-    font-size: 12px;
+    font-size: 14px;
     color: red;
+    position: relative;
+    top: 5px;
 
 }
 .error2{

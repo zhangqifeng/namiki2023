@@ -89,6 +89,20 @@ input{
     display: flex;
 
 }
+.employee_id{
+    border: none;
+}
+.employee_name{
+    position: relative;
+    bottom: 27px;
+    left: 50px;
+}
+.searchBar{
+    height: 20px;
+    position: relative;
+    bottom: 10px;
+}
+
 .h1{
     flex: 1;
 }

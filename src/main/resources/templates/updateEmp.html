@@ -40,9 +40,7 @@
 							<input type="text" class="inputgri" name="employee_name" th:field="*{employee_name}"/>
 						</td>
 					</tr>
-					<span  class="error2" th:if="${#fields.hasErrors('employee_name')}" th:errors="*{employee_name}">
-						</span>
-					<tr class="r2">
+					<tr class="r3">
 						<td valign="middle" align="right">
 							パスワード:
 						</td>
@@ -51,7 +49,7 @@
 
 						</td>
 					</tr>
-					<tr class="r3">
+					<tr class="r4">
 						<td  valign="middle" align="right">
 							役職名:
 						</td>
@@ -59,7 +57,7 @@
 							<input type="text" class="inputgri" name="job_title" th:field="*{job_title}"/>
 						</td>
 					</tr>
-					<tr class="r4">
+					<tr class="r5">
 						<td  valign="middle" align="right">
 
 							性別:
@@ -71,7 +69,7 @@
 							女
 						</td>
 					</tr>
-					<tr class="r5">
+					<tr class="r6">
 						<td  valign="middle" align="right">
 							部署名:
 						</td>
@@ -85,7 +83,7 @@
 						</td>
 
 					</tr>
-					<tr class="r6">
+					<tr class="r7">
 						<td  valign="middle" align="right">
 							住所:
 						</td>
@@ -94,19 +92,34 @@
 							<input type="text" class="inputgri" name="address" th:field="*{address}"/>
 						</td>
 					</tr>
-					<tr class="r7">
+					<tr class="r8">
+						<td valign="middle" align="right">
+							メールアドレス:
+						</td>
+						<td valign="middle" align="left">
+							<input type="text" class="inputgri" th:field="*{mail_address}"/>
+						</td>
+					</tr>
+					<tr class="r9">
+						<td valign="middle" align="right">
+							携帯電話:
+						</td>
+						<td valign="middle" align="left">
+							<input type="text" class="inputgri" th:field="*{phone_number}"/>
+						</td>
+					</tr>
+					<tr class="r10">
 						<td  valign="middle" align="right">
 							雇用形態:
 						</td>
 						<td  valign="middle" align="right">
-
 							<select th:field="*{employment_status}" name="employment_status" id="option">
 								<option value="正社員">正社員</option>
 								<option value="契約社員">契約社員</option>
 							</select>
 						</td>
 					</tr>
-					<tr class="r8">
+					<tr class="r11">
 						<td  valign="middle" align="right">
 							入社年月日:
 						</td>
@@ -118,7 +131,7 @@
 					</tr>
 					<span th:if="${errorMsg}" class="errorMsg" th:text="${errorMsg}" >
 							</span>
-					<tr class="r9">
+					<tr class="r12">
 						<td  valign="middle" align="right">
 							誕生日:
 						</td>
@@ -126,7 +139,7 @@
 							<input type="date" class="inputgri" th:field="*{birth_date}" />
 						</td>
 					</tr>
-					<tr class="r10">
+					<tr class="r13">
 						<td valign="middle" align="right">
 							雇用保険番号:
 						</td>
@@ -134,7 +147,7 @@
 							<input type="text" class="inputgri" th:field="*{empInsuranceNumber}" />
 						</td>
 					</tr>
-					<tr class="r11">
+					<tr class="r14">
 						<td valign="middle" align="right">
 							年金番号:
 						</td>
@@ -142,7 +155,7 @@
 							<input type="text" class="inputgri" th:field="*{pensionNumber}" />
 						</td>
 					</tr>
-					<tr class="r12">
+					<tr class="r15">
 						<td valign="middle" align="right">
 							職位ランク:
 						</td>
@@ -154,7 +167,7 @@
 							</select>
 					</td>
 						</tr>
-						<tr class="r13">
+						<tr class="r16">
 							<td class="resume"  valign="middle" align="right">
 								履歴書：
 								<span th:if="*{resume!=null}">
@@ -166,7 +179,7 @@
 								<span th:if="*{resume==null}" th:text="なし"></span>
 							</td >
 							<td  valign="middle" align="right">
-								<input class="resumeFile" type="file"  name="resumeFile" accept=".xls,.doc,.pdf"/>
+								<input class="resumeFile" type="file"  name="resumeFile" accept=".xls,.doc,.docx,.pdf"/>
 							</td>
 						</tr>
 
