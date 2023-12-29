@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="ch" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>添加员工信息</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <link rel="stylesheet" type="text/css"
+          th:href="@{/css/clock.css}" />
+</head>
+<body>
+<div id="wrap">
+    <div id="top_content">
+        <div id="header">
+            <h1 id="title">
+                社員管理システム
+            </h1>
+        </div>
+        <div id="content">
+            <h1 class="header2">
+                打刻
+            </h1>
+            <form th:action="@{/worker/update}" method="post" th:object="${attendance}" enctype="multipart/form-data" >
+                <table cellpadding="0" cellspacing="0" border="0"
+                       class="form_table">
+                     <span class="employee_id">
+						社員番号:
+						<span th:text="${(#httpSession.getAttribute('employee_id'))}">
+						</span>
+					   </span>
+                    <span class="employee_name">
+					社員名:
+                    <span th:text="${(#httpSession.getAttribute('employee_name'))}">
+                    </span>
+				</span>
+
+                    <div class="error1" th:if="${#fields.hasErrors('attendance_date')}" th:errors="*{attendance_date}">
+                    </div>
+                    <tr class="r1">
+                        <td valign="middle" align="right">
+                            日付:
+                        </td>
+                        <td valign="middle" align="left">
+                            <input type="date" class="inputgri" th:field="*{attendance_date}" />
+                        </td>
+                    </tr>
+                    <input style="display: none" th:field="*{record_id}"/>
+                    <tr class="r2">
+                        <td valign="middle" align="right">
+                            区分:
+                        </td>
+                        <td valign="middle" align="left">
+                            <select th:field="*{status}">
+                                <option value="" selected>请选择</option>
+                                <option value="出勤">
+                                    出勤
+                                </option>
+                                <option value="欠勤">
+                                    欠勤
+                                </option>
+                                <option value="有給">
+                                    有給
+                                </option>
+                                <option value="代休">
+                                    代休
+                                </option>
+                            </select>
+
+                        </td>
+                    </tr>
+                    <div class="error3" th:if="${#fields.hasErrors('start_date')}" th:errors="*{start_date}">
+                    </div>
+                    <tr class="r3">
+                        <td valign="middle" align="right">
+                            出社:
+                        </td>
+                        <td valign="middle" align="left">
+                            <input type="time" class="inputgri" th:field="*{start_date}" />
+
+                        </td>
+                    </tr>
+                    <div class="error4" th:if="${#fields.hasErrors('end_date')}" th:errors="*{end_date}">
+                    </div>
+                    <tr class="r4">
+                        <td valign="middle" align="right">
+                            退社:
+                        </td>
+                        <td valign="middle" align="left">
+                            <input type="time" class="inputgri" th:field="*{end_date}" />
+                        </td>
+                    </tr>
+                    <tr class="r5">
+                        <td valign="middle" align="right">
+                            合計作業時間:
+                        </td>
+                        <td>
+
+                        </td>
+
+                    </tr>
+
+                </table>
+                <button class="button2" type="submit" >登録</button>
+            </form>
+
+            <button class="button" onclick="refresh()">戻る</button>
+        </div>
+    </div>
+    <div id="footer">
+        Namiki@163.com
+    </div>
+</div>
+</body>
+    <script th:inline="javascript">
+        var employeeId = /*[[${#httpSession.getAttribute('employee_id')}]]*/ '';
+        function refresh(){
+        location.href='/ems/worker/attendance?employee_id=' + employeeId;
+    }
+
+
+</script>
+</html>

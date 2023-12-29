@@ -15,8 +15,6 @@ body
     justify-content: space-between;
     align-items:center;
     width: 400px;
-
-
 }
 #top_content{
     display: flex;
@@ -29,9 +27,11 @@ body
     flex-direction: column;
     align-items: center;
     justify-content: space-between;
+    position: relative;
+   bottom: 40px;
     width: 600px;
-    height: 500px;
-    margin-bottom: 50px;
+    height: 700px;
+    padding-bottom: 20px;
     background-color: rgb(255, 255, 255);
     border-radius: 5%;
     box-shadow: -5px 5px 10px 0 ;
@@ -40,20 +40,26 @@ form{
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    height: 400px;
+    height: 680px;
+    position: relative;
+    bottom: 30px;
 }
-.form_table{
+.form_table {
     display: flex;
     flex-direction: column;
-
-
-
+    height: 680px;
+    padding-top: 10px;
 }
+
 input{
-    margin: 5px;
     border: none;
     border-bottom: 1px solid #000;
     outline: none;
+
+}
+select{
+    width: 100px;
+    height: 25px;
 
 }
 #header{
@@ -62,6 +68,8 @@ input{
     font-family: "-apple-system", BlinkMacSystemFont, "Yu Gothic Medium", "游ゴシック Medium", YuGothic, "游ゴシック体", "Noto Sans Japanese", "ヒラギノ角ゴ Pro W3", "メイリオ", "Hiragino Kaku Gothic ProN", "MS PGothic", Osaka, "sans-serif";
     padding-left: 150px;
     width: 600px;
+    position: relative;
+    top: -20px;
     text-shadow: -4px 0 3px;
     color: #232323;
 }
@@ -70,20 +78,27 @@ input{
     font-family: Georgia, "游明朝", "Yu Mincho", "游明朝体", YuMincho, "ヒラギノ明朝 Pro", "Hiragino Mincho ProN", "MS P明朝", "MS PMincho", HGS明朝E, "MS Mincho", serif;
     margin-right: 100px;
     margin-left: 130px;
-    padding-top: 10px;
     padding-right: 20px;
     height: 30px;
+    position: relative;
+    bottom: 10px;
 }
 td{
-    padding-right: 10px;
+    text-align: left;
+    padding-left: 5px;
 }
-.r1,.r2,.r3,.r4,.r5,.r6,.r7,.r8{
-    height: 40px;
+tr{
+    position: relative;
+    left: 50px;
+}
+.r1,.r2,.r3,.r4,.r5,.r6,.r7,.r8,.r9,.r10,.r11,.r12,.r13,.r14,.r15,.r16{
+    height: 36px;
+
 }
 
 button{
     width: 74px;
-    height: 30px;
+height: 30px;
     border: none;
     background-color: #409EFF;
     color: white;
@@ -92,34 +107,55 @@ button{
     transition: background-color 0.3s
 }
 .button1{
-  margin-top: -10px;
+  position: relative;
+    left: 55px;
+bottom: 25px;
+    height: 30px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+
 }
 .button2{
-    margin-top: -30px;
-    margin-bottom: 20px;
+   position: relative;
+   bottom: 83px;
+    padding-top: 5px;
+    padding-bottom: 5px;
 }
 .button3{
     margin-left: 210px;
-    margin-top: -20px;
     position: relative;
-    bottom: 30px;
+    bottom: 110px;
+    left: 7px;
+   padding-top: 5px;
+    padding-bottom: 5px;
 }
 button:hover{
     background-color: #9fcfff;
 }
-select{
-    width: 100px;
-    height: 25px;
 
-}
 #footer{
-    margin-top: -20px;
+    margin-top: -10px;
 }
 .error2{
     color: red;
-    font-size: 15px;
+    font-size: 13px;
     position: relative;
-    left: 35px;
+    left: 80px;
+    top: 50px;
     margin-bottom: -10px;
+}
+
+.errorMsg{
+    color: red;
+    font-size: 13px;
+    position: relative;
+    left: 60px;
+    top: 425px;
+    height: 5px;
+}
+.resumeFile{
+    border: none;
 
 }
+
+

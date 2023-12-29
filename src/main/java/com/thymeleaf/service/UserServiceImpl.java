@@ -32,6 +32,13 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public boolean isPasswordValid(String password) {
+        String regex = "(?=.*[A-Za-z])(?=.*\\d).{6,15}$";
+        return password.matches(regex);
+    }
+
+    @Override
+
     public void register(User user) {
         userDao.save(user);
 

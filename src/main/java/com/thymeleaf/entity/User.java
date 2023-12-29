@@ -5,6 +5,7 @@ import org.springframework.stereotype.Component;
 
 import javax.annotation.Resources;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
 
 
 public class User {
@@ -12,6 +13,7 @@ public class User {
 
     @NotEmpty(message = "ユーザ名を入力してください")
     private String user_name;
+
     @NotEmpty(message = "パスワードを入力してください")
     private String password;
 
