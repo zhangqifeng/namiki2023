@@ -41,8 +41,6 @@ public class UserServiceImpl implements UserService {
 
     public void register(User user) {
         userDao.save(user);
-
-
     }
 
 

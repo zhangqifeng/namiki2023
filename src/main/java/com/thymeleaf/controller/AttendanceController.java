@@ -1,10 +1,10 @@
 package com.thymeleaf.controller;
-
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.thymeleaf.entity.Attendance;
 import com.thymeleaf.entity.Employee;
 import com.thymeleaf.service.EmployeeService;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,13 +15,11 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.time.LocalDate;
 import java.time.Year;
 import java.util.List;
-
 @Controller
 @RequestMapping("worker")
 public class AttendanceController {
@@ -47,7 +45,7 @@ public class AttendanceController {
             model.addAttribute("error1","社員番号を入力してください");
             return "employeelogin";
         }
-        else if(employee_password.isEmpty()){
+        else if(StringUtils.isEmpty(employee.getEmployee_password())){
             model.addAttribute("error2","パスワードを入力してください");
             return "employeelogin";
         }
@@ -80,7 +78,7 @@ public class AttendanceController {
             @RequestParam Integer employee_id,
             Model model) {
         // 如果年份和月份未提供，则使用当前的年份和月份作为默认值
-        if (year == null&month==null) {
+        if (year == null && month==null) {
             year = Year.now().getValue(); // 获取当前年份
             month = LocalDate.now().getMonthValue(); // 获取当前月份
         }

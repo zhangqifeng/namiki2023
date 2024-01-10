@@ -36,7 +36,6 @@ import com.thymeleaf.service.EmployeeService;
 @Controller
 @RequestMapping("employee")
 public class EmployeeController {
-
     private static final Logger log= LoggerFactory.getLogger(EmployeeController.class);
     private final EmployeeService employeeService;
     @Value("${resume.file.dir}")
@@ -161,12 +160,11 @@ public void download( String resume, HttpServletResponse response) throws IOExce
             String newFileName = getNewFileName(resumeFile, originalFilename);
             employee.setResume(newFileName);
         }
-            if (employee.getEmployee_password()==null||employee.getEmployee_password().isEmpty())
-                employee.setEmployee_password("123456");
-            employeeService.save(employee);
+        if (employee.getEmployee_password()==null||employee.getEmployee_password().isEmpty())
+            employee.setEmployee_password("123456");
+        employeeService.save(employee);
         ra.addFlashAttribute("msg3","登録完了しました!");
-            return "redirect:/employee/lists";
-
+        return "redirect:/employee/lists";
     }
     private String getNewFileName(MultipartFile resumeFile, String originalFilename) throws IOException {
         String fileNamePrefix = new SimpleDateFormat("yyyyMMddHHmmssSSS").format(new Date());

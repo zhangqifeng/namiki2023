@@ -89,15 +89,12 @@ private Integer department;
     }
 
 private Integer positionRank;
-
     public Integer getPositionRank() {
         return positionRank;
     }
-
     public void setPositionRank(Integer positionRank) {
         this.positionRank = positionRank;
     }
-
     private String job_title;
     private String employment_status;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
@@ -106,10 +103,7 @@ private Integer positionRank;
     private Date update_date;
     private Integer empInsuranceNumber;
     private Integer pensionNumber;
-
-
     private String resume;
-
     public String getResume() {
         return resume;
     }
@@ -117,30 +111,18 @@ private Integer positionRank;
     public void setResume(String resume) {
         this.resume = resume;
     }
-
     public Integer getEmpInsuranceNumber() {
         return empInsuranceNumber;
     }
-
-
     public void setEmpInsuranceNumber(Integer empInsuranceNumber) {
         this.empInsuranceNumber = empInsuranceNumber;
     }
-
     public Integer getPensionNumber() {
         return pensionNumber;
     }
-
     public void setPensionNumber(Integer pensionNumber) {
         this.pensionNumber = pensionNumber;
     }
-
-
-
-
-    public Employee() {
-    }
-
     public void setHire_date(LocalDate hire_date) {
         this.hire_date = hire_date;
     }
@@ -172,10 +154,10 @@ private Integer positionRank;
         this.address = address;
     }
 
-
     public String getJob_title() {
         return job_title;
     }
+
     public void setJob_title(String job_title) {
         this.job_title = job_title;
     }
@@ -196,5 +178,7 @@ private Integer positionRank;
     }
     public void setUpdate_date(Date update_date) {
         this.update_date = update_date;
+    }
+    public Employee() {
     }
 }

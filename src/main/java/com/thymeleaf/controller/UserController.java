@@ -73,7 +73,6 @@ public class UserController {
                 model.addAttribute("errorMsg3","半角英数字6文字～15文字にしてください");
                 return "regist";
             } else if (!sessionCode.equalsIgnoreCase(code)){
-
                 model.addAttribute("errorMsg1","確認コードが違います");
                 return "regist";
             }else if (userService.isUserExisted(user_name)){

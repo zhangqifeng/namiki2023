@@ -22,8 +22,6 @@ public class Attendance {
 
     public Attendance() {
     }
-
-
     private Integer record_id;
     private Integer employee_id;
 
@@ -33,6 +31,12 @@ public class Attendance {
     private Date attendance_date;
 
     private String status;
+    @DateTimeFormat(pattern = "HH:mm")
+    private LocalTime start_date;
+
+    @DateTimeFormat(pattern = "HH:mm")
+    private LocalTime end_date;
+
 
     public String getStatus() {
         return status;
@@ -42,12 +46,6 @@ public class Attendance {
     public void setStatus(String status) {
         this.status = status;
     }
-
-    @DateTimeFormat(pattern = "HH:mm")
-    private LocalTime start_date;
-
-    @DateTimeFormat(pattern = "HH:mm")
-    private LocalTime end_date;
 
     public LocalTime getStart_date() {
         return start_date;
