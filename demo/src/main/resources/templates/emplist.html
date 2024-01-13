@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<title>emplist</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<link rel="stylesheet" type="text/css" th:href="@{/css/style.css}" />
+	</head>
+	<body>
+		<div id="wrap">
+			<div id="top_content"> 
+				<div id="header">
+					<div id="rightheader">
+						<p>
+							2009/11/20 
+							<br />
+							<a th:if="${session.user==null}" th:href="@{/login}">点我登录</a>
+						</p>
+					</div>
+					<div id="topheader">
+						<h1 id="title">
+							<a href="#">main</a>
+						</h1>
+					</div>
+					<div id="navigation">
+					</div>
+				</div>
+				<div id="content">
+					<p id="whereami">
+					</p>
+					<h1>
+						欢迎
+				    </h1>
+					<div id="right">
+					<a class="button10" th:href="@{/user/loging}">ログアウト</a>
+					</div>
+				</div>
+
+					<form th:action="@{/employee/search}" method="post" class="form">
+						<span id="successMsg1" th:text="${msg1}"></span>
+						<span id="successMsg2" th:text="${msg2}"></span>
+						<span id="successMsg3" th:text="${msg3}"></span>
+						<span id="successMsg4" th:text="${msg4}"></span>
+							<script th:inline="javascript">
+								var messageElement = document.getElementById("successMsg1")
+								var messageElement2 = document.getElementById("successMsg2")
+								var messageElement3 = document.getElementById("successMsg3")
+								var messageElement4 = document.getElementById("successMsg4")
+								setTimeout(function(){
+									messageElement.style.display = 'none';
+								}, 1000);
+								setTimeout(function (){
+									messageElement2.style.display='none';
+								},1000);
+								setTimeout(function(){
+									messageElement3.style.display='none';
+								}, 1000);
+								setTimeout(function(){
+									messageElement4.style.display='none';
+								}, 1000);
+							</script>
+						<div>
+							社員番号：<input type="text" name="employee_id">
+							部署名：<input type="text" name="department">
+						</div>
+						<div>
+							社員名：<input type="text" name="employee_name">
+							住所：<input type="text" name="address">
+						</div>
+					<div class="button"><button class="button1" type="submit">検索</button></div>
+					</form>
+
+<!--					<button class="button3" onclick="refresh()">リセット</button>-->
+					<input type="button" class="button3" value="リセット" onclick="refresh()"/>
+					<input type="button" class="button2" value="新規登録" onclick="addEmp()"/>
+
+					<table class="table">
+						<tr class="table_header">
+							<td>
+								社員番号：
+							</td>
+							<td>
+								社員名：
+							</td>
+							<td>
+								性别：
+							</td>
+							<td>
+								住所：
+							</td>
+							<td>
+								部署名：
+							</td>
+							<td>
+								操作
+							</td>
+						</tr>
+						<tr th:each="employee:${pageInfo.list}"  class="row1">
+							<td class="r1">
+								<span th:text="${employee.employee_id}"></span>
+							</td>
+							<td class="r2">
+								<span th:text="${employee.employee_name}"></span>
+							</td>
+							<td class="r3">
+								<span th:text="${employee.sex}"></span>
+							</td>
+							<td class="r4">
+								<span th:text="${employee.address}"></span>
+							</td>
+
+							<td class="r5">
+								<span th:text="${employee.department}"></span>
+							</td>
+							<td class="r6">
+								<a class="button11" th:href="@{/employee/detail(employee_id=${employee.employee_id})}">詳細</a>
+							</td>
+						</tr>
+					</table>
+
+					<p class="number">  1～5件/<span th:text="${pageInfo.total}"></span> 件</p >
+				<div id="#navigation ul">
+					<ul class="pagination">
+						<li class="top-page">
+							<a class="button4" th:href="@{/employee/lists}">最初のページ</a >
+						</li>
+						<li class="prev">
+							<a class="button5" th:href="@{/employee/lists(pageNum=${pageInfo.hasPreviousPage}?${pageInfo.prePage}:1)}">前へ</a >
+						</li>
+						<li th:each="nav:${pageInfo.navigatepageNums}">
+							<a class="button6" th:href="@{/employee/lists(pageNum=${nav})}" th:text="${nav}" th:if="${nav != pageInfo.pageNum}"></a >
+							<span class="button7" th:if="${nav == pageInfo.pageNum}" th:text="${nav}" ></span>
+						</li>
+						<li class="next">
+							<a class="button8" th:href="@{/employee/lists(pageNum=${pageInfo.hasNextPage}?${pageInfo.nextPage}:${pageInfo.pages})}">次へ</a >
+						</li>
+						<li class="last-page">
+							<a class="button9" th:href="@{/employee/lists(pageNum=${pageInfo.pages})}">最後のページ</a >
+						</li>
+					</ul>
+				</div>
+				</div>
+			</div>
+			<div id="footer">
+				<div id="footer_bg">
+				ABC@126.com
+				</div>
+			</div>
+		</div>
+	</body>
+
+	<script>
+		function addEmp(){
+            location.href = '[[@{/employee/add}]]';
+        }
+		function refresh(){
+			location.href = '[[@{/employee/lists}]]';
+		}
+	</script>
+</html>

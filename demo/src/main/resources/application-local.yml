@@ -1,0 +1,4 @@
+#指定文件上传位置
+file:
+  upload:
+    dir: D:\ems-thymeleaf\demo\download

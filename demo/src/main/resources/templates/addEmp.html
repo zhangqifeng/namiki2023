@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="ch" xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<title>添加员工信息</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<link rel="stylesheet" type="text/css"
+			th:href="@{/css/style.css}" />
+	</head>
+
+	<body>
+		<div id="wrap">
+			<div id="top_content">
+					<div id="header">
+						<div id="rightheader">
+							<p>
+								2023/10/12
+								<br />
+							</p>
+						</div>
+						<div id="topheader">
+							<h1 id="title">
+								<a href="#">main</a>
+							</h1>
+						</div>
+						<div id="navigation">
+						</div>
+					</div>
+				<div id="content">
+					<p id="whereami">
+					</p>
+					<h1>
+						新規登録:
+					</h1>
+					<form th:action="@{/employee/save}" method="post" th:object="${employee}"　enctype="multipart/form-data">
+						<table
+							class="form_table">
+							<tr>
+								<td>
+									社員番号：
+								</td>
+								<td>
+									<input type="text" class="inputgri" th:field="*{employee_id}" />
+									<span th:if="${#fields.hasErrors('employee_id')}" th:errors="*{employee_id}"></span>
+									<span th:if="${errorMsg}" class="error" th:text="${errorMsg}"></span>
+								</td>
+							</tr>
+							<tr>
+								<td>
+									社員名：
+								</td>
+								<td>
+									<input type="text" class="inputgri" th:field="*{employee_name}" />
+									<span th:if="${#fields.hasErrors('employee_name')}" th:errors="*{employee_name}"></span>
+								</td>
+							</tr>
+							<tr>
+								<td>
+									役職名：
+								</td>
+								<td>
+									<input type="text" class="inputgri" th:field="*{job_title}" />
+								</td>
+							</tr>
+							<tr>
+								<td>
+									性別：
+								</td>
+								<td>
+
+<!--									<input type="radio" class="inputgri" th:value="${男}" th:field="${sex}" />-->
+									<input type="radio" name="sex" value="男" th:checked="${employee.sex=='男'}" />
+									男
+									<input type="radio" name="sex" value="女" th:checked="${employee.sex=='女'}"/>
+									女
+								</td>
+							</tr>
+							<tr>
+								<td>
+									部署名：
+								</td>
+								<td>
+									<select th:field="*{department}" id="option1">
+										<option value="システム1部">システム1部</option>
+										<option value="システム2部">システム2部</option>
+									</select>
+									<script>
+										function readOption(){
+                                           var selected=document.getElementById("option1");
+                                           alert(selected.options[selected.selectedIndex].value)
+                                        }
+									</script>
+								</td>
+							</tr>
+							<tr>
+								<td>
+									住所：
+								</td>
+								<td>
+									<input type="text" class="inputgri" th:field="*{address}" />
+								</td>
+							</tr>
+							<tr>
+								<td>
+									雇用形態：
+								</td>
+								<td>
+									<select th:field="*{employment_status}" id="option">
+										<option value="正社員">正社員</option>
+										<option value="契約社員">契約社員</option>
+									</select>
+									<script>
+										function readOption(){
+                                           var selected=document.getElementById("option");
+                                           alert(selected.options[selected.selectedIndex].value)
+
+                                        }
+									</script>
+								</td>
+							</tr>
+
+							<tr>
+								<td>
+									入社年月日：
+								</td>
+								<td>
+									<input type="date" class="inputgri" name="hire_date"  th:field="*{hire_date}"/>
+								</td>
+							</tr>
+							<span th:if="${errorMsg2}" class="errorMsg2" th:text="${errorMsg2}"></span>
+							<tr class="r9">
+								<td>
+									誕生日：
+								</td>
+								<td>
+									<input type="date" class="inputgri" th:field="*{birth_date}"/>
+								</td>
+							</tr>
+							<tr class="r10">
+								<td>
+									雇用保険番号：
+								</td>
+								<td>
+									<input type="text" class="inputgri" th:field="*{empInsuranceNumber}"/>
+								</td>
+							</tr>
+							<tr class="r11">
+								<td>
+									年金番号：
+								</td>
+								<td>
+									<input type="text" class="inputgri" th:field="*{pensionNumber}"/>
+								</td>
+							</tr>
+							<tr class="r12">
+								<td>
+									職位ランク：
+								</td>
+								<td>
+									<select th:field="*{posionRank}" id="option2">
+										<option value="P1">P1</option>
+										<option value="P2">P2</option>
+										<option value="P3">P3</option>
+										<option value="S1">S1</option>
+										<option value="S2">S2</option>
+										<option value="S2">S3</option>
+										<option value="PL1">PL1</option>
+										<option value="PL2">PL2</option>
+										<option value="PM">PM</option>
+									</select>
+								</td>
+								<td>
+									<input type="file" name="resumeFile" class="resume"/>
+								</td>
+
+							</tr>
+						</table>
+						<button type="submit" class="button2">登録</button>
+						<input type="file" name="file">
+						<input type="submit" value="上传文件">
+					</form>
+<!--						<input type="submit" class="button" onclick="refresh() value="返回列表" />-->
+							<button class="button" onclick="refresh()">戻る</button>
+				</div>
+			</div>
+			<div id="footer">
+				<div id="footer_bg">
+					ABC@126.com
+				</div>
+			</div>
+		</div>
+	</body>
+<script>
+	function refresh(){
+		location.href='[[@{/employee/lists}]]'
+	}
+</script>
+</html>

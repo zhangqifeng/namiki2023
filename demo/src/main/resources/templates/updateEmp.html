@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<title>更新员工信息</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<link rel="stylesheet" type="text/css"
+			th:href="@{/css/style.css}" />
+	</head>
+
+	<body>
+		<div id="wrap">
+			<div id="top_content">
+					<div id="header">
+						<div id="rightheader">
+							<p>
+								2009/11/20
+								<br />
+							</p>
+						</div>
+						<div id="topheader">
+							<h1 id="title">
+								<a href="#">main</a>
+							</h1>
+						</div>
+						<div id="navigation">
+						</div>
+					</div>
+				<div id="content">
+					<p id="whereami">
+					</p>
+					<h1>
+						更新员工信息:
+					</h1>
+					<form th:action="@{/employee/update}" method="post" th:object="${employee}" enctype="multipart/form-data">
+						<table cellpadding="0" cellspacing="0" border="0"
+							class="form_table">
+							<tr class="r1">
+								<td valign="middle" align="right">
+									社員番号：
+								</td>
+								<td valign="middle" align="left">
+<!--									<span th:text="${employee.id}" th:type="hidden"></span>-->
+									<input type="hidden" name="id" th:field="*{id}">
+<!--									<span th:text="${employee.employee_id}"></span>-->
+									<input type="text" class="inputgri" name="employee_id" th:field="*{employee_id}" />
+								</td>
+							</tr>
+							<span class="error2" th:if="${#fields.hasErrors('employee_name')}" th:errors="*{employee_name}">
+							</span>
+							<tr class="r2">
+								<td>
+									社員名：
+								</td>
+								<td>
+									<input type="text" class="inputgri" name="employee_name" th:field="*{employee_name}"/>
+								</td>
+							</tr>
+							<tr>
+								<td>
+									役職名：
+								</td>
+								<td>
+									<input type="text" class="inputgri" name="job_title" th:field="*{job_title}"/>
+								</td>
+							</tr>
+							<tr>
+								<td>
+									性別：
+								</td>
+								<td>
+									<input type="radio" name="sex" value="男" th:checked="${employee.sex=='男'}"/>
+									男
+									<input type="radio" name="sex" value="女" th:checked="${employee.sex=='女'}"/>
+									女
+								</td>
+								<script>
+									function readRadio(){
+                                       var obj=document.getElementById("sex")
+                                       for (var i=0;i<obj.length;i++){
+                                          if(obj[i].checked){
+                                             alert(obj[i].value);
+                                             break;
+                                          }
+                                       }
+                                    }
+								</script>
+							</tr>
+							<tr>
+								<td valign="middle" align="right">
+									部署名：
+								</td>
+								<td>
+									<select th:field="*{department}" name="department" id="option1" >
+										<option value="システム1部">システム1部</option>
+										<option value="システム2部">システム2部</option>
+									</select>
+									<script>
+										function readOption(){
+                                           var selected=document.getElementById("option1");
+                                           alert(selected.options[selected.selectedIndex].value)
+                                        }
+									</script>
+								</td>
+							</tr>
+							<tr>
+								<td valign="middle" align="right">
+									住所：
+								</td>
+								<td valign="middle" align="left">
+									<input type="text" class="inputgri" name="address" th:field="*{address}"/>
+								</td>
+							</tr>
+							<tr>
+								<td valign="middle" align="right">
+									雇用形態：
+								</td>
+								<td>
+									<select th:field="*{employment_status}" name="employment_status" id="option" >
+										<option value="正社員">正社員</option>
+										<option value="契約社員">契約社員</option>
+									</select>
+									<script>
+										function readOption(){
+                                           var selected=document.getElementById("option");
+                                           alert(selected.options[selected.selectedIndex].value)
+
+                                        }
+									</script>
+								</td>
+							</tr>
+							<tr>
+								<td valign="middle" align="right">
+									入社年月日：
+								</td>
+								<td valign="middle" align="left">
+									<input type="date" class="inputgri" name="hire_date"  th:field="*{hire_date}"/>
+								</td>
+							</tr>
+							<span th:if="${errorMsg}" class="errorMsg2" th:text="${errorMsg}"></span>
+							<tr class="r9">
+								<td valign="middle" align="right">
+									誕生日：
+								</td>
+								<td valign="middle" align="left">
+									<input type="date" class="inputgri" th:field="*{birth_date}"/>
+								</td>
+							<tr class="r10">
+								<td valign="middle" align="right">
+									雇用保険番号：
+								</td>
+								<td valign="middle" align="left">
+									<input type="text" class="inputgri" th:field="*{empInsuranceNumber}"/>
+								</td>
+							</tr>
+							<tr class="r11">
+								<td valign="middle" align="right">
+									年金番号：
+								</td>
+								<td valign="middle" align="left">
+									<input type="text" class="inputgri" th:field="*{pensionNumber}"/>
+								</td>
+							</tr>
+							<tr class="r11">
+								<td valign="middle" align="right">
+									職位ランク：
+								</td>
+								<td valign="middle" align="left">
+									<select th:field="*{posionRank}" id="option2">
+										<option value="P1">P1</option>
+										<option value="P2">P2</option>
+										<option value="P3">P3</option>
+										<option value="S1">S1</option>
+										<option value="S2">S2</option>
+										<option value="S2">S3</option>
+										<option value="PL1">PL1</option>
+										<option value="PL2">PL2</option>
+										<option value="PM">PM</option>
+									</select>
+									<span th:if="*{resume}">
+										<a th:href="@{/employee/download(resume=${employee.resume})}" th:download="${employee.resume}"
+										th:text="*{employee_name+'的履历'}">
+										</a>
+									</span>
+									<input type="file" name="resumeFile"  accept=".xsl, .doc, .pdf"/>
+								</td>
+							</tr>
+						</table>
+							<input type="submit" class="button1" value="更新" />
+					</form>
+
+							<button class="button2" href="javascript:;" th:onclick="'deleteEmployee('+${employee.employee_id}+')'">削除</button>
+							<button class="button3" onclick="refresh()">戻る</button>
+				</div>
+			</div>
+			<div id="footer">
+				<div id="footer_bg">
+					ABC@126.com
+				</div>
+			</div>
+		</div>
+	</body>
+		<script>
+			function deleteEmployee(employee_id){
+				console.log(employee_id);
+				if(window.confirm('确定要删除这条记录吗?')){
+					location.href='[[@{/employee/delete?employee_id=}]]'+employee_id;
+				}
+			}
+			function refresh(){
+				location.href='[[@{/employee/lists}]]';
+			}
+		</script>
+</html>

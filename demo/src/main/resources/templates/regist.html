@@ -1,0 +1,92 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<title>regist</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<link rel="stylesheet" type="text/css" th:href="@{/css/style.css}" />
+	</head>
+	<body>
+		<div id="wrap">
+			<div id="top_content">
+					<div id="header">
+						<div id="rightheader">
+							<p>
+								2009/11/20
+								<br />
+							</p>
+						</div>
+						<div id="topheader">
+							<h1 id="title">
+								<a href="#">main</a>
+							</h1>
+						</div>
+						<div id="navigation">
+						</div>
+					</div>
+				<div id="content">
+					<p id="whereami">
+					</p>
+					<h1>
+						ユーザー新規登録
+					</h1>
+					<form th:action="@{/user/register}" method="post" th:object="${user}">
+						<table cellpadding="0" cellspacing="0" border="0"
+							class="form_table">
+
+							<span th:if="${errorMsg2}" class="errorMsg2" th:text="${errorMsg2}">
+							</span>
+
+							<span th:if="${#fields.hasErrors('user_name')}" class="error1" th:errors="*{user_name}">
+							</span>
+							<tr class="row1">
+								<td valign="middle" align="right" class="user_name">
+									ユーザーID:
+								</td>
+								<td valign="middle" align="left">
+									<input type="text" class="inputgri" th:field="*{user_name}" />
+								</td>
+							</tr>
+
+							<span th:if="${#fields.hasErrors('password')}" class="error2" th:errors="*{password}"></span>
+							<span th:if="${errorMsg3}" class="errorMsg" th:text="${errorMsg3}"></span>
+							<tr class="row2">
+								<td valign="middle" align="right">
+									パスワード:
+								</td>
+								<td valign="middle" align="left">
+									<input type="password" class="inputgri" th:field="*{password}"/>
+								</td>
+							</tr>
+
+							<span th:if="${errorMsg1}" class="errorMsg1" th:text="${errorMsg1}"></span>
+							<tr>
+								<td valign="middle" align="right">
+									验证码:
+									<img id="num" th:src="@{/user/generateImageCode}" />
+									<a href="javascript:;" onclick="changeImageCode()">换一张</a>
+									<script>
+										function changeImageCode(){
+											document.getElementById('num').src = '[[@{/user/generateImageCode}]]?'+(new Date()).getTime()
+										}
+									</script>
+								</td>
+								<td valign="middle" align="left">
+									<input type="text" class="inputgri" name="code" />
+								</td>
+							</tr>
+						</table>
+						<p>
+							<input type="submit" class="button" value="今すぐ登録 &raquo;" />
+							<button th:href="@{/user/loging}">已有账号,返回登录</button>
+						</p>
+					</form>
+				</div>
+			</div>
+			<div id="footer">
+				<div id="footer_bg">
+				ABC@126.com
+				</div>
+			</div>
+		</div>
+	</body>
+</html>

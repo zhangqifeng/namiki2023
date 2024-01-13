@@ -2,8 +2,8 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.thymeleaf.dao.EmployeeDao">
-    <resultMap id="employeeDepartmentResultMap" type="com.thymeleaf.dto.EmployeeDepartmentDto">
+<mapper namespace="com.example.demo.dao.EmployeeDao">
+    <resultMap id="employeeDepartmentResultMap" type="com.example.demo.dto.EmployeeDepartmentDto">
         <result property="employee_id" column="employee_id" />
         <result property="employee_name" column="employee_name" />
         <result property="address" column="address" />
@@ -20,6 +20,9 @@
         SELECT e.employee_id, e.employee_name, e.address,
         e.sex, d.department as department_name
         FROM employee e
+
+            /**/
+
         left JOIN department d ON e.department = d.id
         <where>
             <if test="employee_id!=null and employee_id!='' ">
@@ -36,28 +39,41 @@
             </if>
         </where>
     </select>
-    <insert id="save" parameterType="Employee">
-        insert into `employee`(employee_id,employee_name,employee_password,sex,address,mail_address,phone_number,department,job_title,employment_status,hire_date,birth_date,empInsuranceNumber,pensionNumber,positionRank,resume)
-        values(#{employee_id},#{employee_name},#{employee_password},#{sex},#{address},#{mail_address},#{phone_number},#{department},#{job_title},#{employment_status},#{hire_date},#{birth_date},#{empInsuranceNumber},#{pensionNumber},#{positionRank},#{resume})
-    </insert>
-    <select id="findById" parameterType="Integer" resultType="Employee">
-        select * from employee where employee_id=#{employee_id}
+    <select id="lists" resultType="Employee">
+        select * from `employee`
     </select>
-    <update id="update" parameterType="map">
-        update `employee` set employee_name=#{employee_name},employee_password=#{employee_password},
-                              sex=#{sex},address=#{address},mail_address=#{mail_address},phone_number=#{phone_number},department=#{department},
-                              job_title=#{job_title},employment_status=#{employment_status},hire_date=#{hire_date},
-                              birth_date=#{birth_date},empInsuranceNumber=#{empInsuranceNumber},pensionNumber=#{pensionNumber},positionRank=#{positionRank},resume=#{resume}
+
+    <insert id="save" parameterType="employee">
+        insert into `employee`(employee_id, employee_name, sex, address, department, job_title, employment_status,
+                               hire_date, birth_date, empInsuranceNumber, pensionNumber, posionRank, resume)
+        values(#{employee_id}, #{employee_name}, #{sex}, #{address}, #{department}, #{job_title}, #{employment_status},
+               #{hire_date}, #{birth_date}, #{empInsuranceNumber}, #{pensionNumber}, #{posionRank}, #{resume})
+    </insert>
+
+    <select id="findById" parameterType="Integer" resultType="Employee">
+        select * from `employee`
         where employee_id=#{employee_id}
+    </select>
+
+    <update id="update" parameterType="employee">
+        update `employee` set employee_id=#{employee_id}, employee_name=#{employee_name},
+        sex=#{sex}, address=#{address},department=#{department}, job_title=#{job_title},
+        employment_status=#{employment_status}, hire_date=#{hire_date}, birth_date=#{birth_date},
+        empInsuranceNumber= #{empInsuranceNumber}, pensionNumber=#{pensionNumber}, posionRank=#{posionRank}, resume=#{resume}
+        where id = #{id}
     </update>
+
     <delete id="delete" parameterType="Integer">
-        delete from `employee` where employee_id=#{employee_id}
+        delete from `employee`
+        where employee_id = #{employee_id}
     </delete>
+
     <select id="getAllAttendances"  parameterType="map" resultType="Attendance">
         select * from `attendance` where employee_id=#{employee_id} AND YEAR(attendance_date) = YEAR(CURDATE())
                                      AND MONTH(attendance_date) = MONTH(CURDATE())
         ORDER BY attendance_date ASC
     </select>
+
     <select id="searchDate" parameterType="map" resultType="Attendance">
         SELECT * FROM `attendance`
         <where>
@@ -70,17 +86,20 @@
             <if test="day != null">
                 AND DAY(attendance_date) = #{day}
             </if>
-        and employee_id=#{employee_id}
+            and employee_id=#{employee_id}
         </where>
         ORDER BY attendance_date ASC
     </select>
+
     <insert id="clock" parameterType="Attendance">
         insert into `attendance`(employee_id,attendance_date,status,start_date,end_date)
         values (#{employee_id},#{attendance_date},#{status},#{start_date},#{end_date})
     </insert>
+
     <select id="findByRecord" parameterType="Integer" resultType="Attendance">
-select * from `attendance` where record_id=#{record_id}
+        select * from `attendance` where record_id=#{record_id}
     </select>
+
     <update id="updateAttendance" parameterType="Attendance" >
         update `attendance` set
                                 attendance_date=#{attendance_date},
@@ -88,8 +107,6 @@ select * from `attendance` where record_id=#{record_id}
                                 start_date=#{start_date},
                                 end_date=#{end_date}
         where record_id=#{record_id}
-        </update>
-
-
+    </update>
 
 </mapper>
