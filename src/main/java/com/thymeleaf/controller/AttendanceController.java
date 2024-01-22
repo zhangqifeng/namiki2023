@@ -8,6 +8,8 @@ import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -18,6 +20,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.time.Year;
 import java.util.List;
 @Controller
@@ -53,6 +56,10 @@ public class AttendanceController {
             model.addAttribute("errorMsg", "ユーザまたはパスワードが違います");
             return "employeelogin";
         }
+        LocalDate currentDate = LocalDate.now();
+        int year = currentDate.getYear();
+        int month = currentDate.getMonthValue();
+        employeeService.generateDailyAttendance(employee_id,year,month);
         String employee_name = employeeService.findById(employee_id).getEmployee_name();
         ra.addFlashAttribute("msg4","ログイン成功しました!");
         session.setAttribute("employee_id",employee_id);
@@ -62,13 +69,21 @@ public class AttendanceController {
     @RequestMapping("attendance")
     public String getAttendance(Model model, @RequestParam(defaultValue = "1",value = "pageNum")Integer pageNum,@RequestParam Integer employee_id)
     {
-        PageHelper.clearPage();
-        PageHelper.startPage(pageNum,5);
-        List<Attendance>attendances=employeeService.getAllAttendances(employee_id);
-        PageInfo<Attendance> pageInfo = new PageInfo<>(attendances);
-        model.addAttribute("pageInfo",pageInfo);
+        List<Attendance> attendances = employeeService.getAllAttendances(employee_id);
+        model.addAttribute("attendance",attendances);
         return "attendance";
     }
+    @RequestMapping("/loadMoreData")
+    public ResponseEntity<List<Attendance>> loadMoreData(@RequestParam Integer pageNum,
+                                                         @RequestParam Integer pageSize,
+                                                         @RequestParam Integer employee_id,
+                                                         Model model) {
+        // 根据 pageNum 和 pageSize 查询数据库获取更多数据
+        List<Attendance> moreData = employeeService.getMoreAttendances(employee_id, pageNum, pageSize);
+        model.addAttribute("attendance",moreData);
+        return new ResponseEntity<>(moreData, HttpStatus.OK);
+    }
+
     @RequestMapping("search")
     public String searchDate(
             @RequestParam(defaultValue = "1",value = "pageNum")Integer pageNum,
@@ -107,14 +122,31 @@ if (attendance.getStatus().isEmpty())
     attendance.setStatus(null);
 Integer employee_id= (Integer) session.getAttribute("employee_id");
 attendance.setEmployee_id(employee_id);
+        LocalTime startTime = LocalTime.of(attendance.getStart_date().getHour(),attendance.getStart_date().getMinute()); // 替换为实际的小时和分钟
+        attendance.setStart_date(startTime);
 employeeService.clock(attendance);
 ra.addFlashAttribute("msg1","打刻成功しました");
         return "redirect:/worker/attendance?employee_id=" + employee_id;
     }
     @RequestMapping("detail")
-    public String detail(Integer record_id,Model model){
-        Attendance attendance= employeeService.findByRecord(record_id);
-        model.addAttribute("attendance",attendance);
+    public String detail(Integer record_id,Model model) {
+        Attendance attendance = employeeService.findByRecord(record_id);
+        int hours = 8;
+        int minutes=0;
+        int hour=8;
+        int minute=0;
+        if (attendance.getStart_date() != null) {
+            hours=attendance.getStart_date().getHour();
+            minutes=attendance.getStart_date().getMinute();}
+        if (attendance.getEnd_date()!=null){
+            hour=attendance.getEnd_date().getHour();
+        minute=attendance.getEnd_date().getMinute();
+        }
+        model.addAttribute("attendance", attendance);
+        model.addAttribute("hours", hours);
+        model.addAttribute("minutes", minutes);
+        model.addAttribute("hour", hour);
+        model.addAttribute("minute", minute);
         return "clockUpdate";
     }
     @RequestMapping("update")

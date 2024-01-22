@@ -9,8 +9,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.sql.Date;
 import java.time.LocalDate;
 import java.time.Period;
+import java.time.YearMonth;
 import java.util.List;
 
 @Service
@@ -116,5 +118,31 @@ public class EmployeeServiceImpl implements EmployeeService {
         employeeDao.updateAttendance(attendance);
     }
 
+    @Override
+    public void generateDailyAttendance(Integer employeeId, int year, int month) {
+        if (employeeDao.hasAttendanceRecords(employeeId, year, month)) {
+            // 如果已存在记录，则不重新创建
+            return;
+        }
+        int daysInMonth = YearMonth.of(year, month).lengthOfMonth();  // 获取当月天数
+        for (int day = 1; day <= daysInMonth; day++) {
+            LocalDate attendanceDate = LocalDate.of(year, month, day);
+            // 为每一天创建一个新的 Attendance 对象
+            Attendance attendance = new Attendance();
+            attendance.setEmployee_id(employeeId);
+            attendance.setAttendance_date(Date.valueOf(attendanceDate));  // 将 LocalDate 转换为 Date
+            attendance.setStatus("欠勤");
+            // 将新创建的考勤记录保存到数据库
+           employeeDao.clock(attendance);
+        }
 
+    }
+
+    @Override
+    public List<Attendance> getMoreAttendances(Integer employeeId, Integer pageNum, Integer pageSize) {
+        int startRow = (pageNum - 1) * pageSize + 1;
+        int endRow = pageNum * pageSize;
+
+        return employeeDao.getAttendancesInRange(employeeId, startRow, endRow);
+    }
 }

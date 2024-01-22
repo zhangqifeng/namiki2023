@@ -73,8 +73,9 @@
                             出社:
                         </td>
                         <td valign="middle" align="left">
-                            <input type="time" class="inputgri" th:field="*{start_date}" />
-
+                            <input type="time" class="inputgri" th:field="*{start_date}" style="display: none" id="start_date"/>
+                            <select id="hours"></select>
+                            <select id="minutes" onchange="selectTime()"></select>
                         </td>
                     </tr>
                     <div class="error4" th:if="${#fields.hasErrors('end_date')}" th:errors="*{end_date}">
@@ -84,17 +85,10 @@
                             退社:
                         </td>
                         <td valign="middle" align="left">
-                            <input type="time" class="inputgri" th:field="*{end_date}" />
+                            <input type="time" class="inputgri" th:field="*{end_date}" style="display: none" id="end_date" />
+                            <select id="hour"></select>
+                            <select id="minute" onchange="selectTime()"></select>
                         </td>
-                    </tr>
-                    <tr class="r5">
-                        <td valign="middle" align="right">
-                            合計作業時間:
-                        </td>
-                        <td>
-
-                        </td>
-
                     </tr>
 
                 </table>
@@ -115,6 +109,53 @@
         location.href='/ems/worker/attendance?employee_id=' + employeeId;
     }
 
+        var hoursValue = /*[[${hours}]]*/'';
+        var minutesValue = /*[[${minutes}]]*/'';
+        var hourValue = /*[[${hour}]]*/'';
+        var minuteValue = /*[[${minute}]]*/'';
+        function createOption(value, text, selected) {
+            var option = document.createElement('option');
+            option.text = text;
+            option.value = value;
+            option.selected = selected;
+            return option;
+        }
+        var hoursSelect = document.getElementById('hours');
+        for (var i = 8; i <= 24; i++) {
+            var selected = (hoursValue !== null && i === hoursValue) || hoursValue === null && i === 8;
+            hoursSelect.add(createOption(i, i, selected));
+        }
 
+        var minutesSelect = document.getElementById('minutes');
+        for (var i = 0; i < 60; i += 10) {
+            var selected = (minutesValue !== null && i === minutesValue) || minutesValue === null && i === 0;
+            minutesSelect.add(createOption(i, i, selected));
+        }
+        var hourSelect = document.getElementById('hour');
+        for (var i = 8; i <= 24; i++) {
+            var selected = (hourValue !== null && i === hourValue) || hourValue === null && i === 8;
+            hourSelect.add(createOption(i, i, selected));
+        }
+
+        var minuteSelect = document.getElementById('minute');
+        for (var i = 0; i < 60; i += 10) {
+            var selected = (minuteValue !== null && i === minuteValue) || minuteValue === null && i === 0;
+            minuteSelect.add(createOption(i, i, selected));
+        }
+
+        function selectTime() {
+            // 获取用户选择的小时和分钟
+            var selectedHours = document.getElementById('hours').value;
+            var selectedMinutes = document.getElementById('minutes').value;
+            var selectedHour = document.getElementById('hour').value;
+            var selectedMinute = document.getElementById('minute').value;
+
+            // 构建时间字符串，例如 "HH:mm"
+            var timeString = (selectedHours < 10 ? '0' : '') + selectedHours + ':' + (selectedMinutes < 10 ? '0' : '') + selectedMinutes;
+            var timeString2 = (selectedHour < 10 ? '0' : '') + selectedHour + ':' + (selectedMinute < 10 ? '0' : '') + selectedMinute;
+            // 将时间字符串放入隐藏的 input 元素中
+            document.getElementById('start_date').value = timeString;
+            document.getElementById('end_date').value = timeString2;
+        }
 </script>
 </html>

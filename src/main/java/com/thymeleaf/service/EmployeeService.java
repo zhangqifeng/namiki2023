@@ -4,6 +4,7 @@ import com.thymeleaf.dto.EmployeeDepartmentDto;
 import com.thymeleaf.entity.*;
 
 import java.time.LocalDate;
+import java.time.YearMonth;
 import java.util.List;
 
 public interface EmployeeService {
@@ -34,4 +35,7 @@ public interface EmployeeService {
     Attendance findByRecord(Integer recordId);
 
     void updateAttendance(Attendance attendance);
+    void generateDailyAttendance(Integer employeeId, int year, int month);
+
+    List<Attendance> getMoreAttendances(Integer employeeId, Integer pageNum, Integer pageSize);
 }

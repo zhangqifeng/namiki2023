@@ -39,4 +39,10 @@ public interface EmployeeDao {
     Attendance findByRecord(Integer recordId);
 
     void updateAttendance(Attendance attendance);
+
+    boolean hasAttendanceRecords(@Param("employeeId") Integer employeeId,
+                             @Param("year") int year,
+                             @Param("month") int month);
+
+    List<Attendance> getAttendancesInRange(Integer employeeId, int startRow, int endRow);
 }

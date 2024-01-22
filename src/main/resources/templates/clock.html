@@ -18,7 +18,7 @@
             <h1 class="header2">
                 打刻
             </h1>
-            <form th:action="@{/worker/clock}" method="post" th:object="${attendance}" enctype="multipart/form-data" >
+            <form th:action="@{/worker/clock}" method="post" th:object="${attendance}" enctype="multipart/form-data" id="form" >
                 <table cellpadding="0" cellspacing="0" border="0"
                        class="form_table">
 					   <span class="employee_id">
@@ -69,8 +69,9 @@
                             出社:
                         </td>
                         <td valign="middle" align="left">
-                            <input type="time" class="inputgri" th:field="*{start_date}" />
-
+                            <input type="time" class="inputgri" th:field="*{start_date}" style="display: none" id="start_date"/>
+                            <select id="hours"></select>
+                            <select id="minutes"></select>
                         </td>
                     </tr>
                     <tr class="r4">
@@ -78,19 +79,13 @@
                             退社:
                         </td>
                         <td valign="middle" align="left">
-                            <input type="time" class="inputgri" th:field="*{end_date}" />
-                        </td>
-                    </tr>
-                    <tr class="r5">
-                        <td valign="middle" align="right">
-                            合計作業時間:
-                        </td>
-                        <td>
-                            <span class="totalTime"></span>
+                            <input type="time" class="inputgri" th:field="*{end_date}" style="display: none" id="end_date"/>
+                            <select id="hour"></select>
+                            <select id="minute"></select>
                         </td>
                     </tr>
                 </table>
-                <button class="button2" type="submit" >登録</button>
+                <button class="button2" type="submit" onclick="submitTime()">登録</button>
             </form>
 
             <button class="button" onclick="refresh()">戻る</button>
@@ -106,29 +101,49 @@
     function refresh(){
         location.href='/ems/worker/attendance?employee_id=' + employeeId;
     }
-    // 获取开始时间和结束时间的元素
-    var startDateInput = document.querySelector('input[name="start_date"]');
-    var endDateInput = document.querySelector('input[name="end_date"]');
-    var totalTimeElement = document.querySelector('.totalTime'); // 获取用于显示总时间的元素
 
-    // 监听输入框变化事件，计算时间差
-    startDateInput.addEventListener('change', calculateTotalTime);
-    endDateInput.addEventListener('change', calculateTotalTime);
+    function createOption(value, text) {
+        var option = document.createElement('option');
+        option.text = text;
+        option.value = value;
+        return option;
+    }
 
-    // 计算时间差并展示
-    function calculateTotalTime() {
-        var startTime = startDateInput.valueAsDate.getTime(); // 获取开始时间的时间戳
-        var endTime = endDateInput.valueAsDate.getTime(); // 获取结束时间的时间戳
-        if (!isNaN(startTime) && !isNaN(endTime)) { // 确保输入的时间有效
-            var difference = endTime - startTime; // 计算时间差
-            var hours = Math.floor(difference / (1000 * 60 * 60)); // 小时
-            var minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60)); // 分钟
+    var hoursSelect = document.getElementById('hours');
+    for(var i = 8; i <= 24; i++){
+        hoursSelect.add(createOption(i, i));
+    }
+    var hourSelect = document.getElementById('hour');
+    for(var i = 8; i <= 24; i++){
+        hourSelect.add(createOption(i, i));
+    }
+    var minutesSelect = document.getElementById('minutes');
+    for(var i = 0; i < 60; i += 10) {
+        minutesSelect.add(createOption(i, i));
+    }
+    var minuteSelect = document.getElementById('minute');
+    for(var i = 0; i < 60; i += 10) {
+        minuteSelect.add(createOption(i, i));
+    }
+    // 处理提交时间的函数
+    function submitTime() {
+        // 获取用户选择的小时和分钟
+        var selectedHours = hoursSelect.value;
+        var selectedMinutes = minutesSelect.value;
+        var selectedHour = hourSelect.value;
+        var selectedMinute = minuteSelect.value;
 
-            // 显示总时间
-            totalTimeElement.textContent = hours + '時' + minutes + '分';
-        } else {
-            totalTimeElement.textContent = ''; // 若时间无效，则清空显示区域
-        }
+        // 构建时间字符串，例如 "HH:mm"
+        var timeString = (selectedHours < 10 ? '0' : '') + selectedHours + ':' + (selectedMinutes < 10 ? '0' : '') + selectedMinutes;
+
+        // 将时间字符串放入隐藏的input元素中
+        document.getElementById('start_date').value = timeString;
+        var timeString2 = (selectedHour < 10 ? '0' : '') + selectedHour + ':' + (selectedMinute < 10 ? '0' : '') + selectedMinute;
+
+        // 将时间字符串放入隐藏的input元素中
+        document.getElementById('end_date').value = timeString2;
+        // 提交表单
+        document.getElementById('form').submit();
     }
 
 </script>

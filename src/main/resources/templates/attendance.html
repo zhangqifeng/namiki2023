@@ -48,6 +48,7 @@
             </form>
             <button class="button3" onclick="refresh()">リセット</button>
             <button class="button2" onclick="window.location.href='/ems/worker/clocking'">打刻</button>
+            <div id="attendanceListContainer" style=" overflow-y: scroll;">
             <table class="table">
                 <tr class="table_header">
                     <td class="h1">
@@ -65,49 +66,91 @@
                     <td class="h5">
                         操作
                     </td>
+                    <td class="h6">
+                        打卡
+                    </td>
                 </tr>
-                <tr th:each="attendance:${pageInfo.list}" class="row1">
-                    <span style="display: none" th:text="${attendance.record_id}"></span>
+                <tr th:each="a : ${attendance}" class="row1">
+                    <input type="hidden" th:value="${a.record_id}" name="record_id"/>
                     <td class="r1">
-                        <span th:text="${#dates.format(attendance.attendance_date,'yyyy-MM-dd')}"></span>
+                        <span class="date" th:text="${#dates.format(a.attendance_date,'yyyy-MM-dd')}"></span>
                     </td>
                     <td class="r2">
-                        <span th:text="${attendance.status}"></span>
+                        <select th:selected="${a.status}" name="status">
+                            <option value="" selected>请选择</option>
+                            <option value="出勤">
+                                出勤
+                            </option>
+                            <option value="欠勤">
+                                欠勤
+                            </option>
+                            <option value="有給">
+                                有給
+                            </option>
+                            <option value="代休">
+                                代休
+                            </option>
+                        </select>
                     </td>
                     <td class="r3">
-                        <span th:text="${#temporals.format(attendance.start_date,'HH:mm')}"></span>
+<!--                        <span th:text="${#temporals.format(attendance.start_date,'HH:mm')}"></span>-->
+                        <input type="time"  th:datetime="${#temporals.format(a.start_date, 'HH:mm')}" name="start_date"/>
+<!--                        <input type="time" name="start_date" th:text="${#temporals.format(attendance.start_date,'HH:mm')}">-->
                     </td>
                     <td class="r4">
-                        <span th:text="${#temporals.format(attendance.end_date,'HH:mm')}"></span>
+                        <input type="time" th:datetime="${#temporals.format(a.end_date, 'HH:mm')}" name="end_date" />
+<!--                        <span th:text="${#temporals.format(attendance.end_date,'HH:mm')}"></span>-->
+<!--                        <input type="time" name="end_date" th:text="${#temporals.format(attendance.end_date,'HH:mm')}">-->
                     </td>
                     <td class="r5">
-                        <a class="button11" th:href="@{/worker/detail(record_id=${attendance.record_id})}">详细</a>
+                        <a class="button11" th:href="@{/worker/detail(record_id=${a.record_id})}">详细</a>
+                    </td>
+                    <td class="r6">
+                        <script>
+                            function submitForm(button) {
+                                console.log('submitForm called');
+                                var row = button.closest('tr');
+                                document.getElementById('recordIdInput').value = row.querySelector('input[name="record_id"]').value;
+                                document.getElementById('statusInput').value = row.querySelector('select').value;
+                                document.getElementById('startDateInput').value = row.querySelector('[name="start_date"]').value;
+                                document.getElementById('endDateInput').value = row.querySelector('[name="end_date"]').value;
+                                document.getElementById('updateForm').submit();
+                            }
+                        </script>
+                        <button class="button12"  onclick="submitForm(this)">打卡</button>
                     </td>
                 </tr>
 
             </table>
+            </div>
 
-            <p class="number">	1～5件/<span th:text="${pageInfo.total}"></span> 件</p>
+            <form id="updateForm" th:action="@{worker/update}" method="post">
+                <input type="hidden" id="recordIdInput" name="record_id" />
+                <input type="hidden" id="statusInput" name="status" />
+                <input type="hidden" id="startDateInput" name="start_date" />
+                <input type="hidden" id="endDateInput" name="end_date" />
+            </form>
 
-            <ul class="pagination">
-                <li class="top-page">
-                    <a class="button4" th:href="@{/worker/search(employee_id=${(#httpSession.getAttribute('employee_id'))},year=${searchYear}, month=${searchMonth}, day=${searchDay})}">最初のページ</a>
-                </li>
-                <li class="prev">
-                    <a class="button5" th:href="@{/worker/search(pageNum=${pageInfo.hasPreviousPage}?${pageInfo.prePage}:1,employee_id=${(#httpSession.getAttribute('employee_id'))},year=${searchYear}, month=${searchMonth}, day=${searchDay})}">前へ</a>
-                </li>
-                <li th:each="nav:${pageInfo.navigatepageNums}">
-                    <a class="button6" th:href="@{/worker/search(pageNum=${nav},employee_id=${(#httpSession.getAttribute('employee_id'))},year=${searchYear}, month=${searchMonth}, day=${searchDay})}" th:text="${nav}" th:if="${nav != pageInfo.pageNum}"></a>
-                    <span class="button7" th:if="${nav == pageInfo.pageNum}" th:text="${nav}" ></span>
-                </li>
-                <li class="next">
-                    <a class="button8" th:href="@{/worker/search(pageNum=${pageInfo.hasNextPage}?${pageInfo.nextPage}:${pageInfo.pages},employee_id=${(#httpSession.getAttribute('employee_id'))},year=${searchYear}, month=${searchMonth}, day=${searchDay})}">次へ</a>
-                </li>
-                <li class="last-page">
-                    <a class="button9" th:href="@{/worker/search(pageNum=${pageInfo.pages},employee_id=${(#httpSession.getAttribute('employee_id'))},year=${searchYear}, month=${searchMonth}, day=${searchDay})}">最後のページ</a>
-                </li>
-            </ul>
+<!--            <p class="number">	1～5件/<span th:text="${pageInfo.total}"></span> 件</p>-->
 
+<!--            <ul class="pagination">-->
+<!--                <li class="top-page">-->
+<!--                    <a class="button4" th:href="@{/worker/search(employee_id=${(#httpSession.getAttribute('employee_id'))},year=${searchYear}, month=${searchMonth}, day=${searchDay})}">最初のページ</a>-->
+<!--                </li>-->
+<!--                <li class="prev">-->
+<!--                    <a class="button5" th:href="@{/worker/search(pageNum=${pageInfo.hasPreviousPage}?${pageInfo.prePage}:1,employee_id=${(#httpSession.getAttribute('employee_id'))},year=${searchYear}, month=${searchMonth}, day=${searchDay})}">前へ</a>-->
+<!--                </li>-->
+<!--                <li th:each="nav:${pageInfo.navigatepageNums}">-->
+<!--                    <a class="button6" th:href="@{/worker/search(pageNum=${nav},employee_id=${(#httpSession.getAttribute('employee_id'))},year=${searchYear}, month=${searchMonth}, day=${searchDay})}" th:text="${nav}" th:if="${nav != pageInfo.pageNum}"></a>-->
+<!--                    <span class="button7" th:if="${nav == pageInfo.pageNum}" th:text="${nav}" ></span>-->
+<!--                </li>-->
+<!--                <li class="next">-->
+<!--                    <a class="button8" th:href="@{/worker/search(pageNum=${pageInfo.hasNextPage}?${pageInfo.nextPage}:${pageInfo.pages},employee_id=${(#httpSession.getAttribute('employee_id'))},year=${searchYear}, month=${searchMonth}, day=${searchDay})}">次へ</a>-->
+<!--                </li>-->
+<!--                <li class="last-page">-->
+<!--                    <a class="button9" th:href="@{/worker/search(pageNum=${pageInfo.pages},employee_id=${(#httpSession.getAttribute('employee_id'))},year=${searchYear}, month=${searchMonth}, day=${searchDay})}">最後のページ</a>-->
+<!--                </li>-->
+<!--            </ul>-->
         </div>
     </div>
     <div id="footer">
@@ -115,8 +158,7 @@
     </div>
 </div>
 </body>
-<script th:inline="javascript">
-
+<script  src="https://code.jquery.com/jquery-3.6.4.min.js" th:inline="javascript">
     var employeeId = /*[[${#httpSession.getAttribute('employee_id')}]]*/ '';
     function refresh(){
         location.href='/ems/worker/attendance?employee_id=' + employeeId;
@@ -139,7 +181,49 @@
         setTimeout(function (){
         messageElement4.style.display='none';
     },1000);
+    var loading = false;
+    var pageNum = 2;  // 从第二页开始加载
+    var pageSize = 6;  // 每次加载的数据条数
+    var maxPage = 5/* 根据实际情况计算 */;
+    var container = document.getElementById('attendanceListContainer');
 
+    container.addEventListener('scroll', function() {
+        // 检查是否滚动到容器底部
+        if (container.scrollTop + container.clientHeight >= container.scrollHeight - 10) {
+            // 避免重复加载数据并判断是否还有更多数据可加载
+            if (!loading && pageNum <= maxPage) {
+                loading = true;
+
+                // 发送Ajax请求加载更多数据
+                $.ajax({
+                    url: '/worker/loadMoreData',  // 路径根据实际情况调整
+                    type: 'GET',
+                    data: {
+                        pageNum: pageNum,
+                        employee_id: /*[[${#httpSession.getAttribute('employee_id')}]]*/ '',
+                        pageSize:pageSize
+                    },
+                    success: function(data) {
+                        // 插入新加载的数据到表格
+                        $('#attendanceList table tbody').append(data);
+
+                        // 标记加载完成
+                        loading = false;
+                        pageNum++;  // 更新页数
+                    }
+                });
+            }
+        }
+    });
+    function submitForm(button) {
+        console.log('submitForm called');
+        var row = button.closest('tr');
+        document.getElementById('recordIdInput').value = row.querySelector('[th\\:value]').value.trim();
+        document.getElementById('statusInput').value = row.querySelector('select').value;
+        document.getElementById('startDateInput').value = row.querySelector('[name="start_date"]').value;
+        document.getElementById('endDateInput').value = row.querySelector('[name="end_date"]').value;
+        document.getElementById('updateForm').submit();
+    }
 </script>
 
 
