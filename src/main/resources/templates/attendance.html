@@ -66,91 +66,37 @@
                     <td class="h5">
                         操作
                     </td>
-                    <td class="h6">
-                        打卡
-                    </td>
                 </tr>
-                <tr th:each="a : ${attendance}" class="row1">
-                    <input type="hidden" th:value="${a.record_id}" name="record_id"/>
-                    <td class="r1">
-                        <span class="date" th:text="${#dates.format(a.attendance_date,'yyyy-MM-dd')}"></span>
-                    </td>
-                    <td class="r2">
-                        <select th:selected="${a.status}" name="status">
-                            <option value="" selected>请选择</option>
-                            <option value="出勤">
-                                出勤
-                            </option>
-                            <option value="欠勤">
-                                欠勤
-                            </option>
-                            <option value="有給">
-                                有給
-                            </option>
-                            <option value="代休">
-                                代休
-                            </option>
-                        </select>
-                    </td>
-                    <td class="r3">
-<!--                        <span th:text="${#temporals.format(attendance.start_date,'HH:mm')}"></span>-->
-                        <input type="time"  th:datetime="${#temporals.format(a.start_date, 'HH:mm')}" name="start_date"/>
-<!--                        <input type="time" name="start_date" th:text="${#temporals.format(attendance.start_date,'HH:mm')}">-->
-                    </td>
-                    <td class="r4">
-                        <input type="time" th:datetime="${#temporals.format(a.end_date, 'HH:mm')}" name="end_date" />
-<!--                        <span th:text="${#temporals.format(attendance.end_date,'HH:mm')}"></span>-->
-<!--                        <input type="time" name="end_date" th:text="${#temporals.format(attendance.end_date,'HH:mm')}">-->
-                    </td>
-                    <td class="r5">
-                        <a class="button11" th:href="@{/worker/detail(record_id=${a.record_id})}">详细</a>
-                    </td>
-                    <td class="r6">
-                        <script>
-                            function submitForm(button) {
-                                console.log('submitForm called');
-                                var row = button.closest('tr');
-                                document.getElementById('recordIdInput').value = row.querySelector('input[name="record_id"]').value;
-                                document.getElementById('statusInput').value = row.querySelector('select').value;
-                                document.getElementById('startDateInput').value = row.querySelector('[name="start_date"]').value;
-                                document.getElementById('endDateInput').value = row.querySelector('[name="end_date"]').value;
-                                document.getElementById('updateForm').submit();
-                            }
-                        </script>
-                        <button class="button12"  onclick="submitForm(this)">打卡</button>
-                    </td>
-                </tr>
-
+                <th:block th:each="attendance:${attendances}">
+                    <form class="form" th:action="@{/worker/update}">
+                    <tr class="row1">
+                        <input type="hidden" th:value="${attendance.record_id}" th:name="record_id"/>
+                        <td class="r1">
+                            <span class="date" th:text="${#dates.format(attendance.attendance_date,'yyyy-MM-dd')}"></span>
+                        </td>
+                        <td class="r2">
+                            <select th:name="status">
+                                <option value="" th:selected="${attendance.status == ''}">请选择</option>
+                                <option value="出勤" th:selected="${attendance.status == '出勤'}">出勤</option>
+                                <option value="欠勤" th:selected="${attendance.status == '欠勤'}">欠勤</option>
+                                <option value="有給" th:selected="${attendance.status == '有給'}">有給</option>
+                                <option value="代休" th:selected="${attendance.status == '代休'}">代休</option>
+                            </select>
+                        </td>
+                        <td class="r3">
+                            <input type="time" th:value="${#temporals.format(attendance.start_date, 'HH:mm')}" th:name="start_date"/>
+                        </td>
+                        <td class="r4">
+                            <input type="time" th:value="${#temporals.format(attendance.end_date, 'HH:mm')}" th:name="end_date"/>
+                        </td>
+                        <td class="r5">
+                            <button class="button12" type="submit">打卡</button>
+                        </td>
+                    </tr>
+                    </form>
+                </th:block>
             </table>
             </div>
-
-            <form id="updateForm" th:action="@{worker/update}" method="post">
-                <input type="hidden" id="recordIdInput" name="record_id" />
-                <input type="hidden" id="statusInput" name="status" />
-                <input type="hidden" id="startDateInput" name="start_date" />
-                <input type="hidden" id="endDateInput" name="end_date" />
-            </form>
-
-<!--            <p class="number">	1～5件/<span th:text="${pageInfo.total}"></span> 件</p>-->
-
-<!--            <ul class="pagination">-->
-<!--                <li class="top-page">-->
-<!--                    <a class="button4" th:href="@{/worker/search(employee_id=${(#httpSession.getAttribute('employee_id'))},year=${searchYear}, month=${searchMonth}, day=${searchDay})}">最初のページ</a>-->
-<!--                </li>-->
-<!--                <li class="prev">-->
-<!--                    <a class="button5" th:href="@{/worker/search(pageNum=${pageInfo.hasPreviousPage}?${pageInfo.prePage}:1,employee_id=${(#httpSession.getAttribute('employee_id'))},year=${searchYear}, month=${searchMonth}, day=${searchDay})}">前へ</a>-->
-<!--                </li>-->
-<!--                <li th:each="nav:${pageInfo.navigatepageNums}">-->
-<!--                    <a class="button6" th:href="@{/worker/search(pageNum=${nav},employee_id=${(#httpSession.getAttribute('employee_id'))},year=${searchYear}, month=${searchMonth}, day=${searchDay})}" th:text="${nav}" th:if="${nav != pageInfo.pageNum}"></a>-->
-<!--                    <span class="button7" th:if="${nav == pageInfo.pageNum}" th:text="${nav}" ></span>-->
-<!--                </li>-->
-<!--                <li class="next">-->
-<!--                    <a class="button8" th:href="@{/worker/search(pageNum=${pageInfo.hasNextPage}?${pageInfo.nextPage}:${pageInfo.pages},employee_id=${(#httpSession.getAttribute('employee_id'))},year=${searchYear}, month=${searchMonth}, day=${searchDay})}">次へ</a>-->
-<!--                </li>-->
-<!--                <li class="last-page">-->
-<!--                    <a class="button9" th:href="@{/worker/search(pageNum=${pageInfo.pages},employee_id=${(#httpSession.getAttribute('employee_id'))},year=${searchYear}, month=${searchMonth}, day=${searchDay})}">最後のページ</a>-->
-<!--                </li>-->
-<!--            </ul>-->
         </div>
     </div>
     <div id="footer">
@@ -163,24 +109,40 @@
     function refresh(){
         location.href='/ems/worker/attendance?employee_id=' + employeeId;
     }
-        /* 获取文本元素 */
-        var messageElement =document.getElementById("successMsg1")
-        var messageElement2 =document.getElementById("successMsg2")
-        var messageElement3= document.getElementById("successMsg3")
-        var messageElement4= document.getElementById("successMsg4")
-        /* 两秒后隐藏文本 */
-        setTimeout(function() {
-        messageElement.style.display = 'none';
-    }, 1000);
-        setTimeout(function (){
-        messageElement2.style.display='none';
-    },1000);
-        setTimeout(function (){
-        messageElement3.style.display='none';
-    },1000);
-        setTimeout(function (){
-        messageElement4.style.display='none';
-    },1000);
+    // var messages = document.getElementsByClassName("msg")
+    // for (var i = 0; i < messages.length; i++) {
+    //     var currentMessage = messages[i];
+    //
+    //     setTimeout(function (element) {
+    //         element.style.display = 'none';
+    //     }, 1000, currentMessage);
+        document.addEventListener("DOMContentLoaded", function() {
+            // 获取消息元素
+            var successMsg = document.getElementById("successMsg1");
+
+            // 设置定时器，在3秒后隐藏消息
+            setTimeout(function() {
+                successMsg.style.display = 'none';
+            }, 3000); // 3000毫秒（3秒）
+        });
+    //     /* 获取文本元素 */
+    //     var messageElement =document.getElementById("successMsg1")
+    //     var messageElement2 =document.getElementById("successMsg2")
+    //     var messageElement3= document.getElementById("successMsg3")
+    //     var messageElement4= document.getElementById("successMsg4")
+    //     /* 两秒后隐藏文本 */
+    //     setTimeout(function() {
+    //     messageElement.style.display = 'none';
+    // }, 1000);
+    //     setTimeout(function (){
+    //     messageElement2.style.display='none';
+    // },1000);
+    //     setTimeout(function (){
+    //     messageElement3.style.display='none';
+    // },1000);
+    //     setTimeout(function (){
+    //     messageElement4.style.display='none';
+    // },1000);
     var loading = false;
     var pageNum = 2;  // 从第二页开始加载
     var pageSize = 6;  // 每次加载的数据条数
@@ -215,15 +177,33 @@
             }
         }
     });
-    function submitForm(button) {
-        console.log('submitForm called');
-        var row = button.closest('tr');
-        document.getElementById('recordIdInput').value = row.querySelector('[th\\:value]').value.trim();
-        document.getElementById('statusInput').value = row.querySelector('select').value;
-        document.getElementById('startDateInput').value = row.querySelector('[name="start_date"]').value;
-        document.getElementById('endDateInput').value = row.querySelector('[name="end_date"]').value;
-        document.getElementById('updateForm').submit();
-    }
+    const forms = document.querySelectorAll('.form');
+    forms.forEach(form => {
+        form.addEventListener('submit', event => {
+            event.preventDefault();
+
+            const formInputs = form.querySelectorAll("input, select");
+            let formData = new FormData();
+            formInputs.forEach(input => {
+                if (input.tagName === 'SELECT') {
+                    const selectedOption = input.options[input.selectedIndex];
+                    formData.append(input.name, selectedOption.value);
+                } else {
+                    formData.append(input.name, input.value);
+                }
+            });
+
+            fetch(form.action,
+                {
+                    method: form.method,
+                    body: formData
+                })
+                .then(response => response.json())
+                .then(data => console.log(data))
+                .catch(error => console.log(error.message))
+                .finally(() => console.log("Done"));
+        })
+    });
 </script>
 
 

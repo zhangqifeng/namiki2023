@@ -70,7 +70,7 @@ public class AttendanceController {
     public String getAttendance(Model model, @RequestParam(defaultValue = "1",value = "pageNum")Integer pageNum,@RequestParam Integer employee_id)
     {
         List<Attendance> attendances = employeeService.getAllAttendances(employee_id);
-        model.addAttribute("attendance",attendances);
+        model.addAttribute("attendances",attendances);
         return "attendance";
     }
     @RequestMapping("/loadMoreData")
@@ -80,10 +80,20 @@ public class AttendanceController {
                                                          Model model) {
         // 根据 pageNum 和 pageSize 查询数据库获取更多数据
         List<Attendance> moreData = employeeService.getMoreAttendances(employee_id, pageNum, pageSize);
-        model.addAttribute("attendance",moreData);
+        model.addAttribute("attendances",moreData);
         return new ResponseEntity<>(moreData, HttpStatus.OK);
     }
-
+    @RequestMapping("update")
+    public String update(@ModelAttribute("attendances") Attendance attendance,HttpSession session,RedirectAttributes ra,Model model){
+        log.debug("出勤状态:{},入社时间:{},退社时间:{}",attendance.getStatus(),attendance.getStart_date(),attendance.getEnd_date());
+        if (attendance.getStatus().isEmpty())
+            attendance.setStatus(null);
+        Integer employee_id= (Integer) session.getAttribute("employee_id");
+        attendance.setEmployee_id(employee_id);
+        employeeService.updateAttendance(attendance);
+        ra.addFlashAttribute("msg1","更新成功しました");
+        return "redirect:/worker/attendance?employee_id=" + employee_id;
+    }
     @RequestMapping("search")
     public String searchDate(
             @RequestParam(defaultValue = "1",value = "pageNum")Integer pageNum,
@@ -106,61 +116,5 @@ public class AttendanceController {
         model.addAttribute("searchMonth", month);
         model.addAttribute("searchDay", day);
         return "attendance";
-    }
-    @RequestMapping("clocking")
-    public String clockForm(Model model){
-        model.addAttribute("attendance",new Attendance());
-        return "clock";
-    }
-    @RequestMapping("clock")
-    public String clock(@ModelAttribute("attendance")@Valid Attendance attendance,BindingResult bindingResult,HttpSession session,RedirectAttributes ra,Model model){
-        log.debug("出勤状态:{},入社时间:{},退社时间:{}",attendance.getStatus(),attendance.getStart_date(),attendance.getEnd_date());
-if (bindingResult.hasErrors()){
-    return "clock";
-}
-if (attendance.getStatus().isEmpty())
-    attendance.setStatus(null);
-Integer employee_id= (Integer) session.getAttribute("employee_id");
-attendance.setEmployee_id(employee_id);
-        LocalTime startTime = LocalTime.of(attendance.getStart_date().getHour(),attendance.getStart_date().getMinute()); // 替换为实际的小时和分钟
-        attendance.setStart_date(startTime);
-employeeService.clock(attendance);
-ra.addFlashAttribute("msg1","打刻成功しました");
-        return "redirect:/worker/attendance?employee_id=" + employee_id;
-    }
-    @RequestMapping("detail")
-    public String detail(Integer record_id,Model model) {
-        Attendance attendance = employeeService.findByRecord(record_id);
-        int hours = 8;
-        int minutes=0;
-        int hour=8;
-        int minute=0;
-        if (attendance.getStart_date() != null) {
-            hours=attendance.getStart_date().getHour();
-            minutes=attendance.getStart_date().getMinute();}
-        if (attendance.getEnd_date()!=null){
-            hour=attendance.getEnd_date().getHour();
-        minute=attendance.getEnd_date().getMinute();
-        }
-        model.addAttribute("attendance", attendance);
-        model.addAttribute("hours", hours);
-        model.addAttribute("minutes", minutes);
-        model.addAttribute("hour", hour);
-        model.addAttribute("minute", minute);
-        return "clockUpdate";
-    }
-    @RequestMapping("update")
-    public String update(@ModelAttribute("attendance")@Valid Attendance attendance,BindingResult bindingResult,HttpSession session,RedirectAttributes ra,Model model){
-        log.debug("出勤状态:{},入社时间:{},退社时间:{}",attendance.getStatus(),attendance.getStart_date(),attendance.getEnd_date());
-        if (bindingResult.hasErrors()){
-            return "clockUpdate";
-        }
-        if (attendance.getStatus().isEmpty())
-            attendance.setStatus(null);
-        Integer employee_id= (Integer) session.getAttribute("employee_id");
-        attendance.setEmployee_id(employee_id);
-        employeeService.updateAttendance(attendance);
-        ra.addFlashAttribute("msg1","更新成功しました");
-        return "redirect:/worker/attendance?employee_id=" + employee_id;
     }
 }
