@@ -14,23 +14,17 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
-import javax.validation.Valid;
 import java.io.*;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.List;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.github.pagehelper.PageHelper;
-import com.github.pagehelper.PageInfo;
-import com.thymeleaf.entity.Employee;
-import com.thymeleaf.service.EmployeeService;
 
 
 @Controller
@@ -44,7 +38,6 @@ public class EmployeeController {
     public EmployeeController(EmployeeService employeeService) {
         this.employeeService = employeeService;
     }
-
     //多条件联合搜索功能。（支持模糊查询）
     @RequestMapping("search")
     public String search(@RequestParam(defaultValue = "1",value = "pageNum")Integer pageNum,
@@ -86,7 +79,7 @@ public class EmployeeController {
         model.addAttribute("positionRanks",employeeService.findPositionRank());
         return "updateEmp";
     }
-    @RequestMapping("update")
+    @PostMapping("update")
     public String update(@ModelAttribute("employee")@Valid Employee employee, BindingResult rs,RedirectAttributes ra,Model model,MultipartFile resumeFile) throws IOException {
         log.debug("更新之后员工信息:社員名:{},役職名:{},性別:{},部署名:{},住所:{},雇用形態:{},入社年月日:{},誕生日:{}",
                 employee.getEmployee_name(), employee.getJob_title()
@@ -108,7 +101,6 @@ public class EmployeeController {
                 employee.setResume(newFileName);
             }
         }
-
         employeeService.update(employee);
         ra.addFlashAttribute("msg2", "更新成功しました！");
         return "redirect:/employee/lists";
@@ -173,7 +165,6 @@ public void download( String resume, HttpServletResponse response) throws IOExce
         resumeFile.transferTo(new File(realPath,newFileName));
         return newFileName;
     }
-
     //查询所有员工并分页。
     @RequestMapping("lists")
     public String getAllUser(Model model,@RequestParam(defaultValue = "1",value = "pageNum") Integer pageNum
@@ -188,7 +179,4 @@ public void download( String resume, HttpServletResponse response) throws IOExce
         model.addAttribute("pageInfo",pageInfo);
         return "emplist"; //跳转到list.html
     }
-
-
-
 }

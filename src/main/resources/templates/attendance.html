@@ -20,17 +20,24 @@
                 </h1>
                 <a class="button10" th:href="@{/worker/loging}">ログアウト</a>
             </div>
-
             <form th:action="@{/worker/search}" method="post" class="form">
 				<span class="msg" id="successMsg1" th:text="${msg1}">
 				</span>
-                <span class="msg" id="successMsg2" th:text="${msg2}"></span>
-                <span class="msg" id="successMsg3" th:text="${msg3}">
-							</span>
                 <span class="msg" id="successMsg4" th:text="${msg4}"></span>
-
+                <script  src="https://code.jquery.com/jquery-3.6.4.min.js">
+                </script>
+                <script >
+                    jQuery(document).ready(function() {
+                        jQuery(".msg").each(function(index, element) {
+                            setTimeout(function() {
+                                jQuery(element).fadeOut();
+                            }, 300 * (index + 1));
+                        });
+                    });
+                </script>
                 <span>
-					社員番号:<input class="employee_id" name="employee_id" th:value="${(#httpSession.getAttribute('employee_id'))}">
+					社員番号:
+                    <input id="employee_id" class="employee_id" name="employee_id" th:value="${(#httpSession.getAttribute('employee_id'))}"/>
 				</span>
                 <span class="employee_name">
 					社員名:
@@ -46,8 +53,12 @@
 
                 <button class="button1" type="submit">検索</button>
             </form>
-            <button class="button3" onclick="refresh()">リセット</button>
-            <button class="button2" onclick="window.location.href='/ems/worker/clocking'">打刻</button>
+            <script>
+                var employeeId = [[${#httpSession.getAttribute('employee_id')}]] ;
+                function refresh(){
+                    location.href='/ems/worker/attendance?employee_id=' + employeeId;
+                }</script>
+            <button class="button3" onclick="refresh()" >リセット</button>
             <div id="attendanceListContainer" style=" overflow-y: scroll;">
             <table class="table">
                 <tr class="table_header">
@@ -68,7 +79,7 @@
                     </td>
                 </tr>
                 <th:block th:each="attendance:${attendances}">
-                    <form class="form" th:action="@{/worker/update}">
+                    <form class="form" th:action="@{/worker/update}" >
                     <tr class="row1">
                         <input type="hidden" th:value="${attendance.record_id}" th:name="record_id"/>
                         <td class="r1">
@@ -104,58 +115,18 @@
     </div>
 </div>
 </body>
-<script  src="https://code.jquery.com/jquery-3.6.4.min.js" th:inline="javascript">
-    var employeeId = /*[[${#httpSession.getAttribute('employee_id')}]]*/ '';
-    function refresh(){
-        location.href='/ems/worker/attendance?employee_id=' + employeeId;
-    }
-    // var messages = document.getElementsByClassName("msg")
-    // for (var i = 0; i < messages.length; i++) {
-    //     var currentMessage = messages[i];
-    //
-    //     setTimeout(function (element) {
-    //         element.style.display = 'none';
-    //     }, 1000, currentMessage);
-        document.addEventListener("DOMContentLoaded", function() {
-            // 获取消息元素
-            var successMsg = document.getElementById("successMsg1");
-
-            // 设置定时器，在3秒后隐藏消息
-            setTimeout(function() {
-                successMsg.style.display = 'none';
-            }, 3000); // 3000毫秒（3秒）
-        });
-    //     /* 获取文本元素 */
-    //     var messageElement =document.getElementById("successMsg1")
-    //     var messageElement2 =document.getElementById("successMsg2")
-    //     var messageElement3= document.getElementById("successMsg3")
-    //     var messageElement4= document.getElementById("successMsg4")
-    //     /* 两秒后隐藏文本 */
-    //     setTimeout(function() {
-    //     messageElement.style.display = 'none';
-    // }, 1000);
-    //     setTimeout(function (){
-    //     messageElement2.style.display='none';
-    // },1000);
-    //     setTimeout(function (){
-    //     messageElement3.style.display='none';
-    // },1000);
-    //     setTimeout(function (){
-    //     messageElement4.style.display='none';
-    // },1000);
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"  th:inline="javascript">
     var loading = false;
     var pageNum = 2;  // 从第二页开始加载
     var pageSize = 6;  // 每次加载的数据条数
     var maxPage = 5/* 根据实际情况计算 */;
     var container = document.getElementById('attendanceListContainer');
-
     container.addEventListener('scroll', function() {
         // 检查是否滚动到容器底部
         if (container.scrollTop + container.clientHeight >= container.scrollHeight - 10) {
             // 避免重复加载数据并判断是否还有更多数据可加载
             if (!loading && pageNum <= maxPage) {
                 loading = true;
-
                 // 发送Ajax请求加载更多数据
                 $.ajax({
                     url: '/worker/loadMoreData',  // 路径根据实际情况调整
@@ -192,7 +163,6 @@
                     formData.append(input.name, input.value);
                 }
             });
-
             fetch(form.action,
                 {
                     method: form.method,
@@ -204,6 +174,8 @@
                 .finally(() => console.log("Done"));
         })
     });
+
+
 </script>
 
 

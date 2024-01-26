@@ -83,17 +83,6 @@ public class AttendanceController {
         model.addAttribute("attendances",moreData);
         return new ResponseEntity<>(moreData, HttpStatus.OK);
     }
-    @RequestMapping("update")
-    public String update(@ModelAttribute("attendances") Attendance attendance,HttpSession session,RedirectAttributes ra,Model model){
-        log.debug("出勤状态:{},入社时间:{},退社时间:{}",attendance.getStatus(),attendance.getStart_date(),attendance.getEnd_date());
-        if (attendance.getStatus().isEmpty())
-            attendance.setStatus(null);
-        Integer employee_id= (Integer) session.getAttribute("employee_id");
-        attendance.setEmployee_id(employee_id);
-        employeeService.updateAttendance(attendance);
-        ra.addFlashAttribute("msg1","更新成功しました");
-        return "redirect:/worker/attendance?employee_id=" + employee_id;
-    }
     @RequestMapping("search")
     public String searchDate(
             @RequestParam(defaultValue = "1",value = "pageNum")Integer pageNum,
@@ -107,14 +96,21 @@ public class AttendanceController {
             year = Year.now().getValue(); // 获取当前年份
             month = LocalDate.now().getMonthValue(); // 获取当前月份
         }
-        PageHelper.clearPage();
-        PageHelper.startPage(pageNum,5);
         List<Attendance>attendances=employeeService.searchDate(year,month,day,employee_id);
-        PageInfo<Attendance> pageInfo = new PageInfo<>(attendances);
-        model.addAttribute("pageInfo",pageInfo);
+        model.addAttribute("attendances",attendances);
         model.addAttribute("searchYear", year);
         model.addAttribute("searchMonth", month);
         model.addAttribute("searchDay", day);
         return "attendance";
     }
+    @RequestMapping("update")
+    public String update(@ModelAttribute("attendances") Attendance attendance,HttpSession session,RedirectAttributes ra,Model model){
+        log.debug("出勤状态:{},入社时间:{},退社时间:{}",attendance.getStatus(),attendance.getStart_date(),attendance.getEnd_date());
+        Integer employee_id= (Integer) session.getAttribute("employee_id");
+        attendance.setEmployee_id(employee_id);
+        employeeService.updateAttendance(attendance);
+        ra.addFlashAttribute("msg1","更新成功しました");
+        return "redirect:/worker/attendance?employee_id=" + employee_id;
+    }
+
 }
