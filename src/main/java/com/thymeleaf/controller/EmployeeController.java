@@ -171,7 +171,7 @@ public void download( String resume, HttpServletResponse response) throws IOExce
                             ){
         PageHelper.clearPage();
         //默认第一页开始、一行显示5个
-        PageHelper.startPage(pageNum,5);
+        PageHelper.startPage(pageNum,8);
         //原有的查询方法（需写在startpage后）
       List<EmployeeDepartmentDto>employees=employeeService.getEmployeesWithDepartments();
         //返回查询到的信息到pageInfo里。

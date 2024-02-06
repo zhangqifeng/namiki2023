@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="ch" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>发送邮件</title>
+    <link rel="stylesheet" type="text/css"
+          th:href="@{/css/email.css}" />
+</head>
+<body>
+<div id="wrap">
+    <div id="top_content">
+        <div id="header">
+            <h1 id="title">
+                社員管理システム
+            </h1>
+        </div>
+        <div id="content">
+            <h1 class="header2">
+                 メール発送
+            </h1>
+            <table class="form_table">
+    <form th:action="@{/mail/send}" method="post" th:object="${mail}" class="form" id="mailForm">
+        <div class="r1">
+            <label class="label">邮件发信人:</label>
+                <input class="from" id="from" th:field="*{from}" readonly="readonly">
+        </div>
+        <div class="error" th:if="${#fields.hasErrors('to')}" th:errors="*{to}"></div>
+        <div class="r2">
+
+            <label class="label">邮件收信人:</label>
+                <input class="to" id="to"  th:field="*{to}" title="多个邮箱使用,隔开">
+        </div>
+        <div class="error2" th:if="${#fields.hasErrors('subject')}" th:errors="*{subject}"></div>
+        <div class="r3">
+
+            <label class="label">邮件主题:</label>
+                <input class="subject" id="subject" th:field="*{subject}">
+        </div>
+        <div class="error3" th:if="${#fields.hasErrors('text')}" th:errors="*{text}"></div>
+        <div class="r4">
+
+            <label class="label4">邮件内容:</label>
+                <textarea class="text" id="text" th:field="*{text}">
+                </textarea>
+        </div>
+        <button class="button1" type="button" onclick="clearForm()">リセット</button>
+        <button class="button" type="submit" >発送</button>
+        <button class="button2" type="button" onclick="refresh()">戻る</button>
+    </form>
+            </table>
+        </div>
+        </div>
+</div>
+</body>
+<div id="footer">
+    Namiki@163.com
+</div>
+<script  src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script  th:inline="javascript">
+    var appCtx = [[${#request.getContextPath()}]];
+
+    function clearForm() {
+        $('#mailForm')[0].reset();
+    }
+    function refresh(){
+           window.location.href=appCtx+'/employee/lists';
+
+    }
+</script>
+</html>

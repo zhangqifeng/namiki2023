@@ -30,7 +30,7 @@ body
     align-items: center;
     justify-content: space-between;
     width: 600px;
-    height: 400px;
+    height: 500px;
     padding-top: 20px;
     position: relative;
     bottom: 15px;
@@ -39,44 +39,64 @@ body
     border-radius: 5%;
     box-shadow: -5px 5px 10px 0 ;
 }
-form{
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    height: 400px;
+.form{
+    height: 500px;
     position: relative;
-    bottom: 40px;
 }
 .form_table{
+    height: 500px;
+}
+.r1,.r2,.r3{
     display: flex;
-    flex-direction: column;
-    height: 400px;
+    justify-content: space-between;
+height: 200px;
+    width: 270px;
+    position: relative;
+    bottom: 35px;
+    right: 90px;
+    text-align: left;
 
 }
-.employee_id{
+
+.label4{
     position: relative;
-    top: 12px;
-    left: 20px;
-    font-size: 17px;
+    bottom: 250px;
+    right: 5px;
+
 }
-.employee_name{
+textarea{
     position: relative;
-    left: 150px;
+    left: 15px;
+    width: 360px;
     bottom: 10px;
-    font-size: 17px;
+    height: 250px;
 }
-.r1,.r2,.r3,.r4,.r5{
+.error,.error2,.error3{
+    font-size: 13px;
+    color: red;
+}
+.error{
     position: relative;
-    top: 5px;
-    right: 20px;
-    height: 50px;
+    left: 100px;
+    bottom: 20px;
+    height: 10px;
+}
+.error2{
+    position: relative;
+    left: 105px;
+    height: 10px;
+    bottom: 15px;
+}
+.error3{
+    position: relative;
+    bottom: 30px;
+    height: 10px;
+    right: 70px;
 
 }
 
-.error,.error2,.error1{
-    flex: 1;
-}
 input{
+
     margin: 5px;
     border: none;
     border-bottom: 1px solid #000;
@@ -86,7 +106,7 @@ input{
 #header{
     letter-spacing: 20px;
     font-size: 20px;
-    font-family: "-apple-system", BlinkMacSystemFont, "Yu Gothic Medium", "游ゴシック Medium", YuGothic, "游ゴシック体", "Noto Sans Japanese", "ヒラギノ角ゴ Pro W3", "メイリオ", "Hiragino Kaku Gothic ProN", "MS PGothic", Osaka, "sans-serif";
+    font-family: "-apple-system                                                                                                                                                                                                                                                               ", BlinkMacSystemFont, "Yu Gothic Medium", "游ゴシック Medium", YuGothic, "游ゴシック体", "Noto Sans Japanese", "ヒラギノ角ゴ Pro W3", "メイリオ", "Hiragino Kaku Gothic ProN", "MS PGothic", Osaka, "sans-serif";
     padding-left: 150px;
     width: 600px;
     text-shadow: -4px 0 3px;
@@ -101,18 +121,13 @@ input{
     height: 30px;
     position: relative;
     bottom: 30px;
+
 }
-td{
-    padding-right: 10px;
-}
-.button2{
+.button,.button2,.button1{
     width: 80px;
     height: 30px;
     padding-top: 5px;
     padding-bottom: 5px;
-    position: relative;
-    left: 40px;
-    bottom: 60px;
     border: none;
     background-color: #409EFF;
     color: white;
@@ -121,76 +136,25 @@ td{
     transition: background-color 0.3s
 }
 .button{
-    width: 80px;
-    height: 30px;
-    padding-top: 5px;
-    padding-bottom: 5px;
     position: relative;
-    left: 80px;
-    bottom: 127px;
-    border: none;
-    background-color: #409EFF;
-    color: white;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s
+   bottom: 20px;
+    right: 100px;
+}
+.button1{
+    position: relative;
+    top: 9px;
+    left: 5px;
+}
+.button2{
+    position: relative;
+    bottom: 48px;
+    left: 105px;
 }
 button:hover{
     background-color: #9fcfff;
 }
-select{
-    width: 100px;
-    height: 25px;
-
-}
-
-
-.error1{
-    margin-left: 60px;
-    margin-bottom: 5px;
-    height: 5px;
-    font-size: 14px;
-    color: red;
-    position: relative;
-    top: 5px;
-
-}
-.error2{
-    font-size: 12px;
-    margin-left: 100px;
-    margin-bottom: -50px;
-    padding-top: 30px;
-    color: red;
-}
-
-.error{
-    color: red;
-    font-size: 13px;
-    padding-left: 60px;
-    height: 6px;
-
-}
-.errorMsg2{
-    color: red;
-    font-size: 13px;
-    position: relative;
-    left: 50px;
-    top: 320px;
-    height: 5px;
-
-
-
-}
-.resume{
-    position: relative;
-    left: 47px;
-}
-.resumeFile{
-    border: none;
-}
-
-
-
 #footer{
-    margin-top: -30px;
+    position: relative;
+    top: 320px;
+    right: 260px;
 }

@@ -30,7 +30,7 @@ body
     align-items: center;
     justify-content: space-between;
     width: 800px;
-    height: 550px;
+    height: 600px;
     margin-bottom: 50px;
     background-color: rgb(255, 255, 255);
     border-radius: 5%;
@@ -42,8 +42,6 @@ body
     justify-content: space-between;
     align-items: center;
 }
-
-
 input{
     margin: 5px;
     border: none;
@@ -76,14 +74,14 @@ input{
     flex-direction: column;
     justify-content: space-between;
     width: 700px;
-    height: 500px;
+    height: 600px;
     background-color: #efefef;
-    margin-top: 5px;
+    margin-top: -50px;
     border-radius: 8px;
     border: solid 1px #000 ;
     padding-left: 10px;
     padding-right: 10px;
-    padding-top: 10px;
+
 }
 .table_header{
     display: flex;
@@ -180,42 +178,53 @@ a{
     margin-right: 220px;
     position: relative;
     top: 12px;
-    border: none;
-    background-color: #409EFF;
-    color: white;
-    border-radius: 5px;
-    width: 80px;
-    height: 26px;
-    cursor: pointer;
-    transition: background-color 0.3s
-}
-.button2{
-    margin-top: -25px;
-    margin-left: 220px;
-    position: relative;
-    top: -15px;
-    border: none;
-    background-color: #409EFF;
-    color: white;
-    border-radius: 5px;
-    width: 80px;
-    height: 40px;
-    padding-top: 4px;
-    padding-bottom: 4px;
-    cursor: pointer;
-    transition: background-color 0.3s
-}
-.button3{
-    position: relative;
-    top: -13px;
+    right: 30px;
     border: none;
     background-color: #409EFF;
     color: white;
     border-radius: 5px;
     width: 80px;
     height: 30px;
-   padding-top: 4px;
-   padding-bottom: 3px;
+    cursor: pointer;
+    transition: background-color 0.3s
+}
+.button12{
+    position: relative;
+    left: 180px;
+    bottom: 75px;
+    border: none;
+    background-color: #409EFF;
+    color: white;
+    border-radius: 5px;
+    width: 80px;
+    height: 30px;
+    cursor: pointer;
+    transition: background-color 0.3s
+}
+.button2{
+    margin-left: 220px;
+    position: relative;
+    right: 30px;
+    bottom: 45px;
+    border: none;
+    background-color: #409EFF;
+    color: white;
+    border-radius: 5px;
+    width: 80px;
+    height: 30px;
+    cursor: pointer;
+    transition: background-color 0.3s
+}
+.button3{
+    position: relative;
+   bottom: 17px;
+    right: 30px;
+    border: none;
+    background-color: #409EFF;
+    color: white;
+    border-radius: 5px;
+    width: 80px;
+    height: 30px;
     cursor: pointer;
     transition: background-color 0.3s
 }

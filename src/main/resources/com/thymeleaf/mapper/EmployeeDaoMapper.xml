@@ -9,10 +9,11 @@
         <result property="address" column="address" />
         <result property="sex" column="sex" />
         <result property="department_name" column="department_name" />
+        <result property="mail" column="mail_address"/>
     </resultMap>
     <select id="getEmployeesWithDepartments" resultMap="employeeDepartmentResultMap">
         SELECT e.employee_id, e.employee_name, e.address,
-               e.sex, d.department as department_name
+               e.sex, e.mail_address,d.department as department_name
         FROM employee e
                  left JOIN department d ON e.department = d.id
     </select>

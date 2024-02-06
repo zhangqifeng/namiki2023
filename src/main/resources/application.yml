@@ -3,6 +3,19 @@ server:
   servlet:
     context-path: /ems
 spring:
+  mail:
+    host: smtp10.gmoserver.jp
+    username: test@naki.co.jp
+    password: namiki888$
+    properties:
+      from: test@naki.co.jp
+    port: 587
+
+
+
+
+
+
   servlet:
     multipart:
       max-file-size: 10MB

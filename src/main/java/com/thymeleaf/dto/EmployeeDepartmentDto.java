@@ -1,20 +1,33 @@
 package com.thymeleaf.dto;
 
 public class EmployeeDepartmentDto {
-    public EmployeeDepartmentDto() {
-    }
-    public EmployeeDepartmentDto(Integer employee_id, String employee_name, String department_name, String address, String sex) {
+    public EmployeeDepartmentDto(Integer employee_id, String employee_name, String department_name, String address, String sex, String mail) {
         this.employee_id = employee_id;
         this.employee_name = employee_name;
         this.department_name = department_name;
         this.address = address;
         this.sex = sex;
+        this.mail = mail;
     }
+
+    public EmployeeDepartmentDto() {
+    }
+
     Integer employee_id;
     String employee_name;
     String department_name;
     String address;
     String sex;
+    String mail;
+
+    public String getMail() {
+        return mail;
+    }
+
+    public void setMail(String mail) {
+        this.mail = mail;
+    }
+
     public Integer getEmployee_id() {
         return employee_id;
     }
